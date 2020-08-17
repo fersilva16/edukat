@@ -22,6 +22,7 @@ app.prepare().then(() => {
   server.listen(port, (error) => {
     if (error) throw error;
 
+    // eslint-disable-next-line no-console
     console.log('Started!');
   });
 });
