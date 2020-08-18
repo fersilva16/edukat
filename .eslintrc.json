@@ -3,6 +3,9 @@
     "airbnb-typescript",
     "airbnb/hooks"
   ],
+  "rules": {
+    "class-methods-use-this": "off"
+  },
   "parserOptions": {
     "project": "./tsconfig.eslint.json"
   },
