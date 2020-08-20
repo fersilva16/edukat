@@ -1,5 +1,4 @@
-import 'reflect-metadata';
+import createConnection from './infra/typeorm';
+import createServer from './infra/http/server';
 
-import createApplication from './app';
-
-createApplication();
+createConnection().then(() => createServer());

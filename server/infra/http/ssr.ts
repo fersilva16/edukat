@@ -1,10 +1,10 @@
 import next from 'next';
 import { RequestHandler } from 'express';
 
-import { env } from '../config';
+import appConfig from '~/config/app';
 
 const ssr = next({
-  dev: env !== 'production',
+  dev: appConfig.env !== 'production',
   conf: {
     useFileSystemPublicRoutes: false,
   },

@@ -1,7 +1,11 @@
 import { Router } from 'express';
-import { render, handle } from '.';
+
+import { render, handle } from '../ssr';
+import apiRoutes from './api';
 
 const routes = Router();
+
+routes.use('/api', apiRoutes);
 
 routes.get('/', render('Home'));
 
