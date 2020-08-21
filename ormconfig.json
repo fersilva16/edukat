@@ -1,8 +1,0 @@
-{
-  "synchronize": true,
-  "logging": false,
-  "migrations": ["server/infra/typeorm/migrations/**/*.ts"],
-  "cli": {
-    "migrationsDir": "server/infra/typeorm/migrations"
-  }
-}
