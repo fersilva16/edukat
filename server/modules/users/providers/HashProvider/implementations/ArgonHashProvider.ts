@@ -3,7 +3,7 @@ import crypto from 'crypto';
 
 import IHashProvider from '../IHashProvider';
 
-export default class FakeHashProvider implements IHashProvider {
+export default class ArgonHashProvider implements IHashProvider {
   private options: Options = {
     type: argon2id,
     version: 19,
