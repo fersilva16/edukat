@@ -10,7 +10,8 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "@users/*": ["./modules/users/*"]
     }
   },
   "include": ["**/*.ts"]

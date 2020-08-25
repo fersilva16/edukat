@@ -1,13 +1,13 @@
 import { createHash } from 'crypto';
 import { DateTime, DurationObject } from 'luxon';
 
+import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import base64Url from '~/utils/base64Url';
 import randomString from '~/utils/randomString';
 
 import ITokenProvider from '../ITokenProvider';
 import IToken from '../dtos/IToken';
 import IPublicToken from '../dtos/IPublicToken';
-import InvalidTokenException from '../../../../../exceptions/InvalidTokenException';
 import ISharableToken from '../dtos/ISharableToken';
 
 export default class OpaqueTokenProvider implements ITokenProvider {

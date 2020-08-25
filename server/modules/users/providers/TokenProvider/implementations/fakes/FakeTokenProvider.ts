@@ -1,9 +1,10 @@
+import InvalidTokenException from '~/exceptions/InvalidTokenException';
+
 import ITokenProvider from '../../ITokenProvider';
 import IToken from '../../dtos/IToken';
 import randomString from '~/utils/randomString';
 import IPublicToken from '../../dtos/IPublicToken';
 import ISharableToken from '../../dtos/ISharableToken';
-import InvalidTokenException from '~/exceptions/InvalidTokenException';
 
 export default class FakeTokenProvider implements ITokenProvider {
   private type: string = 'Fake';
