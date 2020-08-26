@@ -1,1 +1,2 @@
-import './modules/users/providers';
+import '@users/providers';
+import '@users/repositories';
