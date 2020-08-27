@@ -17,7 +17,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "types": ["jest", "jest-extended", "jest-chain"]
   },
   "include": [
     "next-env.d.ts",

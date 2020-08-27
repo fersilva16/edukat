@@ -18,6 +18,8 @@ module.exports = {
     },
   },
 
+  setupFilesAfterEnv: ['jest-extended', 'jest-chain'],
+
   testEnvironment: 'node',
 
   testMatch: ['<rootDir>/**/*.test.ts'],
