@@ -22,13 +22,15 @@ export default class FakeUserRepository implements IUserRepository {
   }
 
   async create(data: ICreateUserDTO): Promise<void> {
+    const dateNow = DateTime.local().toISO();
+
     const user: IRawUser = {
       ...data,
 
       id: uuid(),
 
-      created_at: DateTime.local().toISO(),
-      updated_at: DateTime.local().toISO(),
+      created_at: dateNow,
+      updated_at: dateNow,
     };
 
     this.users.push(user);

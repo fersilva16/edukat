@@ -33,6 +33,8 @@ export default class KnexUserRepository implements IUserRepository {
   }
 
   async create(data: ICreateUserDTO): Promise<void> {
+    const dateNow = DateTime.local().toISO();
+
     const user: IRawUser = {
       ...data,
 
@@ -40,8 +42,8 @@ export default class KnexUserRepository implements IUserRepository {
 
       password: await this.hashProvider.hash(data.password),
 
-      created_at: DateTime.local().toISO(),
-      updated_at: DateTime.local().toISO(),
+      created_at: dateNow,
+      updated_at: dateNow,
     };
 
     await this.table.insert(user);
