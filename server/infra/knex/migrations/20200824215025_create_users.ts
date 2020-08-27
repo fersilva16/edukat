@@ -3,7 +3,7 @@ import Knex from 'knex';
 const tableName = 'users';
 
 export async function up({ schema }: Knex): Promise<void> {
-  schema.createTable(tableName, (table) => {
+  await schema.createTable(tableName, (table) => {
     table.uuid('id').primary();
     table.string('firstname').notNullable();
     table.string('lastname').notNullable();
@@ -15,5 +15,5 @@ export async function up({ schema }: Knex): Promise<void> {
 }
 
 export async function down({ schema }: Knex): Promise<void> {
-  schema.dropTable(tableName);
+  await schema.dropTable(tableName);
 }
