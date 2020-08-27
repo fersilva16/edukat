@@ -1,5 +1,5 @@
 import argon2, { argon2id, Options } from 'argon2';
-import crypto from 'crypto';
+import { randomBytes } from 'crypto';
 
 import IHashProvider from '../IHashProvider';
 
@@ -13,17 +13,8 @@ export default class ArgonHashProvider implements IHashProvider {
     saltLength: 16,
   };
 
-  private generateSalt(): Promise<Buffer> {
-    return new Promise((resolve, reject) => {
-      crypto.randomBytes(this.options.saltLength, (error, salt) => {
-        if (error) reject(error);
-        else resolve(salt);
-      });
-    });
-  }
-
   async hash(password: string): Promise<string> {
-    const salt = await this.generateSalt();
+    const salt = randomBytes(this.options.saltLength);
 
     return argon2.hash(password, { ...this.options, raw: false, salt });
   }
