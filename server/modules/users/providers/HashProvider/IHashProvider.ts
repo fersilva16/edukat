@@ -1,5 +1,5 @@
 export default interface IHashProvider {
-  hash(password: string): Promise<string>;
+  hash(value: string): Promise<string>;
 
-  verify(hash: string, password: string): Promise<boolean>;
+  verify(hash: string, value: string): Promise<boolean>;
 }
