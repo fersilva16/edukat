@@ -12,5 +12,5 @@ export default class Session {
   created_at: DateTime;
 
   @Transform((date: string) => DateTime.fromISO(date), { toClassOnly: true })
-  expires_at: DateTime;
+  expires_at?: DateTime;
 }
