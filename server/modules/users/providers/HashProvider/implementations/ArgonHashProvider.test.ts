@@ -11,7 +11,9 @@ describe('ArgonHashProvider', () => {
   });
 
   it('should be hash password and return string', async () => {
-    const hash = await argonHashProvider.hash('a');
+    const password = faker.internet.password();
+
+    const hash = await argonHashProvider.hash(password);
 
     expect(hash).toBeString();
   });
