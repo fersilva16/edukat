@@ -8,7 +8,7 @@ module.exports = {
   coverageDirectory: '<rootDir>/coverage',
   coverageReporters: ['text-summary', 'lcov'],
 
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/src/' }),
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/server/' }),
 
   preset: 'ts-jest',
 
