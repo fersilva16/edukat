@@ -26,7 +26,7 @@ export default class FakeSessionRepository implements ISessionRepository {
       user_id: data.userId,
 
       created_at: DateTime.local().toISO(),
-      expires_at: data.expiresAt.toISO(),
+      expires_at: data.expiresAt?.toISO(),
     };
 
     this.sessions.push(rawSession);
