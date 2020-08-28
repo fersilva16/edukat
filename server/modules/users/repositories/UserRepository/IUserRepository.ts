@@ -11,4 +11,6 @@ export default interface IUserRepository {
   findByUsername(username: string): Promise<User>;
 
   create(data: ICreateUserDTO): Promise<void>;
+
+  clear(): Promise<void>;
 }

@@ -60,4 +60,8 @@ export default class KnexUserRepository implements IUserRepository {
 
     await this.table.insert(user);
   }
+
+  async clear(): Promise<void> {
+    await this.table.truncate();
+  }
 }

@@ -47,4 +47,8 @@ export default class FakeUserRepository implements IUserRepository {
 
     this.users.push(user);
   }
+
+  async clear(): Promise<void> {
+    this.users.splice(0, this.users.length);
+  }
 }
