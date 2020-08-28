@@ -33,7 +33,7 @@ export default class FakeUserRepository implements IUserRepository {
     return plainToClass(User, user);
   }
 
-  async create(data: ICreateUserDTO): Promise<void> {
+  async create(data: ICreateUserDTO): Promise<User> {
     const dateNow = DateTime.local().toISO();
 
     const user: IRawUser = {
@@ -46,6 +46,8 @@ export default class FakeUserRepository implements IUserRepository {
     };
 
     this.users.push(user);
+
+    return plainToClass(User, user);
   }
 
   async clear(): Promise<void> {

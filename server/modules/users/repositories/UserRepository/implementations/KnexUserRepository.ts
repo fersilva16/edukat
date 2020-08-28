@@ -44,10 +44,10 @@ export default class KnexUserRepository implements IUserRepository {
     return plainToClass(User, rawUser);
   }
 
-  async create(data: ICreateUserDTO): Promise<void> {
+  async create(data: ICreateUserDTO): Promise<User> {
     const dateNow = DateTime.local().toISO();
 
-    const user: IRawUser = {
+    const rawUser: IRawUser = {
       ...data,
 
       id: uuidv4(),
@@ -58,7 +58,9 @@ export default class KnexUserRepository implements IUserRepository {
       updated_at: dateNow,
     };
 
-    await this.table.insert(user);
+    const user = await this.table.insert(rawUser).returning('*').first();
+
+    return plainToClass(User, user);
   }
 
   async clear(): Promise<void> {
