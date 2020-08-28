@@ -5,5 +5,5 @@ export default interface ICreateSessionDTO {
 
   userId: string;
 
-  expiresAt: DateTime;
+  expiresAt?: DateTime;
 }
