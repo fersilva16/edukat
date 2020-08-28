@@ -3,9 +3,9 @@ import IPublicToken from './dtos/IPublicToken';
 import ISharableToken from './dtos/ISharableToken';
 
 export default interface ITokenProvider {
-  generateToken(): IToken;
+  generateToken(): Promise<IToken>;
 
   generatePublicToken(token: IToken, id: string): ISharableToken;
 
-  parsePublicToken(token: string): IPublicToken;
+  parsePublicToken(token: string): Promise<IPublicToken>;
 }

@@ -6,16 +6,19 @@ import base64Url from '~/utils/base64Url';
 
 import ITokenProvider from '../ITokenProvider';
 import OpaqueTokenProvider from './OpaqueTokenProvider';
+import SHA256HashProvider from '../../HashProvider/implementations/SHA256HashProvider';
 
 describe('OpaqueTokenProvider', () => {
   let opaqueTokenProvider: ITokenProvider;
 
   beforeAll(() => {
-    opaqueTokenProvider = new OpaqueTokenProvider();
+    opaqueTokenProvider = new OpaqueTokenProvider(
+      new SHA256HashProvider(),
+    );
   });
 
-  it('should be able to generate token', () => {
-    const token = opaqueTokenProvider.generateToken();
+  it('should be able to generate token', async () => {
+    const token = await opaqueTokenProvider.generateToken();
 
     expect(token)
       .not.toBeNull()
@@ -30,8 +33,8 @@ describe('OpaqueTokenProvider', () => {
     if (token.expiresAt) expect(token.expiresAt).toBeInstanceOf(DateTime);
   });
 
-  it('should be able to generate public token', () => {
-    const token = opaqueTokenProvider.generateToken();
+  it('should be able to generate public token', async () => {
+    const token = await opaqueTokenProvider.generateToken();
     const id = faker.random.uuid();
 
     const publicToken = opaqueTokenProvider.generatePublicToken(token, id);
@@ -53,13 +56,13 @@ describe('OpaqueTokenProvider', () => {
     }
   });
 
-  it('should be able to parse public token', () => {
-    const token = opaqueTokenProvider.generateToken();
+  it('should be able to parse public token', async () => {
+    const token = await opaqueTokenProvider.generateToken();
     const id = faker.random.uuid();
 
     const publicToken = opaqueTokenProvider.generatePublicToken(token, id);
 
-    const parsed = opaqueTokenProvider.parsePublicToken(`${publicToken.type} ${publicToken.token}`);
+    const parsed = await opaqueTokenProvider.parsePublicToken(`${publicToken.type} ${publicToken.token}`);
 
     expect(parsed)
       .not.toBeNull()
@@ -72,67 +75,67 @@ describe('OpaqueTokenProvider', () => {
     expect(parsed.hash).toBe(token.hash);
   });
 
-  it('should be throw a error if public token has invalid type', () => {
-    const token = opaqueTokenProvider.generateToken();
+  it('should be throw a error if public token has invalid type', async () => {
+    const token = await opaqueTokenProvider.generateToken();
     const id = faker.random.uuid();
     const invalidType = faker.random.alphaNumeric(6);
 
     const publicToken = opaqueTokenProvider.generatePublicToken(token, id);
 
-    expect(() => {
-      opaqueTokenProvider.parsePublicToken(publicToken.token);
-    }).toThrow(InvalidTokenException);
+    expect(
+      opaqueTokenProvider.parsePublicToken(publicToken.token),
+    ).rejects.toBeInstanceOf(InvalidTokenException);
 
-    expect(() => {
-      opaqueTokenProvider.parsePublicToken(`${invalidType} ${publicToken.token}`);
-    }).toThrow(InvalidTokenException);
+    expect(
+      opaqueTokenProvider.parsePublicToken(`${invalidType} ${publicToken.token}`),
+    ).rejects.toBeInstanceOf(InvalidTokenException);
   });
 
-  it('should be throw a error if public token has invalid token', () => {
-    const token = opaqueTokenProvider.generateToken();
+  it('should be throw a error if public token has invalid token', async () => {
+    const token = await opaqueTokenProvider.generateToken();
     const id = faker.random.uuid();
     const invalidToken = faker.random.alphaNumeric(64);
 
     const publicToken = opaqueTokenProvider.generatePublicToken(token, id);
 
-    expect(() => {
-      opaqueTokenProvider.parsePublicToken(publicToken.type);
-    }).toThrow(InvalidTokenException);
+    expect(
+      opaqueTokenProvider.parsePublicToken(publicToken.type),
+    ).rejects.toBeInstanceOf(InvalidTokenException);
 
-    expect(() => {
-      opaqueTokenProvider.parsePublicToken(`${publicToken.type} ${invalidToken}`);
-    }).toThrow(InvalidTokenException);
+    expect(
+      opaqueTokenProvider.parsePublicToken(`${publicToken.type} ${invalidToken}`),
+    ).rejects.toBeInstanceOf(InvalidTokenException);
   });
 
-  it('should be throw a error if public token has invalid token id', () => {
-    const token = opaqueTokenProvider.generateToken();
+  it('should be throw a error if public token has invalid token id', async () => {
+    const token = await opaqueTokenProvider.generateToken();
     const id = faker.random.uuid();
 
     const publicToken = opaqueTokenProvider.generatePublicToken(token, id);
 
-    expect(() => {
-      opaqueTokenProvider.parsePublicToken(`${publicToken.type} .${token.value}`);
-    }).toThrow(InvalidTokenException);
+    expect(
+      opaqueTokenProvider.parsePublicToken(`${publicToken.type} .${token.value}`),
+    ).rejects.toBeInstanceOf(InvalidTokenException);
 
-    expect(() => {
-      opaqueTokenProvider.parsePublicToken(`${publicToken.type} ${id}.${token.value}`);
-    }).toThrow(InvalidTokenException);
+    expect(
+      opaqueTokenProvider.parsePublicToken(`${publicToken.type} ${id}.${token.value}`),
+    ).rejects.toBeInstanceOf(InvalidTokenException);
   });
 
-  it('should be throw a error if public token has invalid token value', () => {
-    const token = opaqueTokenProvider.generateToken();
+  it('should be throw a error if public token has invalid token value', async () => {
+    const token = await opaqueTokenProvider.generateToken();
     const invalidToken = faker.random.alphaNumeric(32);
     const id = faker.random.uuid();
     const encodedId = base64Url.encode(id);
 
     const publicToken = opaqueTokenProvider.generatePublicToken(token, id);
 
-    expect(() => {
-      opaqueTokenProvider.parsePublicToken(`${publicToken.type} ${encodedId}.`);
-    }).toThrow(InvalidTokenException);
+    expect(
+      opaqueTokenProvider.parsePublicToken(`${publicToken.type} ${encodedId}.`),
+    ).rejects.toBeInstanceOf(InvalidTokenException);
 
-    expect(() => {
-      opaqueTokenProvider.parsePublicToken(`${publicToken.type} ${encodedId}.${invalidToken}`);
-    }).toThrow(InvalidTokenException);
+    expect(
+      opaqueTokenProvider.parsePublicToken(`${publicToken.type} ${encodedId}.${invalidToken}`),
+    ).rejects.toBeInstanceOf(InvalidTokenException);
   });
 });

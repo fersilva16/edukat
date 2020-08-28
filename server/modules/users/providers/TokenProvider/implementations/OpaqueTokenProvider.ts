@@ -1,4 +1,4 @@
-import { createHash } from 'crypto';
+import { inject } from 'tsyringe';
 import { DateTime, DurationObject } from 'luxon';
 
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
@@ -9,28 +9,31 @@ import ITokenProvider from '../ITokenProvider';
 import IToken from '../dtos/IToken';
 import IPublicToken from '../dtos/IPublicToken';
 import ISharableToken from '../dtos/ISharableToken';
+import IHashProvider from '../../HashProvider/IHashProvider';
 
 export default class OpaqueTokenProvider implements ITokenProvider {
+  constructor(
+    @inject('SHA256HashProvider')
+    private sha256HashProvider: IHashProvider,
+  ) {}
+
   private type: string = 'Bearer';
 
   private tokenLength: number = 60;
 
   private expirationTime: DurationObject = undefined;
 
-  private generateHash(value: string): string {
-    return createHash('sha256').update(value).digest('hex');
-  }
-
   private getExpiresAt(): DateTime {
     return this.expirationTime && DateTime.local().plus(this.expirationTime);
   }
 
-  generateToken(): IToken {
+  async generateToken(): Promise<IToken> {
     const value = randomString(this.tokenLength);
+    const hash = await this.sha256HashProvider.hash(value);
 
     return {
       value,
-      hash: this.generateHash(value),
+      hash,
       expiresAt: this.getExpiresAt(),
     };
   }
@@ -43,7 +46,7 @@ export default class OpaqueTokenProvider implements ITokenProvider {
     };
   }
 
-  parsePublicToken(bearerToken: string): IPublicToken {
+  async parsePublicToken(bearerToken: string): Promise<IPublicToken> {
     const [type, token] = bearerToken.split(' ');
 
     if (!type || type !== this.type || !token) throw new InvalidTokenException();
@@ -56,10 +59,12 @@ export default class OpaqueTokenProvider implements ITokenProvider {
 
     if (!id || value.length !== this.tokenLength) throw new InvalidTokenException();
 
+    const hash = await this.sha256HashProvider.hash(value);
+
     return {
       id,
       value,
-      hash: this.generateHash(value),
+      hash,
     };
   }
 }
