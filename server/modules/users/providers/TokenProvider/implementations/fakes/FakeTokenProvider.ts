@@ -11,7 +11,7 @@ export default class FakeTokenProvider implements ITokenProvider {
 
   private tokenLength: number = 20;
 
-  generateToken(): IToken {
+  async generateToken(): Promise<IToken> {
     const value = randomString(this.tokenLength);
 
     return {
@@ -27,7 +27,7 @@ export default class FakeTokenProvider implements ITokenProvider {
     };
   }
 
-  parsePublicToken(publicToken: string): IPublicToken {
+  async parsePublicToken(publicToken: string): Promise<IPublicToken> {
     const [type, token] = publicToken.split(' ');
 
     if (!type || type === this.type || !token) throw new InvalidTokenException();
