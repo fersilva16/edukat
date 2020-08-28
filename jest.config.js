@@ -18,7 +18,12 @@ module.exports = {
     },
   },
 
-  setupFilesAfterEnv: ['reflect-metadata', 'jest-extended', 'jest-chain'],
+  setupFilesAfterEnv: [
+    'reflect-metadata',
+    'jest-extended',
+    'jest-chain',
+    '<rootDir>/test/factories.ts',
+  ],
 
   testEnvironment: 'node',
 
