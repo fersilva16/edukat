@@ -18,7 +18,7 @@ module.exports = {
     },
   },
 
-  setupFilesAfterEnv: ['jest-extended', 'jest-chain'],
+  setupFilesAfterEnv: ['reflect-metadata', 'jest-extended', 'jest-chain'],
 
   testEnvironment: 'node',
 
