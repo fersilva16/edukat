@@ -32,6 +32,18 @@ export default class KnexUserRepository implements IUserRepository {
     return plainToClass(User, rawUser);
   }
 
+  async findByEmail(email: string): Promise<User> {
+    const rawUser = await this.table.select('*').where('email', email).first();
+
+    return plainToClass(User, rawUser);
+  }
+
+  async findByUsername(username: string): Promise<User> {
+    const rawUser = await this.table.select('*').where('username', username).first();
+
+    return plainToClass(User, rawUser);
+  }
+
   async create(data: ICreateUserDTO): Promise<void> {
     const dateNow = DateTime.local().toISO();
 
