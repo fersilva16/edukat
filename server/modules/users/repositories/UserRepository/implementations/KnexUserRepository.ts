@@ -1,4 +1,4 @@
-import { inject } from 'tsyringe';
+import { injectable, inject } from 'tsyringe';
 import { v4 as uuidv4 } from 'uuid';
 import { DateTime } from 'luxon';
 import { plainToClass } from 'class-transformer';
@@ -12,6 +12,7 @@ import knex from '~/infra/knex';
 
 import IUserRepository from '../IUserRepository';
 
+@injectable()
 export default class KnexUserRepository implements IUserRepository {
   private table = knex.table<IRawUser>('users');
 

@@ -1,4 +1,4 @@
-import { inject } from 'tsyringe';
+import { injectable, inject } from 'tsyringe';
 import { DateTime, DurationObject } from 'luxon';
 
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
@@ -11,6 +11,7 @@ import IPublicToken from '../dtos/IPublicToken';
 import ISharableToken from '../dtos/ISharableToken';
 import IHashProvider from '../../HashProvider/IHashProvider';
 
+@injectable()
 export default class OpaqueTokenProvider implements ITokenProvider {
   constructor(
     @inject('SHA256HashProvider')
