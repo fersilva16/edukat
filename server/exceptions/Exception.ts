@@ -1,3 +1,5 @@
+import { Request, Response } from 'express';
+
 export default class Expection extends Error {
   readonly name: string;
 
@@ -15,5 +17,14 @@ export default class Expection extends Error {
     this.code = code;
 
     Error.captureStackTrace(this, this.constructor);
+  }
+
+  handle(request: Request, response: Response): void {
+    response.status(this.status).json({
+      error: {
+        message: this.message,
+        code: this.code,
+      },
+    });
   }
 }
