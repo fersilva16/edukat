@@ -4,7 +4,11 @@ import Exception from './Exception';
 
 export default class Handler {
   handle(exception: Exception | Error, request: Request, response: Response): void {
-    if (exception instanceof Exception) exception.handle(request, response);
+    if (exception instanceof Exception) {
+      exception.handle(request, response);
+
+      return;
+    }
 
     response.status(500).send({
       error: {
