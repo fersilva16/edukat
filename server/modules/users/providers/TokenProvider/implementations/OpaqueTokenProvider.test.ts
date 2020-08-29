@@ -75,7 +75,7 @@ describe('OpaqueTokenProvider', () => {
     expect(parsed.hash).toBe(token.hash);
   });
 
-  it('should be throw a error if public token has invalid type', async () => {
+  it('should be fail if public token has invalid type', async () => {
     const token = await opaqueTokenProvider.generateToken();
     const id = faker.random.uuid();
     const invalidType = faker.random.alphaNumeric(6);
@@ -91,7 +91,7 @@ describe('OpaqueTokenProvider', () => {
     ).rejects.toBeInstanceOf(InvalidTokenException);
   });
 
-  it('should be throw a error if public token has invalid token', async () => {
+  it('should be fail if public token has invalid token', async () => {
     const token = await opaqueTokenProvider.generateToken();
     const id = faker.random.uuid();
     const invalidToken = faker.random.alphaNumeric(64);
@@ -107,7 +107,7 @@ describe('OpaqueTokenProvider', () => {
     ).rejects.toBeInstanceOf(InvalidTokenException);
   });
 
-  it('should be throw a error if public token has invalid token id', async () => {
+  it('should be fail if public token has invalid token id', async () => {
     const token = await opaqueTokenProvider.generateToken();
     const id = faker.random.uuid();
 
@@ -122,7 +122,7 @@ describe('OpaqueTokenProvider', () => {
     ).rejects.toBeInstanceOf(InvalidTokenException);
   });
 
-  it('should be throw a error if public token has invalid token value', async () => {
+  it('should be fail if public token has invalid token value', async () => {
     const token = await opaqueTokenProvider.generateToken();
     const invalidToken = faker.random.alphaNumeric(32);
     const id = faker.random.uuid();
