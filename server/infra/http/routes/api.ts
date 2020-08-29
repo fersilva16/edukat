@@ -1,7 +1,11 @@
 import { Router } from 'express';
 
+import Handler from '~/exceptions/Handler';
+
+const handler = new Handler();
+
 const apiRoutes = Router();
 
-apiRoutes.get('/', (request, response) => response.json({ hello: 'world' }));
+apiRoutes.use(handler.handle);
 
 export default apiRoutes;
