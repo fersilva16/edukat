@@ -10,6 +10,6 @@ export type Controller = {
   handle(request: Request, response: Response, next: NextFunction): Promise<void>;
 };
 
-export default function createRequestHandler({ handle }: Controller): RequestHandler {
-  return (request, response, next) => handle(request, response, next).catch(next);
+export default function createRequestHandler(controller: Controller): RequestHandler {
+  return (request, response, next) => controller.handle(request, response, next).catch(next);
 }
