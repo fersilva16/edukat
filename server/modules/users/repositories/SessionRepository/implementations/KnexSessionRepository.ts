@@ -31,8 +31,8 @@ export default class KnexSessionRepository implements ISessionRepository {
       expires_at: data.expiresAt?.toISO(),
     };
 
-    const session = await this.table.insert(rawSession).returning('*').first();
+    const session = await this.table.insert(rawSession).returning('*');
 
-    return plainToClass(Session, session);
+    return plainToClass(Session, session[0]);
   }
 }

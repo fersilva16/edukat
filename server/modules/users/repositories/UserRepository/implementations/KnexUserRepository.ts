@@ -59,9 +59,9 @@ export default class KnexUserRepository implements IUserRepository {
       updated_at: dateNow,
     };
 
-    const user = await this.table.insert(rawUser).returning('*').first();
+    const user = await this.table.insert(rawUser).returning('*');
 
-    return plainToClass(User, user);
+    return plainToClass(User, user[0]);
   }
 
   async clear(): Promise<void> {
