@@ -12,5 +12,5 @@ const userRepository = new KnexUserRepository(
 );
 
 export async function seed(): Promise<void> {
-  return userRepository.create(adminConfig);
+  await userRepository.create(adminConfig);
 }
