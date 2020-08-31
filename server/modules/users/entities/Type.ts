@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer';
 import { DateTime } from 'luxon';
 
-export default class Session {
+export default class Type {
   id: string;
 
   name: string;
