@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "baseUrl": ".",
+    "typeRoots": ["types"],
     "paths": {
       "~/*": ["*"],
       "@users/*": ["modules/users/*"]
