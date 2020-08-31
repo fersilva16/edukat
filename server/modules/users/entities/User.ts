@@ -12,6 +12,8 @@ export default class User {
 
   email: string;
 
+  type_id: string;
+
   @Exclude({ toPlainOnly: true })
   password: string;
 
