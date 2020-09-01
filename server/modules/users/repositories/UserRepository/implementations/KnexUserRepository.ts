@@ -49,11 +49,16 @@ export default class KnexUserRepository implements IUserRepository {
     const dateNow = DateTime.local().toISO();
 
     const rawUser: IRawUser = {
-      ...data,
-
       id: uuidv4(),
 
+      firstname: data.firstname,
+      lastname: data.lastname,
+
+      username: data.username,
+      email: data.email,
       password: await this.hashProvider.hash(data.password),
+
+      type_id: data.typeId,
 
       created_at: dateNow,
       updated_at: dateNow,

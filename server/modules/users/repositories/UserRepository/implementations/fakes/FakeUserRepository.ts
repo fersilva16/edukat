@@ -37,9 +37,16 @@ export default class FakeUserRepository implements IUserRepository {
     const dateNow = DateTime.local().toISO();
 
     const user: IRawUser = {
-      ...data,
-
       id: uuid(),
+
+      firstname: data.firstname,
+      lastname: data.lastname,
+
+      username: data.username,
+      email: data.email,
+      password: data.password,
+
+      type_id: data.typeId,
 
       created_at: dateNow,
       updated_at: dateNow,
