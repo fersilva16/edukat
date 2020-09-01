@@ -6,9 +6,9 @@ import base64Url from '~/utils/base64Url';
 import randomString from '~/utils/randomString';
 
 import ITokenProvider from '../ITokenProvider';
-import IToken from '../dtos/IToken';
-import IPublicToken from '../dtos/IPublicToken';
-import ISharableToken from '../dtos/ISharableToken';
+import ITokenDTO from '../dtos/ITokenDTO';
+import IPublicTokenDTO from '../dtos/IPublicTokenDTO';
+import ISharableTokenDTO from '../dtos/ISharableTokenDTO';
 import IHashProvider from '../../HashProvider/IHashProvider';
 
 @injectable()
@@ -28,7 +28,7 @@ export default class OpaqueTokenProvider implements ITokenProvider {
     return this.expirationTime && DateTime.local().plus(this.expirationTime);
   }
 
-  async generateToken(): Promise<IToken> {
+  async generateToken(): Promise<ITokenDTO> {
     const value = randomString(this.tokenLength);
     const hash = await this.sha256HashProvider.hash(value);
 
@@ -39,7 +39,7 @@ export default class OpaqueTokenProvider implements ITokenProvider {
     };
   }
 
-  generatePublicToken(token: IToken, id: string): ISharableToken {
+  generatePublicToken(token: ITokenDTO, id: string): ISharableTokenDTO {
     return {
       type: this.type,
       token: `${base64Url.encode(id)}.${token.value}`,
@@ -47,7 +47,7 @@ export default class OpaqueTokenProvider implements ITokenProvider {
     };
   }
 
-  async parsePublicToken(bearerToken: string): Promise<IPublicToken> {
+  async parsePublicToken(bearerToken: string): Promise<IPublicTokenDTO> {
     const [type, token] = bearerToken.split(' ');
 
     if (!type || type !== this.type || !token) throw new InvalidTokenException();

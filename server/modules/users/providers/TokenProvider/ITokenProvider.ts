@@ -1,11 +1,11 @@
-import IToken from './dtos/IToken';
-import IPublicToken from './dtos/IPublicToken';
-import ISharableToken from './dtos/ISharableToken';
+import ITokenDTO from './dtos/ITokenDTO';
+import IPublicTokenDTO from './dtos/IPublicTokenDTO';
+import ISharableTokenDTO from './dtos/ISharableTokenDTO';
 
 export default interface ITokenProvider {
-  generateToken(): Promise<IToken>;
+  generateToken(): Promise<ITokenDTO>;
 
-  generatePublicToken(token: IToken, id: string): ISharableToken;
+  generatePublicToken(token: ITokenDTO, id: string): ISharableTokenDTO;
 
-  parsePublicToken(token: string): Promise<IPublicToken>;
+  parsePublicToken(token: string): Promise<IPublicTokenDTO>;
 }

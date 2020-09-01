@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
-import ISharableToken from '@users/providers/TokenProvider/dtos/ISharableToken';
+import ISharableTokenDTO from '@users/providers/TokenProvider/dtos/ISharableTokenDTO';
 import IHashProvider from '@users/providers/HashProvider/IHashProvider';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
@@ -26,7 +26,7 @@ export default class CreateSessionUseCase {
     private sessionRepository: ISessionRepository,
   ) {}
 
-  async execute({ email, username, password }: ICreateSessionDTO): Promise<ISharableToken> {
+  async execute({ email, username, password }: ICreateSessionDTO): Promise<ISharableTokenDTO> {
     if (email && username) {
       throw new BadRequestException('Only one of: email, username', 'UID_INVALID');
     }
