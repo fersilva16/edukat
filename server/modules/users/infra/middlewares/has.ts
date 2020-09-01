@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
 import { Request, Response, NextFunction } from 'express';
 
-import Flags, { KeyofFlags } from '@users/dtos/Flags';
+import { KeyofFlags } from '@users/dtos/Flags';
 import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
 import IPermissionProvider from '@users/providers/PermissionProvider/IPermissionProvider';
 
@@ -24,9 +24,7 @@ export default function has(...flags: KeyofFlags[]) {
     const missingPermissions: KeyofFlags[] = [];
 
     flags.forEach((name) => {
-      const permission = Flags[name];
-
-      if (!permissionProvider.has(permissions, permission)) missingPermissions.push(name);
+      if (!permissionProvider.has(permissions, name)) missingPermissions.push(name);
     });
 
     if (missingPermissions.length) throw new MissingPermissionsException(missingPermissions);
