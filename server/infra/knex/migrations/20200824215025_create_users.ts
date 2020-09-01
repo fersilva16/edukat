@@ -7,8 +7,8 @@ export async function up({ schema }: Knex): Promise<void> {
     table.uuid('id').primary();
     table.string('firstname').notNullable();
     table.string('lastname').notNullable();
-    table.string('username', 15).notNullable();
-    table.string('email', 255).notNullable();
+    table.string('username', 15).notNullable().unique();
+    table.string('email', 255).notNullable().unique();
     table.string('password', 180).notNullable();
     table.timestamps();
   });
