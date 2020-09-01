@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "next build && tsc --project tsconfig.server.json",
+    "build": "next build && tsc --project server/tsconfig.json",
     "knex": "ts-node --project server/tsconfig.json --require tsconfig-paths/register --require dotenv/config node_modules/knex/bin/cli.js --knexfile server/config/database.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "yarn lint --fix",
