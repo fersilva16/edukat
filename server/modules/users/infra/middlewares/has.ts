@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
 import { Request, Response, NextFunction } from 'express';
 
-import Flags, { FlagsKeys } from '@users/dtos/Flags';
+import Flags, { KeyofFlags } from '@users/dtos/Flags';
 import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
 import IPermissionProvider from '@users/providers/PermissionProvider/IPermissionProvider';
 
@@ -11,7 +11,7 @@ import MissingPermissionsException from '~/exceptions/MissingPermissionsExceptio
 const typeRepository = container.resolve<ITypeRepository>('TypeRepository');
 const permissionProvider = container.resolve<IPermissionProvider>('PermissionProvider');
 
-export default function has(...flags: FlagsKeys[]) {
+export default function has(...flags: KeyofFlags[]) {
   return async (request: Request, response: Response, next: NextFunction): Promise<void> => {
     const { user } = request;
 
@@ -21,7 +21,7 @@ export default function has(...flags: FlagsKeys[]) {
 
     const permissions = Number(type.permissions);
 
-    const missingPermissions: FlagsKeys[] = [];
+    const missingPermissions: KeyofFlags[] = [];
 
     flags.forEach((name) => {
       const permission = Flags[name];

@@ -6,6 +6,6 @@ enum Flags {
   MANAGE_TYPES = 1 << 2,
 }
 
-export type FlagsKeys = keyof typeof Flags;
+export type KeyofFlags = keyof typeof Flags;
 
 export default Flags;

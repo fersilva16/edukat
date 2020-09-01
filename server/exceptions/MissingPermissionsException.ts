@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 
-import { FlagsKeys } from '@users/dtos/Flags';
+import { KeyofFlags } from '@users/dtos/Flags';
 
 import ForbiddenException from './ForbiddenException';
 
 export default class MissingPermissionsException extends ForbiddenException {
-  constructor(readonly permissions: FlagsKeys[]) {
+  constructor(readonly permissions: KeyofFlags[]) {
     super('Missing permissions', 'MISSING_PERMISSIONS');
   }
 
