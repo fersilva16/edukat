@@ -4,22 +4,30 @@ import { Request, Response, NextFunction } from 'express';
 import { KeyofFlags } from '@users/dtos/Flags';
 import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
 import IPermissionProvider from '@users/providers/PermissionProvider/IPermissionProvider';
+import IPermissionCacheProvider from '@users/providers/PermissionCacheProvider/IPermissionCacheProvider';
 
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import MissingPermissionsException from '~/exceptions/MissingPermissionsException';
 
 const typeRepository = container.resolve<ITypeRepository>('TypeRepository');
 const permissionProvider = container.resolve<IPermissionProvider>('PermissionProvider');
+const permissionCacheProvider = container.resolve<IPermissionCacheProvider>('PermissionCacheProvider');
 
 export default function has(...flags: KeyofFlags[]) {
   return async (request: Request, response: Response, next: NextFunction): Promise<void> => {
     const { user } = request;
 
-    const type = await typeRepository.findById(user.type_id);
+    const cachedPermissions = await permissionCacheProvider.recover(user.type_id);
 
-    if (!type) throw new ResourceNotFoundException('Type');
+    const type = !cachedPermissions && await typeRepository.findById(user.type_id);
 
-    const permissions = Number(type.permissions);
+    if (!cachedPermissions) {
+      if (!type) throw new ResourceNotFoundException('Type');
+
+      permissionCacheProvider.save(user.type_id, type.permissions);
+    }
+
+    const permissions = Number(cachedPermissions || type.permissions);
 
     const missingPermissions: KeyofFlags[] = [];
 
