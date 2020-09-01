@@ -5,14 +5,14 @@ import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import base64Url from '~/utils/base64Url';
 import randomString from '~/utils/randomString';
 
-import ITokenProvider from '../ITokenProvider';
+import ISessionTokenProvider from '../ISessionTokenProvider';
 import ITokenDTO from '../dtos/ITokenDTO';
 import IPublicTokenDTO from '../dtos/IPublicTokenDTO';
 import ISharableTokenDTO from '../dtos/ISharableTokenDTO';
 import IHashProvider from '../../HashProvider/IHashProvider';
 
 @injectable()
-export default class OpaqueTokenProvider implements ITokenProvider {
+export default class OpaqueSessionTokenProvider implements ISessionTokenProvider {
   constructor(
     @inject('SHA256HashProvider')
     private sha256HashProvider: IHashProvider,

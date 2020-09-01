@@ -1,10 +1,10 @@
 import { injectable, inject } from 'tsyringe';
 
-import ISharableTokenDTO from '@users/providers/TokenProvider/dtos/ISharableTokenDTO';
 import IHashProvider from '@users/providers/HashProvider/IHashProvider';
-import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
+import ISessionTokenProvider from '~/modules/users/providers/SessionTokenProvider/ISessionTokenProvider';
+import ISharableTokenDTO from '~/modules/users/providers/SessionTokenProvider/dtos/ISharableTokenDTO';
 
 import BadRequestException from '~/exceptions/BadRequestException';
 import InvalidCredentialsException from '~/exceptions/InvalidCredentialsException';
@@ -19,8 +19,8 @@ export default class CreateSessionUseCase {
     @inject('HashProvider')
     private hashProvider: IHashProvider,
 
-    @inject('TokenProvider')
-    private tokenProvider: ITokenProvider,
+    @inject('SessionTokenProvider')
+    private sessionTokenProvider: ISessionTokenProvider,
 
     @inject('SessionRepository')
     private sessionRepository: ISessionRepository,
@@ -41,14 +41,14 @@ export default class CreateSessionUseCase {
 
     if (!check) throw new InvalidCredentialsException('Password');
 
-    const token = await this.tokenProvider.generateToken();
+    const token = await this.sessionTokenProvider.generateToken();
 
     const session = await this.sessionRepository.create({
       token: token.hash,
       userId: user.id,
     });
 
-    const publicToken = this.tokenProvider.generatePublicToken(token, session.id);
+    const publicToken = this.sessionTokenProvider.generatePublicToken(token, session.id);
 
     return publicToken;
   }

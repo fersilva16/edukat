@@ -5,9 +5,9 @@ import FakeSessionRepository from '@users/repositories/SessionRepository/impleme
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 import FakeUserRepository from '@users/repositories/UserRepository/implementations/fakes/FakeUserRepository';
 import FakeHashProvider from '@users/providers/HashProvider/implementations/fakes/FakeHashProvider';
-import FakeTokenProvider from '@users/providers/TokenProvider/implementations/fakes/FakeTokenProvider';
+import FakeSessionTokenProvider from '@users/providers/SessionTokenProvider/implementations/fakes/FakeSessionTokenProvider';
 import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
-import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
+import ISessionTokenProvider from '@users/providers/SessionTokenProvider/ISessionTokenProvider';
 import IHashProvider from '@users/providers/HashProvider/IHashProvider';
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
 
@@ -20,19 +20,19 @@ describe('CreateSessionUseCase', () => {
   let createSessionUseCase: CreateSessionUseCase;
   let userRepository: IUserRepository;
   let hashProvider: IHashProvider;
-  let tokenProvider: ITokenProvider;
+  let sessionTokenProvider: ISessionTokenProvider;
   let sessionRepository: ISessionRepository;
 
   beforeAll(() => {
     userRepository = new FakeUserRepository();
     hashProvider = new FakeHashProvider();
-    tokenProvider = new FakeTokenProvider();
+    sessionTokenProvider = new FakeSessionTokenProvider();
     sessionRepository = new FakeSessionRepository();
 
     createSessionUseCase = new CreateSessionUseCase(
       userRepository,
       hashProvider,
-      tokenProvider,
+      sessionTokenProvider,
       sessionRepository,
     );
   });
@@ -44,9 +44,9 @@ describe('CreateSessionUseCase', () => {
   it('should be return public token with email', async () => {
     const findByEmail = jest.spyOn(userRepository, 'findByEmail');
     const verify = jest.spyOn(hashProvider, 'verify');
-    const generateToken = jest.spyOn(tokenProvider, 'generateToken');
+    const generateToken = jest.spyOn(sessionTokenProvider, 'generateToken');
     const create = jest.spyOn(sessionRepository, 'create');
-    const generatePublicToken = jest.spyOn(tokenProvider, 'generatePublicToken');
+    const generatePublicToken = jest.spyOn(sessionTokenProvider, 'generatePublicToken');
 
     const user = Factory.build<ICreateUserDTO>('user');
 
@@ -75,9 +75,9 @@ describe('CreateSessionUseCase', () => {
   it('should be return public token with username', async () => {
     const findByUsername = jest.spyOn(userRepository, 'findByUsername');
     const verify = jest.spyOn(hashProvider, 'verify');
-    const generateToken = jest.spyOn(tokenProvider, 'generateToken');
+    const generateToken = jest.spyOn(sessionTokenProvider, 'generateToken');
     const create = jest.spyOn(sessionRepository, 'create');
-    const generatePublicToken = jest.spyOn(tokenProvider, 'generatePublicToken');
+    const generatePublicToken = jest.spyOn(sessionTokenProvider, 'generatePublicToken');
 
     const user = Factory.build<ICreateUserDTO>('user');
 

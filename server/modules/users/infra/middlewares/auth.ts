@@ -1,16 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import { container } from 'tsyringe';
 
-import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import ISessionCacheProvider from '@users/providers/SessionCacheProvider/ISessionCacheProvider';
 import IUserCacheProvider from '@users/providers/UserCacheProvider/IUserCacheProvider';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
+import ISessionTokenProvider from '~/modules/users/providers/SessionTokenProvider/ISessionTokenProvider';
 
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 
-const tokenProvider = container.resolve<ITokenProvider>('TokenProvider');
+const sessionTokenProvider = container.resolve<ISessionTokenProvider>('SessionTokenProvider');
 const sessionCacheProvider = container.resolve<ISessionCacheProvider>('SessionCacheProvider');
 const userCacheProvider = container.resolve<IUserCacheProvider>('UserCacheProvider');
 const sessionRepository = container.resolve<ISessionRepository>('SessionProvider');
@@ -23,7 +23,7 @@ export default async function auth(
 ): Promise<void> {
   const { authorization } = request.headers;
 
-  const { id, hash } = await tokenProvider.parsePublicToken(authorization);
+  const { id, hash } = await sessionTokenProvider.parsePublicToken(authorization);
 
   const cachedSession = await sessionCacheProvider.recover(id);
   const session = cachedSession || await sessionRepository.findById(id);
