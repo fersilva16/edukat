@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "next build && tsc --project server/tsconfig.json",
+    "build:server": "tsc --project server/tsconfig.json",
+    "build": "next build && yarn build:server",
     "knex": "ts-node --project server/tsconfig.json --require tsconfig-paths/register --require dotenv/config node_modules/knex/bin/cli.js --knexfile server/config/database.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "yarn lint --fix",
@@ -11,7 +12,8 @@
     "start:dev": "nodemon",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "test:dev": "jest --watch"
+    "test:dev": "jest --watch",
+    "typecheck": "yarn build:server --noEmit"
   },
   "dependencies": {
     "argon2": "^0.27.0",
