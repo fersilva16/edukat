@@ -3,20 +3,32 @@ import redis from '~/infra/redis';
 import IPermissionCacheProvider from '../IPermissionCacheProvider';
 
 export default class RedisPermissionCacheProvider implements IPermissionCacheProvider {
+  private prefix = 'permissions';
+
+  private expiriationTime = 86400;
+
+  private addPrefix(suffix: string): string {
+    return `${this.prefix}:${suffix}`;
+  }
+
   async save(id: string, permissions: string): Promise<void> {
-    await redis.set(`permissions:${id}`, permissions);
+    const key = this.addPrefix(id);
+
+    await redis.set(key, permissions);
+
+    await redis.expire(key, this.expiriationTime);
   }
 
   async recover(id: string): Promise<string> {
-    return redis.get(`permissions:${id}`);
+    return redis.get(this.addPrefix(id));
   }
 
   async invalidate(id: string): Promise<void> {
-    await redis.del(`permissions:${id}`);
+    await redis.del(this.addPrefix(id));
   }
 
   async invalidateAll(): Promise<void> {
-    const keys = await redis.keys('permissions:*');
+    const keys = await redis.keys(this.addPrefix('*'));
 
     const pipeline = redis.pipeline();
 
