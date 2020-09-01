@@ -1,10 +1,12 @@
+import { KeyofFlags } from '@users/dtos/Flags';
+
 export default interface IPermissionProvider {
-  has(bitfield: number, bit: number): boolean;
-  has(bitfield: number, bits: number[]): boolean;
+  has(bitfield: number, flag: KeyofFlags): boolean;
+  has(bitfield: number, flags: KeyofFlags[]): boolean;
 
-  add(bitfield: number, ...bits: number[]): number;
+  add(bitfield: number, ...flags: KeyofFlags[]): number;
 
-  remove(bitfield: number, ...bits: number[]): number;
+  remove(bitfield: number, ...flags: KeyofFlags[]): number;
 
-  join(bits: number[]): number;
+  join(bits: KeyofFlags[]): number;
 }

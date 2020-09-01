@@ -1,23 +1,33 @@
 /* eslint-disable no-bitwise */
 
+import Flags, { KeyofFlags } from '@users/dtos/Flags';
+
 import IPermissionProvider from '../IPermissionProvider';
 
 export default class BitfieldPermissionProvider implements IPermissionProvider {
-  has(bitfield: number, bits: number | number[]): boolean {
-    if (Array.isArray(bits)) return bits.every((bit) => this.has(bitfield, bit));
-
-    return (bitfield & bits) === bits;
+  private hasBit(bitfield: number, bit: number): boolean {
+    return (bitfield & bit) === bit;
   }
 
-  add(bitfield: number, ...bits: number[]): number {
-    return bitfield | this.join(bits);
+  has(bitfield: number, flagOrFlags: KeyofFlags | KeyofFlags[]): boolean {
+    if (this.hasBit(bitfield, Flags.ADMINISTRATOR)) return true;
+
+    if (Array.isArray(flagOrFlags)) return flagOrFlags.every((flag) => this.has(bitfield, flag));
+
+    const bit = Flags[flagOrFlags];
+
+    return this.hasBit(bitfield, bit);
   }
 
-  remove(bitfield: number, ...bits: number[]): number {
-    return bitfield & ~this.join(bits);
+  add(bitfield: number, ...flags: KeyofFlags[]): number {
+    return bitfield | this.join(flags);
   }
 
-  join(bits: number[]): number {
-    return bits.reduce((total, bit) => total | bit, 0);
+  remove(bitfield: number, ...flags: KeyofFlags[]): number {
+    return bitfield & ~this.join(flags);
+  }
+
+  join(flags: KeyofFlags[]): number {
+    return flags.reduce((total, flag) => total | Flags[flag], 0);
   }
 }
