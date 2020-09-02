@@ -31,6 +31,12 @@ export default class RedisSessionCacheProvider implements ISessionCacheProvider 
     await redis.expire(key, this.expirationTime);
   }
 
+  async exists(id: string): Promise<boolean> {
+    const exists = await redis.exists(this.addPrefix(id));
+
+    return Boolean(exists);
+  }
+
   async recover(id: string): Promise<Session> {
     const rawSession = await redis.hmget(this.addPrefix(id)) as unknown as IRawSession;
 

@@ -9,6 +9,10 @@ export default class FakeSessionCacheProvider implements ISessionCacheProvider {
     this.sessions.set(id, user);
   }
 
+  async exists(id: string): Promise<boolean> {
+    return this.sessions.has(id);
+  }
+
   async recover(id: string): Promise<Session> {
     return this.sessions.get(id);
   }

@@ -19,6 +19,12 @@ export default class RedisPermissionCacheProvider implements IPermissionCachePro
     await redis.expire(key, this.expiriationTime);
   }
 
+  async exists(id: string): Promise<boolean> {
+    const exists = await redis.exists(this.addPrefix(id));
+
+    return Boolean(exists);
+  }
+
   async recover(id: string): Promise<string> {
     return redis.get(this.addPrefix(id));
   }

@@ -31,6 +31,12 @@ export default class RedisUserCacheProvider implements IUserCacheProvider {
     await redis.expire(key, this.expirationTime);
   }
 
+  async exists(id: string): Promise<boolean> {
+    const exists = await redis.exists(this.addPrefix(id));
+
+    return Boolean(exists);
+  }
+
   async recover(id: string): Promise<User> {
     const rawUser = await redis.hmget(this.addPrefix(id)) as unknown as IRawUser;
 

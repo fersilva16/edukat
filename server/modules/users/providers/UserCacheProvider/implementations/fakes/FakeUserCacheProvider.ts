@@ -9,6 +9,10 @@ export default class FakeUserCacheProvider implements IUserCacheProvider {
     this.users.set(id, user);
   }
 
+  async exists(id: string): Promise<boolean> {
+    return this.users.has(id);
+  }
+
   async recover(id: string): Promise<User> {
     return this.users.get(id);
   }
