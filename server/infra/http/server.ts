@@ -13,7 +13,7 @@ export default async function createServer() {
   app.use(json());
   app.use(routes);
 
-  app.listen(appConfig.port, (error) => {
+  app.listen(appConfig.port, appConfig.host, (error) => {
     if (error) throw error;
 
     // eslint-disable-next-line no-console
