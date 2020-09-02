@@ -8,9 +8,9 @@ export default class Session {
 
   user_id: string;
 
-  @Transform((date: string) => DateTime.fromISO(date), { toClassOnly: true })
+  @Transform((date: Date) => DateTime.fromJSDate(date), { toClassOnly: true })
   created_at: DateTime;
 
-  @Transform((date: string) => DateTime.fromISO(date), { toClassOnly: true })
+  @Transform((date: Date) => DateTime.fromJSDate(date), { toClassOnly: true })
   expires_at?: DateTime;
 }

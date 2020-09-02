@@ -17,9 +17,9 @@ export default class User {
   @Exclude({ toPlainOnly: true })
   password: string;
 
-  @Transform((date: string) => DateTime.fromISO(date), { toClassOnly: true })
+  @Transform((date: Date) => DateTime.fromJSDate(date), { toClassOnly: true })
   created_at: DateTime;
 
-  @Transform((date: string) => DateTime.fromISO(date), { toClassOnly: true })
+  @Transform((date: Date) => DateTime.fromJSDate(date), { toClassOnly: true })
   updated_at: DateTime;
 }
