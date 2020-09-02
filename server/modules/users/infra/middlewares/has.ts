@@ -1,11 +1,11 @@
 import { container } from 'tsyringe';
-import { Request, Response, NextFunction } from 'express';
 
 import { KeyofFlags } from '@users/dtos/Flags';
 import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
 import IPermissionProvider from '@users/providers/PermissionProvider/IPermissionProvider';
 import IPermissionCacheProvider from '@users/providers/PermissionCacheProvider/IPermissionCacheProvider';
 
+import createMiddleware from '~/utils/createMiddleware';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import MissingPermissionsException from '~/exceptions/MissingPermissionsException';
 
@@ -14,29 +14,31 @@ const permissionProvider = container.resolve<IPermissionProvider>('PermissionPro
 const permissionCacheProvider = container.resolve<IPermissionCacheProvider>('PermissionCacheProvider');
 
 export default function has(...flags: KeyofFlags[]) {
-  return async (request: Request, response: Response, next: NextFunction): Promise<void> => {
-    const { user } = request;
+  return createMiddleware(
+    async (request, response, next) => {
+      const { user } = request;
 
-    const cachedPermissions = await permissionCacheProvider.recover(user.type_id);
+      const cachedPermissions = await permissionCacheProvider.recover(user.type_id);
 
-    const type = !cachedPermissions && await typeRepository.findById(user.type_id);
+      const type = !cachedPermissions && await typeRepository.findById(user.type_id);
 
-    if (!cachedPermissions) {
-      if (!type) throw new ResourceNotFoundException('Type');
+      if (!cachedPermissions) {
+        if (!type) throw new ResourceNotFoundException('Type');
 
-      permissionCacheProvider.save(user.type_id, type.permissions);
-    }
+        permissionCacheProvider.save(user.type_id, type.permissions);
+      }
 
-    const permissions = Number(cachedPermissions || type.permissions);
+      const permissions = Number(cachedPermissions || type.permissions);
 
-    const missingPermissions: KeyofFlags[] = [];
+      const missingPermissions: KeyofFlags[] = [];
 
-    flags.forEach((name) => {
-      if (!permissionProvider.has(permissions, name)) missingPermissions.push(name);
-    });
+      flags.forEach((name) => {
+        if (!permissionProvider.has(permissions, name)) missingPermissions.push(name);
+      });
 
-    if (missingPermissions.length) throw new MissingPermissionsException(missingPermissions);
+      if (missingPermissions.length) throw new MissingPermissionsException(missingPermissions);
 
-    next();
-  };
+      next();
+    },
+  );
 }

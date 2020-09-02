@@ -7,6 +7,7 @@ import IUserRepository from '@users/repositories/UserRepository/IUserRepository'
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
 import ISessionTokenProvider from '~/modules/users/providers/SessionTokenProvider/ISessionTokenProvider';
 
+import createMiddleware from '~/utils/createMiddleware';
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 
@@ -16,7 +17,7 @@ const userCacheProvider = container.resolve<IUserCacheProvider>('UserCacheProvid
 const sessionRepository = container.resolve<ISessionRepository>('SessionProvider');
 const userRepository = container.resolve<IUserRepository>('UserProvider');
 
-export default async function auth(
+async function auth(
   request: Request,
   response: Response,
   next: NextFunction,
@@ -45,3 +46,5 @@ export default async function auth(
 
   next();
 }
+
+export default createMiddleware(auth);
