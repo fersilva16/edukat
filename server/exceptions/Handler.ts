@@ -1,11 +1,16 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import Exception from './Exception';
 
 export default class Handler {
-  handle(exception: Exception | Error, request: Request, response: Response): void {
+  handle(
+    exception: Exception | Error,
+    request: Request,
+    response: Response,
+    next: NextFunction,
+  ): void {
     if (exception instanceof Exception) {
-      exception.handle(request, response);
+      exception.handle(request, response, next);
 
       return;
     }
@@ -16,5 +21,7 @@ export default class Handler {
         code: 'INTERNAL_SERVER_ERROR',
       },
     });
+
+    next();
   }
 }

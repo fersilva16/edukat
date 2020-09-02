@@ -1,6 +1,6 @@
 import { ValidationError } from 'class-validator';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import Exception from './Exception';
 
@@ -9,7 +9,7 @@ export default class ValidationException extends Exception {
     super(`Unprocessable ${entity}`, 422, `UNPROCESSABLE_${entity.toUpperCase()}`);
   }
 
-  handle(request: Request, response: Response): void {
+  handle(request: Request, response: Response, next: NextFunction): void {
     response.status(this.status).json({
       error: {
         message: this.message,
@@ -17,5 +17,7 @@ export default class ValidationException extends Exception {
         errors: this.errors,
       },
     });
+
+    next();
   }
 }

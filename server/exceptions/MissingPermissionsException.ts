@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import { KeyofFlags } from '@users/dtos/Flags';
 
@@ -9,7 +9,7 @@ export default class MissingPermissionsException extends ForbiddenException {
     super('Missing permissions', 'MISSING_PERMISSIONS');
   }
 
-  handle(request: Request, response: Response): void {
+  handle(request: Request, response: Response, next: NextFunction): void {
     response.status(this.status).json({
       error: {
         message: this.message,
@@ -17,5 +17,7 @@ export default class MissingPermissionsException extends ForbiddenException {
         missing: this.permissions,
       },
     });
+
+    next();
   }
 }
