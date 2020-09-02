@@ -14,8 +14,8 @@ import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 const sessionTokenProvider = container.resolve<ISessionTokenProvider>('SessionTokenProvider');
 const sessionCacheProvider = container.resolve<ISessionCacheProvider>('SessionCacheProvider');
 const userCacheProvider = container.resolve<IUserCacheProvider>('UserCacheProvider');
-const sessionRepository = container.resolve<ISessionRepository>('SessionProvider');
-const userRepository = container.resolve<IUserRepository>('UserProvider');
+const sessionRepository = container.resolve<ISessionRepository>('SessionRepository');
+const userRepository = container.resolve<IUserRepository>('UserRepository');
 
 async function auth(
   request: Request,
