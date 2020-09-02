@@ -28,21 +28,27 @@ async function auth(
 
   const { id, hash } = await sessionTokenProvider.parsePublicToken(authorization);
 
-  const cachedSession = await sessionCacheProvider.recover(id);
-  const session = cachedSession || await sessionRepository.findById(id);
+  const hasCachedSession = await sessionCacheProvider.exists(id);
+
+  const session = hasCachedSession
+    ? await sessionCacheProvider.recover(id)
+    : await sessionRepository.findById(id);
 
   if (!session) throw new ResourceNotFoundException('Session');
 
   if (session.token !== hash) throw new InvalidTokenException();
 
-  if (!cachedSession) await sessionCacheProvider.save(id, session);
+  if (!hasCachedSession) await sessionCacheProvider.save(id, session);
 
-  const cachedUser = await userCacheProvider.recover(session.user_id);
-  const user = cachedUser || await userRepository.findById(session.user_id);
+  const hasCachedUser = await userCacheProvider.exists(session.user_id);
+
+  const user = hasCachedUser
+    ? await userCacheProvider.recover(session.user_id)
+    : await userRepository.findById(session.user_id);
 
   if (!user) throw new ResourceNotFoundException('User');
 
-  if (!cachedUser) await userCacheProvider.save(session.user_id, user);
+  if (!hasCachedUser) await userCacheProvider.save(session.user_id, user);
 
   request.user = user;
 

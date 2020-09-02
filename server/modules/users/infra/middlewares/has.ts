@@ -18,17 +18,20 @@ export default function has(...flags: KeyofFlags[]) {
     async (request, response, next) => {
       const { user } = request;
 
-      const cachedPermissions = await permissionCacheProvider.recover(user.type_id);
+      const hasCachedPermissions = await permissionCacheProvider.exists(user.type_id);
 
-      const type = !cachedPermissions && await typeRepository.findById(user.type_id);
+      const cachedPermissions = hasCachedPermissions
+        && await permissionCacheProvider.recover(user.type_id);
 
-      if (!cachedPermissions) {
+      const type = !hasCachedPermissions && await typeRepository.findById(user.type_id);
+
+      if (!hasCachedPermissions) {
         if (!type) throw new ResourceNotFoundException('Type');
 
-        permissionCacheProvider.save(user.type_id, type.permissions);
+        await permissionCacheProvider.save(user.type_id, type.permissions);
       }
 
-      const permissions = Number(cachedPermissions || type.permissions);
+      const permissions = Number(hasCachedPermissions ? cachedPermissions : type.permissions);
 
       const missingPermissions: KeyofFlags[] = [];
 
