@@ -24,6 +24,8 @@ async function auth(
 ): Promise<void> {
   const { authorization } = request.headers;
 
+  if (!authorization) throw new InvalidTokenException();
+
   const { id, hash } = await sessionTokenProvider.parsePublicToken(authorization);
 
   const cachedSession = await sessionCacheProvider.recover(id);
