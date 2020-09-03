@@ -1,9 +1,7 @@
 import 'reflect-metadata';
 
 import './container';
-import './infra/knex';
 
-import { createRedisConnection } from './infra/redis';
-import createServer from './infra/http/server';
+import initialize from './initialize';
 
-createRedisConnection().then(() => createServer());
+initialize();
