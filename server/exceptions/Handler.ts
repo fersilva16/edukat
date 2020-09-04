@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
+import logger from '~/logger';
+
 import Exception from './Exception';
 
 export default class Handler {
@@ -14,6 +16,8 @@ export default class Handler {
 
       return;
     }
+
+    logger.error(exception.message, { label: 'server' });
 
     response.status(500).send({
       error: {
