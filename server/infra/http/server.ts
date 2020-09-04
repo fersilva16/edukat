@@ -6,6 +6,7 @@ import logger from '~/logger';
 
 import routes from './routes';
 import ssr from './ssr';
+import logging from './middlewares/logging';
 
 export default async function createServer() {
   await ssr.prepare();
@@ -13,6 +14,7 @@ export default async function createServer() {
   const app = express();
 
   app.use(json());
+  app.use(logging);
   app.use(routes);
 
   app.listen(appConfig.port, appConfig.host, (error) => {
