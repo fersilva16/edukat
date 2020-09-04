@@ -15,10 +15,12 @@ export default class CreateSessionController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<void> {
-    const credentials = await validateObject(Crendetials, request.body);
-
-    const token = await this.createSessionUseCase.execute(credentials);
+    const token = await this.createSessionUseCase.execute(request.body);
 
     response.send(token);
+  }
+
+  async validate(request: Request): Promise<void> {
+    await validateObject(Crendetials, request.body);
   }
 }

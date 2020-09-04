@@ -17,13 +17,13 @@ export default class CreateUserController {
   ) {}
 
   async handle(request: Request, response: Response): Promise<void> {
-    console.log(request.params);
-
-    const params = await validateParams(TypeUserParams, request.params);
-    const partialUser = await validateObject(PartialUser, request.body);
-
-    await this.createUserUseCase.execute(params.type_id, partialUser);
+    await this.createUserUseCase.execute(request.params.type_id, request.body);
 
     response.status(201).send();
+  }
+
+  async validate(request: Request): Promise<void> {
+    await validateParams(TypeUserParams, request.params);
+    await validateObject(PartialUser, request.body);
   }
 }

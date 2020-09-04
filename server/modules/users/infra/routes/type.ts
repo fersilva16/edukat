@@ -12,6 +12,10 @@ const createUserController = container.resolve(CreateUserController);
 
 const typeUserRoutes = Router();
 
-typeUserRoutes.post('/:type_id/users', auth, has('MANAGE_USERS'), createRequestHandler(createUserController));
+typeUserRoutes.post('/:type_id/users', createRequestHandler(
+  createUserController,
+  auth,
+  has('MANAGE_USERS'),
+));
 
 export default typeUserRoutes;
