@@ -1,7 +1,17 @@
 import faker from 'faker';
 import { Factory } from 'rosie';
 
+import ICreatePartialUserDTO from '@users/dtos/ICreatePartialUserDTO';
+import ICreateTypeDTO from '@users/dtos/ICreateTypeDTO';
 import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
+
+Factory.define<ICreatePartialUserDTO>('partialUser')
+  .attr('email', ['firstname', 'lastname'], (firstname, lastname) => faker.internet.email(firstname, lastname))
+  .attr('typeId', () => faker.random.uuid());
+
+Factory.define<ICreateTypeDTO>('type')
+  .attr('name', () => faker.random.word())
+  .attr('permissions', () => '1');
 
 Factory.define<ICreateUserDTO>('user')
   .attr('firstname', () => faker.name.firstName())
