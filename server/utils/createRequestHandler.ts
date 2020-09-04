@@ -8,7 +8,7 @@ import {
 import createMiddleware from './createMiddleware';
 
 export type Controller = {
-  validate(request: Request): Promise<void>;
+  validate?(request: Request): Promise<void>;
 
   handle(request: Request, response: Response): Promise<void>;
   handle(request: Request, response: Response, next: NextFunction): Promise<void>;
