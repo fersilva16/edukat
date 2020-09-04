@@ -18,16 +18,19 @@ export default function createRequestHandler(
   controller: Controller,
   ...middlewares: RequestHandler[]
 ): RequestHandler[] {
-  const validationMiddleware = createMiddleware(
-    async (request, response, next) => {
-      await controller.validate(request);
+  if (controller.validate) {
+    middlewares.unshift(
+      createMiddleware(
+        async (request, response, next) => {
+          await controller.validate(request);
 
-      next();
-    },
-  );
+          next();
+        },
+      ),
+    );
+  }
 
   return [
-    validationMiddleware,
     ...middlewares,
     (request, response, next) => controller.handle(request, response, next).catch(next),
   ];
