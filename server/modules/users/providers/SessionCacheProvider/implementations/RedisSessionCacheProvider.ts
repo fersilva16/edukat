@@ -38,7 +38,7 @@ export default class RedisSessionCacheProvider implements ISessionCacheProvider 
   }
 
   async recover(id: string): Promise<Session> {
-    const rawSession = await redis.hmget(this.addPrefix(id)) as unknown as IRawSession;
+    const rawSession = await redis.hgetall(this.addPrefix(id)) as unknown as IRawSession;
 
     return plainToClass(Session, rawSession);
   }

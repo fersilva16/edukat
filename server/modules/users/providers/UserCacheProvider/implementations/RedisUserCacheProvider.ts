@@ -38,7 +38,7 @@ export default class RedisUserCacheProvider implements IUserCacheProvider {
   }
 
   async recover(id: string): Promise<User> {
-    const rawUser = await redis.hmget(this.addPrefix(id)) as unknown as IRawUser;
+    const rawUser = await redis.hgetall(this.addPrefix(id)) as unknown as IRawUser;
 
     return plainToClass(User, rawUser);
   }
