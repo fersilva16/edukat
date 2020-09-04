@@ -2,6 +2,8 @@ import express from 'express';
 import { json } from 'body-parser';
 
 import appConfig from '~/config/app';
+import logger from '~/logger';
+
 import routes from './routes';
 import ssr from './ssr';
 
@@ -16,7 +18,6 @@ export default async function createServer() {
   app.listen(appConfig.port, appConfig.host, (error) => {
     if (error) throw error;
 
-    // eslint-disable-next-line no-console
-    console.log('Started!');
+    logger.info(`Started! Listening to ${appConfig.host}:${appConfig.port}`, { label: 'server' });
   });
 }
