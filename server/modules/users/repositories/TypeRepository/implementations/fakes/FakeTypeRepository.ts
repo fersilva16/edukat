@@ -8,7 +8,7 @@ import Type from '@users/entities/Type';
 
 import ITypeRepository from '../../ITypeRepository';
 
-export default class KnexTypeRepository implements ITypeRepository {
+export default class FakeTypeRepository implements ITypeRepository {
   private types: IRawType[] = [];
 
   async all(): Promise<Type[]> {
