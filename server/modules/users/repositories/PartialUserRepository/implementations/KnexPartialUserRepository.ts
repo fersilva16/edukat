@@ -46,4 +46,8 @@ export default class KnexPartialUserRepository implements IPartialUserRepository
 
     return plainToClass(PartialUser, partialUser[0]);
   }
+
+  async clear(): Promise<void> {
+    await this.table.truncate();
+  }
 }

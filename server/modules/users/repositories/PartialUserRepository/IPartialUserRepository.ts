@@ -7,4 +7,6 @@ export default interface IPartialUserRepository {
   findByEmail(email: string): Promise<PartialUser>;
 
   create(data: ICreatePartialUserDTO): Promise<PartialUser>;
+
+  clear(): Promise<void>;
 }

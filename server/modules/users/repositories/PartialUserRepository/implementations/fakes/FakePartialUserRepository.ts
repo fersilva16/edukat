@@ -44,4 +44,8 @@ export default class FakePartialUserRepository implements IPartialUserRepository
 
     return plainToClass(PartialUser, rawPartialUser);
   }
+
+  async clear(): Promise<void> {
+    this.partialUsers.splice(0, this.partialUsers.length);
+  }
 }
