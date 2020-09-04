@@ -21,7 +21,7 @@
             "position": "after"
           },
           {
-            "pattern": "@users/**",
+            "pattern": "@*/**",
             "group": "external",
             "position": "after"
           }
