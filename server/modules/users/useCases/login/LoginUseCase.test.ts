@@ -14,10 +14,10 @@ import ISessionRepository from '@users/repositories/SessionRepository/ISessionRe
 import FakeUserRepository from '@users/repositories/UserRepository/implementations/fakes/FakeUserRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
-import CreateSessionUseCase from './CreateSessionUseCase';
+import LoginUseCase from './LoginUseCase';
 
-describe('CreateSessionUseCase', () => {
-  let createSessionUseCase: CreateSessionUseCase;
+describe('LoginUseCase', () => {
+  let loginUseCase: LoginUseCase;
   let userRepository: IUserRepository;
   let hashProvider: IHashProvider;
   let sessionTokenProvider: ISessionTokenProvider;
@@ -29,7 +29,7 @@ describe('CreateSessionUseCase', () => {
     sessionTokenProvider = new FakeSessionTokenProvider();
     sessionRepository = new FakeSessionRepository();
 
-    createSessionUseCase = new CreateSessionUseCase(
+    loginUseCase = new LoginUseCase(
       userRepository,
       hashProvider,
       sessionTokenProvider,
@@ -52,7 +52,7 @@ describe('CreateSessionUseCase', () => {
 
     const { password: hashPassword } = await userRepository.create(user);
 
-    const token = await createSessionUseCase.execute({
+    const token = await loginUseCase.execute({
       email: user.email,
       password: user.password,
     });
@@ -83,7 +83,7 @@ describe('CreateSessionUseCase', () => {
 
     const { password: hashPassword } = await userRepository.create(user);
 
-    const token = await createSessionUseCase.execute({
+    const token = await loginUseCase.execute({
       username: user.username,
       password: user.password,
     });
@@ -107,7 +107,7 @@ describe('CreateSessionUseCase', () => {
     const user = Factory.build<ICreateUserDTO>('user');
 
     expect(
-      createSessionUseCase.execute({
+      loginUseCase.execute({
         email: user.email,
         username: user.username,
         password: user.password,
@@ -119,7 +119,7 @@ describe('CreateSessionUseCase', () => {
     const user = Factory.build<ICreateUserDTO>('user');
 
     expect(
-      createSessionUseCase.execute({
+      loginUseCase.execute({
         email: user.email,
         password: user.password,
       }),
@@ -130,7 +130,7 @@ describe('CreateSessionUseCase', () => {
     const user = Factory.build<ICreateUserDTO>('user');
 
     expect(
-      createSessionUseCase.execute({
+      loginUseCase.execute({
         username: user.username,
         password: user.password,
       }),
@@ -144,7 +144,7 @@ describe('CreateSessionUseCase', () => {
     await userRepository.create(user);
 
     expect(
-      createSessionUseCase.execute({
+      loginUseCase.execute({
         email: user.email,
         password: invalidPassword,
       }),

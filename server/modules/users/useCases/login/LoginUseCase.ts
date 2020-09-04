@@ -9,10 +9,10 @@ import IHashProvider from '@users/providers/HashProvider/IHashProvider';
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
-import ICreateSessionDTO from './CreateSessionDTO';
+import ILoginDTO from './LoginDTO';
 
 @injectable()
-export default class CreateSessionUseCase {
+export default class LoginUseCase {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository,
@@ -27,7 +27,7 @@ export default class CreateSessionUseCase {
     private sessionRepository: ISessionRepository,
   ) {}
 
-  async execute({ email, username, password }: ICreateSessionDTO): Promise<ISharableTokenDTO> {
+  async execute({ email, username, password }: ILoginDTO): Promise<ISharableTokenDTO> {
     if (email && username) {
       throw new BadRequestException('Only one of: email, username', 'UID_INVALID');
     }

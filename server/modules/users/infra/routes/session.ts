@@ -3,12 +3,12 @@ import { container } from 'tsyringe';
 
 import createRequestHandler from '~/utils/createRequestHandler';
 
-import CreateSessionController from '@users/useCases/createSession/CreateSessionController';
+import LoginController from '@users/useCases/login/LoginController';
 
-const createSessionController = container.resolve(CreateSessionController);
+const loginController = container.resolve(LoginController);
 
 const routes = Router();
 
-routes.post('/', createRequestHandler(createSessionController));
+routes.post('/', createRequestHandler(loginController));
 
 export default routes;

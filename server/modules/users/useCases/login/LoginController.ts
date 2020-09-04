@@ -5,17 +5,17 @@ import validateObject from '~/utils/validate/object';
 
 import Crendetials from '@users/infra/validators/Credentials';
 
-import CreateSessionUseCase from './CreateSessionUseCase';
+import LoginUseCase from './LoginUseCase';
 
 @injectable()
-export default class CreateSessionController {
+export default class LoginController {
   constructor(
-    @inject('CreateSessionUseCase')
-    private createSessionUseCase: CreateSessionUseCase,
+    @inject('LoginUseCase')
+    private loginUseCase: LoginUseCase,
   ) {}
 
   async handle(request: Request, response: Response): Promise<void> {
-    const token = await this.createSessionUseCase.execute(request.body);
+    const token = await this.loginUseCase.execute(request.body);
 
     response.send(token);
   }

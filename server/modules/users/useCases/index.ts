@@ -1,2 +1,2 @@
-import './createSession';
+import './login';
 import './createUser';
