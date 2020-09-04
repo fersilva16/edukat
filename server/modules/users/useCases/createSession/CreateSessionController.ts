@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
-import { validateObject } from '~/utils/validate';
+import validateObject from '~/utils/validate/object';
 
 import Crendetials from '@users/infra/validators/Credentials';
 
