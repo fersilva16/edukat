@@ -1,12 +1,12 @@
-import { v4 as uuid } from 'uuid';
-import { DateTime } from 'luxon';
 import { plainToClass } from 'class-transformer';
-
-import ICreateTypeDTO from '@users/dtos/ICreateTypeDTO';
-import Type from '@users/entities/Type';
-import IRawType from '@users/entities/raws/IRawType';
+import { DateTime } from 'luxon';
+import { v4 as uuid } from 'uuid';
 
 import knex from '~/infra/knex';
+
+import ICreateTypeDTO from '@users/dtos/ICreateTypeDTO';
+import IRawType from '@users/entities/raws/IRawType';
+import Type from '@users/entities/Type';
 
 import ITypeRepository from '../ITypeRepository';
 

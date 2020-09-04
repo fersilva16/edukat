@@ -1,12 +1,12 @@
-import express from 'express';
 import { json } from 'body-parser';
+import express from 'express';
 
 import appConfig from '~/config/app';
 import logger from '~/logger';
 
+import logging from './middlewares/logging';
 import routes from './routes';
 import ssr from './ssr';
-import logging from './middlewares/logging';
 
 export default async function createServer() {
   await ssr.prepare();

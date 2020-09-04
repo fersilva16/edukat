@@ -1,5 +1,5 @@
-import next from 'next';
 import { RequestHandler } from 'express';
+import next from 'next';
 
 import appConfig from '~/config/app';
 

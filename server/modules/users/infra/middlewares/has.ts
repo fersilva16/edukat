@@ -1,13 +1,13 @@
 import { container } from 'tsyringe';
 
-import { KeyofFlags } from '@users/dtos/Flags';
-import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
-import IPermissionProvider from '@users/providers/PermissionProvider/IPermissionProvider';
-import IPermissionCacheProvider from '@users/providers/PermissionCacheProvider/IPermissionCacheProvider';
-
-import createMiddleware from '~/utils/createMiddleware';
-import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import MissingPermissionsException from '~/exceptions/MissingPermissionsException';
+import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
+import createMiddleware from '~/utils/createMiddleware';
+
+import { KeyofFlags } from '@users/dtos/Flags';
+import IPermissionCacheProvider from '@users/providers/PermissionCacheProvider/IPermissionCacheProvider';
+import IPermissionProvider from '@users/providers/PermissionProvider/IPermissionProvider';
+import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
 
 const typeRepository = container.resolve<ITypeRepository>('TypeRepository');
 const permissionProvider = container.resolve<IPermissionProvider>('PermissionProvider');

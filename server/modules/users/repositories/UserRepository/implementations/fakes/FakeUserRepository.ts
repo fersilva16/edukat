@@ -1,10 +1,10 @@
-import { v4 as uuid } from 'uuid';
-import { DateTime } from 'luxon';
 import { plainToClass } from 'class-transformer';
+import { DateTime } from 'luxon';
+import { v4 as uuid } from 'uuid';
 
-import User from '@users/entities/User';
-import IRawUser from '@users/entities/raws/IRawUser';
 import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
+import IRawUser from '@users/entities/raws/IRawUser';
+import User from '@users/entities/User';
 
 import IUserRepository from '../../IUserRepository';
 

@@ -5,10 +5,10 @@ import {
   NextFunction,
 } from 'express';
 
-import sessionRoutes from '@users/infra/routes/session';
-
 import Exception from '~/exceptions/Exception';
 import Handler from '~/exceptions/Handler';
+
+import sessionRoutes from '@users/infra/routes/session';
 
 const handler = new Handler();
 

@@ -1,12 +1,12 @@
 import { plainToClass } from 'class-transformer';
-import { v4 as uuid } from 'uuid';
 import { DateTime } from 'luxon';
-
-import PartialUser from '@users/entities/PartialUser';
-import IRawPartialUser from '@users/entities/raws/IRawPartialUser';
-import ICreatePartialUserDTO from '@users/dtos/ICreatePartialUserDTO';
+import { v4 as uuid } from 'uuid';
 
 import knex from '~/infra/knex';
+
+import ICreatePartialUserDTO from '@users/dtos/ICreatePartialUserDTO';
+import PartialUser from '@users/entities/PartialUser';
+import IRawPartialUser from '@users/entities/raws/IRawPartialUser';
 
 import IPartialUserRepository from '../IPartialUserRepository';
 

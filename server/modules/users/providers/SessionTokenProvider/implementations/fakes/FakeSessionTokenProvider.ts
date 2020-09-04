@@ -1,10 +1,10 @@
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
-
-import ISessionTokenProvider from '../../ISessionTokenProvider';
-import ITokenDTO from '../../dtos/ITokenDTO';
 import randomString from '~/utils/randomString';
+
 import IPublicTokenDTO from '../../dtos/IPublicTokenDTO';
 import ISharableTokenDTO from '../../dtos/ISharableTokenDTO';
+import ITokenDTO from '../../dtos/ITokenDTO';
+import ISessionTokenProvider from '../../ISessionTokenProvider';
 
 export default class FakeSessionTokenProvider implements ISessionTokenProvider {
   private type: string = 'Fake';

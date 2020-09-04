@@ -1,5 +1,4 @@
 import { ValidationError } from 'class-validator';
-
 import { Request, Response, NextFunction } from 'express';
 
 import Exception from './Exception';

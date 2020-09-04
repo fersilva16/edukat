@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 
-import ITemplateProvider from './ITemplateProvider';
 import HandlebarsTemplateProvider from './implementations/HandlebarsTemplateProvider';
+import ITemplateProvider from './ITemplateProvider';
 
 container.registerSingleton<ITemplateProvider>('TemplateProvider', HandlebarsTemplateProvider);

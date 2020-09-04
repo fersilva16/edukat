@@ -1,18 +1,18 @@
-import { Factory } from 'rosie';
 import faker from 'faker';
-
-import FakeSessionRepository from '@users/repositories/SessionRepository/implementations/fakes/FakeSessionRepository';
-import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
-import FakeUserRepository from '@users/repositories/UserRepository/implementations/fakes/FakeUserRepository';
-import FakeHashProvider from '@users/providers/HashProvider/implementations/fakes/FakeHashProvider';
-import FakeSessionTokenProvider from '@users/providers/SessionTokenProvider/implementations/fakes/FakeSessionTokenProvider';
-import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
-import ISessionTokenProvider from '@users/providers/SessionTokenProvider/ISessionTokenProvider';
-import IHashProvider from '@users/providers/HashProvider/IHashProvider';
-import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
+import { Factory } from 'rosie';
 
 import BadRequestException from '~/exceptions/BadRequestException';
 import InvalidCredentialsException from '~/exceptions/InvalidCredentialsException';
+
+import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
+import IHashProvider from '@users/providers/HashProvider/IHashProvider';
+import FakeHashProvider from '@users/providers/HashProvider/implementations/fakes/FakeHashProvider';
+import FakeSessionTokenProvider from '@users/providers/SessionTokenProvider/implementations/fakes/FakeSessionTokenProvider';
+import ISessionTokenProvider from '@users/providers/SessionTokenProvider/ISessionTokenProvider';
+import FakeSessionRepository from '@users/repositories/SessionRepository/implementations/fakes/FakeSessionRepository';
+import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
+import FakeUserRepository from '@users/repositories/UserRepository/implementations/fakes/FakeUserRepository';
+import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
 import CreateSessionUseCase from './CreateSessionUseCase';
 

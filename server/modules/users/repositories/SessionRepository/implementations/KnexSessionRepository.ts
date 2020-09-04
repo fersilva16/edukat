@@ -1,12 +1,12 @@
 import { plainToClass } from 'class-transformer';
-import { v4 as uuid } from 'uuid';
 import { DateTime } from 'luxon';
+import { v4 as uuid } from 'uuid';
+
+import knex from '~/infra/knex';
 
 import ICreateSessionDTO from '@users/dtos/ICreateSessionDTO';
 import IRawSession from '@users/entities/raws/IRawSession';
 import Session from '@users/entities/Session';
-
-import knex from '~/infra/knex';
 
 import ISessionRepository from '../ISessionRepository';
 

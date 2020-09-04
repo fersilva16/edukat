@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 
-import ISessionRepository from './ISessionRepository';
 import KnexSessionRepository from './implementations/KnexSessionRepository';
+import ISessionRepository from './ISessionRepository';
 
 container.registerSingleton<ISessionRepository>('SessionRepository', KnexSessionRepository);

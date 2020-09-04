@@ -1,9 +1,9 @@
 import { plainToClass } from 'class-transformer';
 
-import Session from '@users/entities/Session';
-import IRawSession from '@users/entities/raws/IRawSession';
-
 import redis from '~/infra/redis';
+
+import IRawSession from '@users/entities/raws/IRawSession';
+import Session from '@users/entities/Session';
 
 import ISessionCacheProvider from '../ISessionCacheProvider';
 

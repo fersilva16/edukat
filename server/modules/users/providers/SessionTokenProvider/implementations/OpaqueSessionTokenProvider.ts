@@ -1,15 +1,15 @@
-import { injectable, inject } from 'tsyringe';
 import { DateTime, DurationObject } from 'luxon';
+import { injectable, inject } from 'tsyringe';
 
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import base64Url from '~/utils/base64Url';
 import randomString from '~/utils/randomString';
 
-import ISessionTokenProvider from '../ISessionTokenProvider';
-import ITokenDTO from '../dtos/ITokenDTO';
+import IHashProvider from '../../HashProvider/IHashProvider';
 import IPublicTokenDTO from '../dtos/IPublicTokenDTO';
 import ISharableTokenDTO from '../dtos/ISharableTokenDTO';
-import IHashProvider from '../../HashProvider/IHashProvider';
+import ITokenDTO from '../dtos/ITokenDTO';
+import ISessionTokenProvider from '../ISessionTokenProvider';
 
 @injectable()
 export default class OpaqueSessionTokenProvider implements ISessionTokenProvider {

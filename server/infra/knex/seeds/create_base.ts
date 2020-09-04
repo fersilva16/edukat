@@ -6,12 +6,12 @@ import '~/container';
 
 import { container } from 'tsyringe';
 
-import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
-import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
-import IPermissionProvider from '@users/providers/PermissionProvider/IPermissionProvider';
-import Type from '@users/entities/Type';
-
 import baseConfig, { TypeWithFlags } from '~/config/base';
+
+import Type from '@users/entities/Type';
+import IPermissionProvider from '@users/providers/PermissionProvider/IPermissionProvider';
+import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
+import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
 const userRepository = container.resolve<IUserRepository>('UserRepository');
 const typeRepository = container.resolve<ITypeRepository>('TypeRepository');

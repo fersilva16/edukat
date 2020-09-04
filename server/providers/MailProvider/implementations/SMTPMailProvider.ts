@@ -1,11 +1,11 @@
-import { injectable, inject } from 'tsyringe';
 import nodemailer from 'nodemailer';
+import { injectable, inject } from 'tsyringe';
 
 import mailConfig from '~/config/mail';
 import ITemplateProvider from '~/providers/TemplateProvider/ITemplateProvider';
 
-import IMailProvider from '../IMailProvider';
 import ISendMailDTO from '../dtos/ISendMailDTO';
+import IMailProvider from '../IMailProvider';
 
 @injectable()
 export default class SMTPMailProvider implements IMailProvider {

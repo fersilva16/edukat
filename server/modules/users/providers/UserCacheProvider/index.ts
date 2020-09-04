@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 
-import IUserCacheProvider from './IUserCacheProvider';
 import RedisUserCacheProvider from './implementations/RedisUserCacheProvider';
+import IUserCacheProvider from './IUserCacheProvider';
 
 container.registerSingleton<IUserCacheProvider>('UserCacheProvider', RedisUserCacheProvider);

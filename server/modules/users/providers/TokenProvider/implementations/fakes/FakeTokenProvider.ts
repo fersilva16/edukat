@@ -1,5 +1,5 @@
-import base64Url from '~/utils/base64Url';
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
+import base64Url from '~/utils/base64Url';
 
 import ITokenProvider from '../../ITokenProvider';
 

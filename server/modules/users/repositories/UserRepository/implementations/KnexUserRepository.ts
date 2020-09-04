@@ -1,14 +1,14 @@
+import { plainToClass } from 'class-transformer';
+import { DateTime } from 'luxon';
 import { injectable, inject } from 'tsyringe';
 import { v4 as uuidv4 } from 'uuid';
-import { DateTime } from 'luxon';
-import { plainToClass } from 'class-transformer';
-
-import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
-import User from '@users/entities/User';
-import IRawUser from '@users/entities/raws/IRawUser';
-import IHashProvider from '@users/providers/HashProvider/IHashProvider';
 
 import knex from '~/infra/knex';
+
+import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
+import IRawUser from '@users/entities/raws/IRawUser';
+import User from '@users/entities/User';
+import IHashProvider from '@users/providers/HashProvider/IHashProvider';
 
 import IUserRepository from '../IUserRepository';
 

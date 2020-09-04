@@ -4,7 +4,39 @@
     "airbnb/hooks"
   ],
   "rules": {
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          ["builtin", "external"],
+          "internal"
+        ],
+
+        "pathGroups": [
+          {
+            "pattern": "~/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@users/**",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+
+        "newlines-between": "always",
+
+        "pathGroupsExcludedImportTypes": []
+      }
+    ]
   },
   "parserOptions": {
     "project": "./tsconfig.eslint.json"

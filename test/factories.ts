@@ -1,5 +1,5 @@
-import { Factory } from 'rosie';
 import faker from 'faker';
+import { Factory } from 'rosie';
 
 import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
 

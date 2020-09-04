@@ -1,10 +1,10 @@
 import { plainToClass } from 'class-transformer';
-import { v4 as uuid } from 'uuid';
 import { DateTime } from 'luxon';
+import { v4 as uuid } from 'uuid';
 
 import ICreateSessionDTO from '@users/dtos/ICreateSessionDTO';
-import Session from '@users/entities/Session';
 import IRawSession from '@users/entities/raws/IRawSession';
+import Session from '@users/entities/Session';
 
 import ISessionRepository from '../../ISessionRepository';
 

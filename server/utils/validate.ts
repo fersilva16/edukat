@@ -1,6 +1,6 @@
-import { ValidationError } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 import { ClassType, transformAndValidate } from 'class-transformer-validator';
+import { ValidationError } from 'class-validator';
 
 import ValidationException from '~/exceptions/ValidationException';
 

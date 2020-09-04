@@ -1,6 +1,6 @@
-import ITokenDTO from './dtos/ITokenDTO';
 import IPublicTokenDTO from './dtos/IPublicTokenDTO';
 import ISharableTokenDTO from './dtos/ISharableTokenDTO';
+import ITokenDTO from './dtos/ITokenDTO';
 
 export default interface ISessionTokenProvider {
   generateToken(): Promise<ITokenDTO>;

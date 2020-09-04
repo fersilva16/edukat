@@ -1,9 +1,9 @@
-import Handlebars, { TemplateDelegate } from 'handlebars';
 import { promises as fs } from 'fs';
+import Handlebars, { TemplateDelegate } from 'handlebars';
 import { resolve } from 'path';
 
-import ITemplateProvider from '../ITemplateProvider';
 import ITemplateData from '../dtos/ITemplateData';
+import ITemplateProvider from '../ITemplateProvider';
 
 export default class HandlebarsTemplateProvider implements ITemplateProvider {
   private templates = new Map<string, TemplateDelegate>();

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
-import Crendetials from '@users/infra/validators/Credentials';
-
 import { validateObject } from '~/utils/validate';
+
+import Crendetials from '@users/infra/validators/Credentials';
 
 import CreateSessionUseCase from './CreateSessionUseCase';
 

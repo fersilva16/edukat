@@ -1,13 +1,14 @@
 import { injectable, inject } from 'tsyringe';
 
-import IHashProvider from '@users/providers/HashProvider/IHashProvider';
-import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
-import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
-import ISessionTokenProvider from '~/modules/users/providers/SessionTokenProvider/ISessionTokenProvider';
-import ISharableTokenDTO from '~/modules/users/providers/SessionTokenProvider/dtos/ISharableTokenDTO';
-
 import BadRequestException from '~/exceptions/BadRequestException';
 import InvalidCredentialsException from '~/exceptions/InvalidCredentialsException';
+import ISharableTokenDTO from '~/modules/users/providers/SessionTokenProvider/dtos/ISharableTokenDTO';
+import ISessionTokenProvider from '~/modules/users/providers/SessionTokenProvider/ISessionTokenProvider';
+
+import IHashProvider from '@users/providers/HashProvider/IHashProvider';
+import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
+import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
+
 import ICreateSessionDTO from './CreateSessionDTO';
 
 @injectable()

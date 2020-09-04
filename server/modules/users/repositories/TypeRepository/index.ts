@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 
-import ITypeRepository from './ITypeRepository';
 import KnexTypeRepository from './implementations/KnexTypeRepository';
+import ITypeRepository from './ITypeRepository';
 
 container.registerSingleton<ITypeRepository>('TypeRepository', KnexTypeRepository);

@@ -1,9 +1,9 @@
-import { container } from 'tsyringe';
 import { Router } from 'express';
-
-import CreateSessionController from '@users/useCases/createSession/CreateSessionController';
+import { container } from 'tsyringe';
 
 import createRequestHandler from '~/utils/createRequestHandler';
+
+import CreateSessionController from '@users/useCases/createSession/CreateSessionController';
 
 const createSessionController = container.resolve(CreateSessionController);
 

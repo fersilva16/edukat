@@ -1,6 +1,6 @@
+import createServer from './infra/http/server';
 import { ensureDatabaseConnection } from './infra/knex';
 import { createRedisConnection } from './infra/redis';
-import createServer from './infra/http/server';
 import logger from './logger';
 
 export default async function initialize() {

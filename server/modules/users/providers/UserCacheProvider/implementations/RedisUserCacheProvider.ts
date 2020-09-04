@@ -1,9 +1,9 @@
 import { plainToClass } from 'class-transformer';
 
-import User from '@users/entities/User';
-import IRawUser from '@users/entities/raws/IRawUser';
-
 import redis from '~/infra/redis';
+
+import IRawUser from '@users/entities/raws/IRawUser';
+import User from '@users/entities/User';
 
 import IUserCacheProvider from '../IUserCacheProvider';
 

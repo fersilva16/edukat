@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 
-import IPartialUserRepository from './IPartialUserRepository';
 import KnexPartialUserRepository from './implementations/KnexPartialUserRepository';
+import IPartialUserRepository from './IPartialUserRepository';
 
 container.registerSingleton<IPartialUserRepository>('PartialUserRepository', KnexPartialUserRepository);
