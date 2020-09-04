@@ -11,6 +11,10 @@ import ITypeRepository from '../../ITypeRepository';
 export default class KnexTypeRepository implements ITypeRepository {
   private types: IRawType[] = [];
 
+  async all(): Promise<Type[]> {
+    return plainToClass(Type, this.types);
+  }
+
   async findById(id: string): Promise<Type> {
     const type = this.types.find((rawType) => rawType.id === id);
 

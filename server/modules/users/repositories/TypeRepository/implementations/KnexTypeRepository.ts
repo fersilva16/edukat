@@ -13,6 +13,12 @@ import ITypeRepository from '../ITypeRepository';
 export default class KnexTypeRepository implements ITypeRepository {
   private table = knex.table<IRawType>('types');
 
+  async all(): Promise<Type[]> {
+    const types = await this.table.select('*');
+
+    return plainToClass(Type, types);
+  }
+
   async findById(id: string): Promise<Type> {
     const rawType = await this.table.select('*').where('id', id).first();
 
