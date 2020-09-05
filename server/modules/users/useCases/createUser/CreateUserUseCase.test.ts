@@ -1,6 +1,7 @@
 import faker from 'faker';
 import { Factory } from 'rosie';
 
+import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
 import FakeMailProvider from '~/providers/MailProvider/implementations/fakes/FakeMailProvider';
 
@@ -12,7 +13,6 @@ import IPartialUserRepository from '@users/repositories/PartialUserRepository/IP
 import FakeUserRepository from '@users/repositories/UserRepository/implementations/fakes/FakeUserRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
-import ResourceAlreadyExistsException from '../../../../exceptions/ResourceAlreadyExistsException';
 import CreateUserUseCase from './CreateUserUseCase';
 
 describe('CreateUserUseCase', () => {
