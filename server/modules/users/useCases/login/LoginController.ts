@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
+import IController from '~/types/IController';
 import validateObject from '~/utils/validate/object';
 
 import Crendetials from '@users/infra/validators/Credentials';
@@ -8,7 +9,7 @@ import Crendetials from '@users/infra/validators/Credentials';
 import LoginUseCase from './LoginUseCase';
 
 @injectable()
-export default class LoginController {
+export default class LoginController implements IController {
   constructor(
     @inject('LoginUseCase')
     private loginUseCase: LoginUseCase,

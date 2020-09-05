@@ -1,21 +1,11 @@
-import {
-  RequestHandler,
-  Request,
-  Response,
-  NextFunction,
-} from 'express';
+import { RequestHandler } from 'express';
+
+import IController from '~/types/IController';
 
 import createMiddleware from './createMiddleware';
 
-export type Controller = {
-  validate?(request: Request): Promise<void>;
-
-  handle(request: Request, response: Response): Promise<void>;
-  handle(request: Request, response: Response, next: NextFunction): Promise<void>;
-};
-
 export default function createRequestHandler(
-  controller: Controller,
+  controller: IController,
   ...middlewares: RequestHandler[]
 ): RequestHandler[] {
   if (controller.validate) {

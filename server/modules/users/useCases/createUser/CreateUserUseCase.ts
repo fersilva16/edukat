@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
+import IUseCase from '~/types/IUseCase';
 
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import IPartialUserRepository from '@users/repositories/PartialUserRepository/IPartialUserRepository';
@@ -10,7 +11,7 @@ import IUserRepository from '@users/repositories/UserRepository/IUserRepository'
 import ICreateUserDTO from './CreateUserDTO';
 
 @injectable()
-export default class CreateUserUseCase {
+export default class CreateUserUseCase implements IUseCase {
   constructor(
     @inject('PartialUserRepository')
     private partialUserRepository: IPartialUserRepository,

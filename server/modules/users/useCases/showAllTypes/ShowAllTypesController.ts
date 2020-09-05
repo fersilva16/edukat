@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
+import IController from '~/types/IController';
+
 import ShowAllTypesUseCase from './ShowAllTypesUseCase';
 
 @injectable()
-export default class ShowAllTypesController {
+export default class ShowAllTypesController implements IController {
   constructor(
     @inject('ShowAllTypesUseCase')
     private showAllTypesUseCase: ShowAllTypesUseCase,

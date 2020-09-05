@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
+import IController from '~/types/IController';
 import validateObject from '~/utils/validate/object';
 import validateParams from '~/utils/validate/params';
 
@@ -10,7 +11,7 @@ import TypeUserParams from '@users/infra/validators/TypeUserParams';
 import CreateUserUseCase from './CreateUserUseCase';
 
 @injectable()
-export default class CreateUserController {
+export default class CreateUserController implements IController {
   constructor(
     @inject('CreateUserUseCase')
     private createUserUseCase: CreateUserUseCase,
