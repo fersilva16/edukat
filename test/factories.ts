@@ -6,7 +6,7 @@ import ICreateTypeDTO from '@users/dtos/ICreateTypeDTO';
 import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
 
 Factory.define<ICreatePartialUserDTO>('partialUser')
-  .attr('email', ['firstname', 'lastname'], (firstname, lastname) => faker.internet.email(firstname, lastname))
+  .attr('email', () => faker.internet.email())
   .attr('typeId', () => faker.random.uuid());
 
 Factory.define<ICreateTypeDTO>('type')

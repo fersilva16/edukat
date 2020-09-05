@@ -22,6 +22,10 @@ describe('ShowAllTypesUseCase', () => {
 
     const result = await showAllTypesUseCase.execute();
 
-    expect(result).toBe([type1, type2, type3]);
+    expect(result).toBeArray();
+
+    const ids = result.map((type) => type.id);
+
+    expect(ids).toIncludeAllMembers([type1.id, type2.id, type3.id]);
   });
 });
