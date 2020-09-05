@@ -1,5 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
+import appConfig from '~/config/app';
 import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
 import IUseCase from '~/types/IUseCase';
@@ -41,11 +42,6 @@ export default class CreateUserUseCase implements IUseCase {
     const token = await this.tokenProvider.generateToken(partialUser);
 
     this.mailProvider.sendMail({
-      from: {
-        name: 'Edukat',
-        email: 'contact@edukat.com.br',
-      },
-
       to: {
         name: data.firstname,
         email: data.email,
@@ -56,6 +52,7 @@ export default class CreateUserUseCase implements IUseCase {
       template: {
         file: 'modules/users/views/invite.hbs',
         context: {
+          baseUrl: appConfig.baseUrl,
           token,
         },
       },

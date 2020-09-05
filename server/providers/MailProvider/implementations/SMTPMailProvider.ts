@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import { injectable, inject } from 'tsyringe';
 
+import appConfig from '~/config/app';
 import mailConfig from '~/config/mail';
 import ITemplateProvider from '~/providers/TemplateProvider/ITemplateProvider';
 
@@ -18,7 +19,6 @@ export default class SMTPMailProvider implements IMailProvider {
 
   async sendMail({
     to,
-    from,
     subject,
     template,
   }: ISendMailDTO): Promise<void> {
@@ -31,8 +31,8 @@ export default class SMTPMailProvider implements IMailProvider {
       },
 
       from: {
-        name: from.name,
-        address: from.email,
+        name: appConfig.name,
+        address: appConfig.email,
       },
 
       subject,
