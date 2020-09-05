@@ -26,19 +26,19 @@ export default class CreateUserUseCase implements IUseCase {
     private mailProvider: IMailProvider,
   ) {}
 
-  async execute(type: string, data: ICreateUserDTO): Promise<void> {
+  async execute(data: ICreateUserDTO): Promise<void> {
     const userExists = await this.partialUserRepository.findByEmail(data.email)
       || await this.userRepository.findByEmail(data.email);
 
     if (userExists) throw new ResourceAlreadyExistsException('User');
 
-    const { id } = await this.partialUserRepository.create({
+    const partialUser = await this.partialUserRepository.create({
       ...data,
 
-      typeId: type,
+      typeId: data.typeId,
     });
 
-    const token = await this.tokenProvider.generateToken({ id, email: data.email });
+    const token = await this.tokenProvider.generateToken(partialUser);
 
     this.mailProvider.sendMail({
       from: {

@@ -52,7 +52,7 @@ describe('CreateUserUseCase', () => {
 
     const partialUser = Factory.build<ICreatePartialUserDTO>('partialUser');
 
-    await createUserUseCase.execute(typeId, partialUser);
+    await createUserUseCase.execute({ ...partialUser, typeId });
 
     expect(userFindByEmail).toHaveBeenCalledWith(partialUser.email);
 
@@ -70,7 +70,7 @@ describe('CreateUserUseCase', () => {
     const { email } = await userRepository.create(Factory.build('user'));
 
     expect(
-      createUserUseCase.execute(typeId, { email }),
+      createUserUseCase.execute({ email, typeId }),
     ).rejects.toBeInstanceOf(ResourceAlreadyExistsException);
   });
 
@@ -79,7 +79,7 @@ describe('CreateUserUseCase', () => {
     const { email } = await partialUserRepository.create(Factory.build('partialUser'));
 
     expect(
-      createUserUseCase.execute(typeId, { email }),
+      createUserUseCase.execute({ email, typeId }),
     ).rejects.toBeInstanceOf(ResourceAlreadyExistsException);
   });
 });
