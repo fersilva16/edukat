@@ -1,6 +1,7 @@
 {
   "extends": "./server/tsconfig.json",
   "include": [
+    "commitlint.config.js",
     "next-env.d.ts",
     "server",
     "src",
