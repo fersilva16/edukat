@@ -3,7 +3,7 @@ import { injectable, inject } from 'tsyringe';
 
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import base64Url from '~/utils/base64Url';
-import randomString from '~/utils/randomString';
+import random from '~/utils/random';
 
 import IHashProvider from '../../HashProvider/IHashProvider';
 import IPublicTokenDTO from '../dtos/IPublicTokenDTO';
@@ -29,7 +29,7 @@ export default class OpaqueSessionTokenProvider implements ISessionTokenProvider
   }
 
   async generateToken(): Promise<ITokenDTO> {
-    const value = randomString(this.tokenLength);
+    const value = random.base64(this.tokenLength);
     const hash = await this.sha256HashProvider.hash(value);
 
     return {

@@ -1,5 +1,5 @@
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
-import randomString from '~/utils/randomString';
+import ramdom from '~/utils/random';
 
 import IPublicTokenDTO from '../../dtos/IPublicTokenDTO';
 import ISharableTokenDTO from '../../dtos/ISharableTokenDTO';
@@ -12,7 +12,7 @@ export default class FakeSessionTokenProvider implements ISessionTokenProvider {
   private tokenLength: number = 20;
 
   async generateToken(): Promise<ITokenDTO> {
-    const value = randomString(this.tokenLength);
+    const value = ramdom.base64(this.tokenLength);
 
     return {
       value,
