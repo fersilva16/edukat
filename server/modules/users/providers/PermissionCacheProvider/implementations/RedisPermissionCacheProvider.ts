@@ -14,9 +14,7 @@ export default class RedisPermissionCacheProvider implements IPermissionCachePro
   async save(id: string, permissions: string): Promise<void> {
     const key = this.addPrefix(id);
 
-    await redis.set(key, permissions);
-
-    await redis.expire(key, this.expiriationTime);
+    await redis.setex(key, this.expiriationTime, permissions);
   }
 
   async exists(id: string): Promise<boolean> {
