@@ -11,7 +11,7 @@ import VerifyEmailUseCase from './VerifyEmailUseCase';
 @injectable()
 export default class VerifyEmailController implements IController {
   constructor(
-    @inject('VerfiyEmailUseCase')
+    @inject('VerifyEmailUseCase')
     private verifyEmailUseCase: VerifyEmailUseCase,
   ) {}
 
