@@ -1,16 +1,18 @@
 import { Config } from 'knex';
 import path from 'path';
 
+import env from '~/utils/env';
+
 const databaseConfig: Config = {
   client: 'pg',
 
   connection: {
-    host: process.env.DB_HOST || 'localhost',
-    port: Number(process.env.DB_PORT || 5432),
-    database: process.env.DB_DATABASE || 'edukat',
+    host: env.string('DB_HOST', 'localhost'),
+    port: env.number('DB_PORT', 5432),
+    database: env.string('DB_DATABASE', 'edukat'),
 
-    user: process.env.DB_USERNAME || 'postgres',
-    password: process.env.DB_PASSWORD,
+    user: env.string('DB_USERNAME', 'postgres'),
+    password: env.string('DB_PASSWORD'),
   },
 
   migrations: {

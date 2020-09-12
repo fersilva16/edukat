@@ -1,3 +1,5 @@
+import env from '~/utils/env';
+
 type MailConfig = {
   driver: string;
 
@@ -15,16 +17,17 @@ type MailConfig = {
 };
 
 const mailConfig: MailConfig = {
-  driver: process.env.MAIL_DRIVER || 'smtp',
+  driver: env.string('MAIL_DRIVER', 'smtp'),
 
   drivers: {
     smtp: {
-      host: process.env.SMTP_HOST || 'localhost',
-      port: Number(process.env.SMTP_PORT) || 25,
+      host: env.string('SMTP_HOST', 'localhost'),
+      port: env.number('SMTP_PORT', 25),
+
       auth: {
         type: 'login',
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: env.string('SMTP_USER'),
+        pass: env.string('SMTP_PASS'),
       },
     },
   },

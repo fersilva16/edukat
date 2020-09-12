@@ -1,5 +1,7 @@
 import { RedisOptions } from 'ioredis';
 
+import env from '~/utils/env';
+
 type CacheConfig = {
   redis: RedisOptions;
 };
@@ -8,11 +10,12 @@ const cacheConfig: CacheConfig = {
   redis: {
     lazyConnect: true,
 
-    host: process.env.REDIS_HOST || 'localhost',
-    port: Number(process.env.REDIS_PORT) || 6379,
-    db: Number(process.env.REDIS_DB) || 0,
-    username: process.env.REDIS_USERNAME,
-    password: process.env.REDIS_PASSWORD,
+    host: env.string('REDIS_HOST', 'localhost'),
+    port: env.number('REDIS_PORT', 6379),
+    db: env.number('REDIS_DB', 0),
+
+    username: env.string('REDIS_USERNAME'),
+    password: env.string('REDIS_PASSWORD'),
   },
 };
 

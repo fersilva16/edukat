@@ -1,4 +1,5 @@
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
+
 const { compilerOptions } = require('./server/tsconfig.json');
 
 module.exports = {
@@ -19,6 +20,7 @@ module.exports = {
   },
 
   setupFilesAfterEnv: [
+    'dotenv/config',
     'reflect-metadata',
     'jest-extended',
     'jest-chain',
