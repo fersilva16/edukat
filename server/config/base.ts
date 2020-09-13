@@ -24,7 +24,6 @@ const baseConfig: BaseConfig = {
     firstname: env.string('ADMIN_FIRSTNAME', 'Admin'),
     lastname: env.string('ADMIN_LASTNAME', 'Admin'),
 
-    username: env.string('ADMIN_USERNAME', 'admin'),
     email: env.string('ADMIN_EMAIL', 'admin@edukat.com.br'),
 
     password: env.string('ADMIN_PASSWORD', 'admin'),

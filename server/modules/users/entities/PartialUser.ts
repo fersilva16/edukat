@@ -8,8 +8,6 @@ export default class PartialUser {
 
   lastname?: string;
 
-  username?: string;
-
   email: string;
 
   type_id: string;

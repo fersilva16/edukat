@@ -1,7 +1,6 @@
 import faker from 'faker';
 import { Factory } from 'rosie';
 
-import BadRequestException from '~/exceptions/BadRequestException';
 import InvalidCredentialsException from '~/exceptions/InvalidCredentialsException';
 
 import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
@@ -72,66 +71,12 @@ describe('LoginUseCase', () => {
       .toBeObject();
   });
 
-  it('should be return public token with username', async () => {
-    const findByUsername = jest.spyOn(userRepository, 'findByUsername');
-    const verify = jest.spyOn(hashProvider, 'verify');
-    const generateToken = jest.spyOn(sessionTokenProvider, 'generateToken');
-    const create = jest.spyOn(sessionRepository, 'create');
-    const generatePublicToken = jest.spyOn(sessionTokenProvider, 'generatePublicToken');
-
-    const user = Factory.build<ICreateUserDTO>('user');
-
-    const { password: hashPassword } = await userRepository.create(user);
-
-    const token = await loginUseCase.execute({
-      username: user.username,
-      password: user.password,
-    });
-
-    expect(findByUsername).toHaveBeenCalledWith(user.username);
-
-    expect(verify).toHaveBeenCalledWith(hashPassword, user.password);
-
-    expect(generateToken).toHaveBeenCalled();
-
-    expect(create).toHaveBeenCalled();
-
-    expect(generatePublicToken).toHaveBeenCalled();
-
-    expect(token)
-      .not.toBeNull()
-      .toBeObject();
-  });
-
-  it('should be fail if dto has email and username', async () => {
-    const user = Factory.build<ICreateUserDTO>('user');
-
-    expect(
-      loginUseCase.execute({
-        email: user.email,
-        username: user.username,
-        password: user.password,
-      }),
-    ).rejects.toBeInstanceOf(BadRequestException);
-  });
-
   it('should be fail if email is invalid', async () => {
     const user = Factory.build<ICreateUserDTO>('user');
 
     expect(
       loginUseCase.execute({
         email: user.email,
-        password: user.password,
-      }),
-    ).rejects.toBeInstanceOf(InvalidCredentialsException);
-  });
-
-  it('should be fail if username is invalid', async () => {
-    const user = Factory.build<ICreateUserDTO>('user');
-
-    expect(
-      loginUseCase.execute({
-        username: user.username,
         password: user.password,
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsException);

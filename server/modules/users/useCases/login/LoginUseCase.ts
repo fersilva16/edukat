@@ -1,6 +1,5 @@
 import { injectable, inject } from 'tsyringe';
 
-import BadRequestException from '~/exceptions/BadRequestException';
 import InvalidCredentialsException from '~/exceptions/InvalidCredentialsException';
 import ISharableTokenDTO from '~/modules/users/providers/SessionTokenProvider/dtos/ISharableTokenDTO';
 import ISessionTokenProvider from '~/modules/users/providers/SessionTokenProvider/ISessionTokenProvider';
@@ -28,14 +27,8 @@ export default class LoginUseCase implements IUseCase {
     private sessionRepository: ISessionRepository,
   ) {}
 
-  async execute({ email, username, password }: ILoginDTO): Promise<ISharableTokenDTO> {
-    if (email && username) {
-      throw new BadRequestException('Only one of: email, username', 'UID_INVALID');
-    }
-
-    const user = email
-      ? await this.userRepository.findByEmail(email)
-      : await this.userRepository.findByUsername(username);
+  async execute({ email, password }: ILoginDTO): Promise<ISharableTokenDTO> {
+    const user = await this.userRepository.findByEmail(email);
 
     if (!user) throw new InvalidCredentialsException('Uid');
 

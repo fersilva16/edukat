@@ -27,12 +27,6 @@ export default class FakeUserRepository implements IUserRepository {
     return plainToClass(User, user);
   }
 
-  async findByUsername(username: string): Promise<User> {
-    const user = this.users.find((rawUser) => rawUser.username === username);
-
-    return plainToClass(User, user);
-  }
-
   async create(data: ICreateUserDTO): Promise<User> {
     const dateNow = DateTime.local().toISO();
 
@@ -42,7 +36,6 @@ export default class FakeUserRepository implements IUserRepository {
       firstname: data.firstname,
       lastname: data.lastname,
 
-      username: data.username,
       email: data.email,
       password: data.password,
 

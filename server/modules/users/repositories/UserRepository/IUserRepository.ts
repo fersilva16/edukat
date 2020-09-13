@@ -8,8 +8,6 @@ export default interface IUserRepository {
 
   findByEmail(email: string): Promise<User>;
 
-  findByUsername(username: string): Promise<User>;
-
   create(data: ICreateUserDTO): Promise<User>;
 
   clear(): Promise<void>;

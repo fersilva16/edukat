@@ -7,7 +7,6 @@ export async function up({ schema }: Knex): Promise<void> {
     table.uuid('id').primary();
     table.string('firstname').nullable();
     table.string('lastname').nullable();
-    table.string('username', 15).nullable();
     table.string('email', 255).notNullable();
     table.uuid('type_id').references('id').inTable('types').onDelete('CASCADE');
     table.timestamps();

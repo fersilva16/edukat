@@ -8,8 +8,6 @@ export default class User {
 
   lastname: string;
 
-  username: string;
-
   email: string;
 
   type_id: string;

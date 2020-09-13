@@ -31,7 +31,6 @@ export default class FakePartialUserRepository implements IPartialUserRepository
 
       firstname: data.firstname,
       lastname: data.lastname,
-      username: data.username,
       email: data.email,
 
       type_id: data.typeId,
