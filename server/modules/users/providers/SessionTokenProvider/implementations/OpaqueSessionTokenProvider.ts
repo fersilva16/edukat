@@ -1,6 +1,7 @@
-import { DateTime, DurationObject } from 'luxon';
+import { DateTime } from 'luxon';
 import { injectable, inject } from 'tsyringe';
 
+import authConfig from '~/config/auth';
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import base64Url from '~/utils/base64Url';
 import random from '~/utils/random';
@@ -20,16 +21,12 @@ export default class OpaqueSessionTokenProvider implements ISessionTokenProvider
 
   private type: string = 'Bearer';
 
-  private tokenLength: number = 60;
-
-  private expirationTime: DurationObject = undefined;
-
   private getExpiresAt(): DateTime {
-    return this.expirationTime && DateTime.local().plus(this.expirationTime);
+    return DateTime.local().plus(authConfig.expirationTime);
   }
 
   async generateToken(): Promise<ITokenDTO> {
-    const value = random.base64(this.tokenLength);
+    const value = random.base64(authConfig.tokenLength);
     const hash = await this.sha256HashProvider.hash(value);
 
     return {
@@ -58,7 +55,7 @@ export default class OpaqueSessionTokenProvider implements ISessionTokenProvider
 
     const id = base64Url.decode(encodedId, true);
 
-    if (!id || value.length !== this.tokenLength) throw new InvalidTokenException();
+    if (!id || value.length !== authConfig.tokenLength) throw new InvalidTokenException();
 
     const hash = await this.sha256HashProvider.hash(value);
 

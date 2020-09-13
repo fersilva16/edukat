@@ -1,22 +1,17 @@
-import argon2, { argon2id, Options } from 'argon2';
+import argon2 from 'argon2';
 import { randomBytes } from 'crypto';
+
+import hashConfig from '~/config/hash';
 
 import IHashProvider from '../IHashProvider';
 
 export default class ArgonHashProvider implements IHashProvider {
-  private options: Options = {
-    type: argon2id,
-    version: 19,
-    timeCost: 3,
-    parallelism: 1,
-    memoryCost: 4096,
-    saltLength: 16,
-  };
-
   async hash(password: string): Promise<string> {
-    const salt = randomBytes(this.options.saltLength);
-
-    return argon2.hash(password, { ...this.options, raw: false, salt });
+    return argon2.hash(password, {
+      ...hashConfig,
+      raw: false,
+      salt: randomBytes(hashConfig.saltLength),
+    });
   }
 
   async verify(hash: string, password: string): Promise<boolean> {

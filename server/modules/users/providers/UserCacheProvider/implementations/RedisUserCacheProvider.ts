@@ -1,5 +1,6 @@
 import { plainToClass } from 'class-transformer';
 
+import cacheConfig from '~/config/cache';
 import redis from '~/infra/redis';
 
 import IRawUser from '@users/entities/raws/IRawUser';
@@ -9,8 +10,6 @@ import IUserCacheProvider from '../IUserCacheProvider';
 
 export default class RedisUserCacheProvider implements IUserCacheProvider {
   private prefix = 'users';
-
-  private expirationTime = 86400;
 
   private addPrefix(suffix: string): string {
     return `${this.prefix}:${suffix}`;
@@ -28,7 +27,7 @@ export default class RedisUserCacheProvider implements IUserCacheProvider {
 
     await redis.hmset(key, new Map(Object.entries(rawUser)));
 
-    await redis.expire(key, this.expirationTime);
+    await redis.expire(key, cacheConfig.expirationTime);
   }
 
   async exists(id: string): Promise<boolean> {

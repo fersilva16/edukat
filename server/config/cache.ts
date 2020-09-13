@@ -3,10 +3,14 @@ import { RedisOptions } from 'ioredis';
 import env from '~/utils/env';
 
 type CacheConfig = {
+  expirationTime: number;
+
   redis: RedisOptions;
 };
 
 const cacheConfig: CacheConfig = {
+  expirationTime: 86400,
+
   redis: {
     lazyConnect: true,
 

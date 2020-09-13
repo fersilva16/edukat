@@ -1,11 +1,10 @@
+import cacheConfig from '~/config/cache';
 import redis from '~/infra/redis';
 
 import IPermissionCacheProvider from '../IPermissionCacheProvider';
 
 export default class RedisPermissionCacheProvider implements IPermissionCacheProvider {
   private prefix = 'permissions';
-
-  private expiriationTime = 86400;
 
   private addPrefix(suffix: string): string {
     return `${this.prefix}:${suffix}`;
@@ -14,7 +13,7 @@ export default class RedisPermissionCacheProvider implements IPermissionCachePro
   async save(id: string, permissions: string): Promise<void> {
     const key = this.addPrefix(id);
 
-    await redis.setex(key, this.expiriationTime, permissions);
+    await redis.setex(key, cacheConfig.expirationTime, permissions);
   }
 
   async exists(id: string): Promise<boolean> {
