@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
+import appConfig from '~/config/app';
 import logger from '~/logger';
 
 import Exception from './Exception';
@@ -17,7 +18,14 @@ export default class Handler {
       return;
     }
 
-    logger.error(exception.message, { label: 'server' });
+    if (appConfig.env === 'production') {
+      logger.error(exception.message, {
+        label: 'server',
+        stack: exception.stack,
+      });
+    } else {
+      logger.error(exception.stack, { label: 'server' });
+    }
 
     response.status(500).send({
       error: {
