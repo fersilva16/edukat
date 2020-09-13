@@ -33,18 +33,14 @@ export default class CreateUserUseCase implements IUseCase {
 
     if (userExists) throw new ResourceAlreadyExistsException('User');
 
-    const partialUser = await this.partialUserRepository.create({
-      ...data,
+    const { id, firstname, email } = await this.partialUserRepository.create(data);
 
-      typeId: data.typeId,
-    });
-
-    const token = await this.tokenProvider.generateToken(partialUser);
+    const token = await this.tokenProvider.generateToken({ id, email });
 
     this.mailProvider.sendMail({
       to: {
-        name: data.firstname,
-        email: data.email,
+        name: firstname,
+        email,
       },
 
       subject: 'You have been invite to Edukat',
