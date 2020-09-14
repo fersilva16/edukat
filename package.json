@@ -8,6 +8,8 @@
     "knex": "ts-node --project server/tsconfig.json --require tsconfig-paths/register --require dotenv/config node_modules/knex/bin/cli.js --knexfile server/config/database.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "yarn lint --fix",
+    "setup": "yarn knex migrate:latest && yarn knex seed:run",
+    "setup:rollback": "yarn knex migrate:rollback --all",
     "start": "node dist/index.js",
     "start:dev": "nodemon",
     "test": "jest",
