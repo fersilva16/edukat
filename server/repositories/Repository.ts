@@ -3,9 +3,11 @@ import knex from '~/infra/knex';
 import random from '~/utils/random';
 
 export default class Repository<T> {
-  protected table = knex.table<T>(this.tableName);
-
   constructor(protected tableName: string) {}
+
+  protected get table() {
+    return knex.table<T>(this.tableName);
+  }
 
   protected async generateId(): Promise<string> {
     const id = random.base62(appConfig.idLength);
