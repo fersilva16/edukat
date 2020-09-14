@@ -11,10 +11,6 @@ import IUserRepository from '../../IUserRepository';
 
 export default class FakeUserRepository
   extends FakeRepository<IRawUser> implements IUserRepository {
-  async getAll(): Promise<User[]> {
-    return this.rows.map((rawUser) => plainToClass(User, rawUser));
-  }
-
   async findById(id: string): Promise<User> {
     const user = this.rows.find((rawUser) => rawUser.id === id);
 

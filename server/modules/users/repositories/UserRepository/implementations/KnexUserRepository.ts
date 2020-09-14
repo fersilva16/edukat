@@ -21,12 +21,6 @@ export default class KnexUserRepository
     super('users');
   }
 
-  async getAll(): Promise<User[]> {
-    const rawUsers = await this.table.select('*');
-
-    return rawUsers.map((rawUser) => plainToClass(User, rawUser));
-  }
-
   async findById(id: string): Promise<User> {
     const rawUser = await this.table.select('*').where('id', id).first();
 
