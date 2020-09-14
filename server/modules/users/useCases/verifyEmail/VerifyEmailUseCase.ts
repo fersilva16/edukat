@@ -37,7 +37,10 @@ export default class VerifyEmailUseCase implements IUseCase {
 
     if (!partialUser) throw new NoPermissionException();
 
-    const token = await this.tokenProvider.generateToken(partialUser);
+    const token = await this.tokenProvider.generateToken({
+      id: partialUser.id,
+      email: partialUser.email,
+    });
 
     this.mailProvider.sendMail({
       to: {
