@@ -6,6 +6,7 @@ import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsEx
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
 import IUseCase from '~/types/IUseCase';
 
+import IRegisterTokenDTO from '@users/dtos/IRegisterTokenDTO';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import IPartialUserRepository from '@users/repositories/PartialUserRepository/IPartialUserRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
@@ -37,7 +38,7 @@ export default class VerifyEmailUseCase implements IUseCase {
 
     if (!partialUser) throw new NoPermissionException();
 
-    const token = await this.tokenProvider.generateToken({
+    const token = await this.tokenProvider.generateToken<IRegisterTokenDTO>({
       id: partialUser.id,
       email: partialUser.email,
     });

@@ -5,6 +5,7 @@ import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsEx
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
 import IUseCase from '~/types/IUseCase';
 
+import IRegisterTokenDTO from '@users/dtos/IRegisterTokenDTO';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import IPartialUserRepository from '@users/repositories/PartialUserRepository/IPartialUserRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
@@ -35,7 +36,7 @@ export default class CreateUserUseCase implements IUseCase {
 
     const { id, firstname, email } = await this.partialUserRepository.create(data);
 
-    const token = await this.tokenProvider.generateToken({ id, email });
+    const token = await this.tokenProvider.generateToken<IRegisterTokenDTO>({ id, email });
 
     this.mailProvider.sendMail({
       to: {
