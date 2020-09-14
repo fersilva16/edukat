@@ -9,6 +9,7 @@ import Exception from '~/exceptions/Exception';
 import Handler from '~/exceptions/Handler';
 
 import emailRoutes from '@users/infra/routes/email';
+import registerRoutes from '@users/infra/routes/register';
 import sessionRoutes from '@users/infra/routes/session';
 import typeRoutes from '@users/infra/routes/type';
 
@@ -21,6 +22,8 @@ apiRoutes.use('/sessions', sessionRoutes);
 apiRoutes.use('/types', typeRoutes);
 
 apiRoutes.use('/email/verify', emailRoutes);
+
+apiRoutes.use('/register', registerRoutes);
 
 apiRoutes.use((
   error: Exception | Error,
