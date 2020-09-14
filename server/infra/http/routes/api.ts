@@ -8,9 +8,9 @@ import {
 import Exception from '~/exceptions/Exception';
 import Handler from '~/exceptions/Handler';
 
+import emailRoutes from '@users/infra/routes/email';
 import sessionRoutes from '@users/infra/routes/session';
 import typeRoutes from '@users/infra/routes/type';
-import verifyEmailRoutes from '@users/infra/routes/verifyEmail';
 
 const handler = new Handler();
 
@@ -20,7 +20,7 @@ apiRoutes.use('/sessions', sessionRoutes);
 
 apiRoutes.use('/types', typeRoutes);
 
-apiRoutes.use('/verifyEmail', verifyEmailRoutes);
+apiRoutes.use('/email/verify', emailRoutes);
 
 apiRoutes.use((
   error: Exception | Error,

@@ -7,8 +7,8 @@ import VerifyEmailController from '@users/useCases/verifyEmail/VerifyEmailContro
 
 const verifyEmailController = container.resolve(VerifyEmailController);
 
-const verifyEmailRoutes = Router();
+const emailRoutes = Router();
 
-verifyEmailRoutes.post('/', createRequestHandler(verifyEmailController));
+emailRoutes.post('/', createRequestHandler(verifyEmailController));
 
-export default verifyEmailRoutes;
+export default emailRoutes;
