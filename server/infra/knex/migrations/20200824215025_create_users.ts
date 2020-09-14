@@ -1,10 +1,12 @@
 import Knex from 'knex';
 
+import appConfig from '~/config/app';
+
 const tableName = 'users';
 
 export async function up({ schema }: Knex): Promise<void> {
   await schema.createTable(tableName, (table) => {
-    table.uuid('id').primary();
+    table.string('id', appConfig.idLength).primary();
     table.string('firstname').notNullable();
     table.string('lastname').notNullable();
     table.string('email', 255).notNullable().unique();

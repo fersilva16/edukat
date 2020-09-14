@@ -1,8 +1,7 @@
 import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
-import { v4 as uuid } from 'uuid';
 
-import knex from '~/infra/knex';
+import Repository from '~/repositories/Repository';
 
 import ICreatePartialUserDTO from '@users/dtos/ICreatePartialUserDTO';
 import PartialUser from '@users/entities/PartialUser';
@@ -10,8 +9,11 @@ import IRawPartialUser from '@users/entities/raws/IRawPartialUser';
 
 import IPartialUserRepository from '../IPartialUserRepository';
 
-export default class KnexPartialUserRepository implements IPartialUserRepository {
-  private table = knex.table<IRawPartialUser>('partial_users');
+export default class KnexPartialUserRepository
+  extends Repository<IRawPartialUser> implements IPartialUserRepository {
+  constructor() {
+    super('partial_users');
+  }
 
   async findById(id: string): Promise<PartialUser> {
     const rawPartialUser = await this.table.select('*').where('id', id).first();
@@ -27,9 +29,10 @@ export default class KnexPartialUserRepository implements IPartialUserRepository
 
   async create(data: ICreatePartialUserDTO): Promise<PartialUser> {
     const dateNow = DateTime.local().toISO();
+    const id = await this.generateId();
 
     const rawPartialUser: IRawPartialUser = {
-      id: uuid(),
+      id,
 
       firstname: data.firstname,
       lastname: data.lastname,

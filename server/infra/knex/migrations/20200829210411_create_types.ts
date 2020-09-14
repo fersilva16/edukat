@@ -1,10 +1,12 @@
 import Knex from 'knex';
 
+import appConfig from '~/config/app';
+
 const tableName = 'types';
 
 export async function up({ schema }: Knex): Promise<void> {
   await schema.createTable(tableName, (table) => {
-    table.uuid('id').primary();
+    table.string('id', appConfig.idLength).primary();
     table.string('name').notNullable();
     table.string('permissions').notNullable();
     table.timestamps();
@@ -12,5 +14,5 @@ export async function up({ schema }: Knex): Promise<void> {
 }
 
 export async function down({ schema }: Knex): Promise<void> {
-  await schema.dropSchema(tableName);
+  await schema.dropTable(tableName);
 }

@@ -1,9 +1,8 @@
 import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 import { injectable, inject } from 'tsyringe';
-import { v4 as uuidv4 } from 'uuid';
 
-import knex from '~/infra/knex';
+import Repository from '~/repositories/Repository';
 
 import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
 import IRawUser from '@users/entities/raws/IRawUser';
@@ -13,13 +12,14 @@ import IHashProvider from '@users/providers/HashProvider/IHashProvider';
 import IUserRepository from '../IUserRepository';
 
 @injectable()
-export default class KnexUserRepository implements IUserRepository {
-  private table = knex.table<IRawUser>('users');
-
+export default class KnexUserRepository
+  extends Repository<IRawUser> implements IUserRepository {
   constructor(
     @inject('HashProvider')
     private hashProvider: IHashProvider,
-  ) {}
+  ) {
+    super('users');
+  }
 
   async getAll(): Promise<User[]> {
     const rawUsers = await this.table.select('*');
@@ -41,9 +41,10 @@ export default class KnexUserRepository implements IUserRepository {
 
   async create(data: ICreateUserDTO): Promise<User> {
     const dateNow = DateTime.local().toISO();
+    const id = await this.generateId();
 
     const rawUser: IRawUser = {
-      id: uuidv4(),
+      id,
 
       firstname: data.firstname,
       lastname: data.lastname,

@@ -8,6 +8,8 @@ type AppConfig = {
 
   baseUrl: string;
 
+  idLength: number;
+
   host: string;
   port: number;
 
@@ -21,6 +23,8 @@ const appConfig: AppConfig = {
   email: env.stringOrFail('APP_EMAIL'),
 
   baseUrl: env.stringOrFail('APP_BASE_URL'),
+
+  idLength: 6,
 
   host: env.string('HOST', '0.0.0.0'),
   port: env.number('PORT', 3000),

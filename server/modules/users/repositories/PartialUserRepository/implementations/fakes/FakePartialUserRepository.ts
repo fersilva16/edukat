@@ -1,6 +1,7 @@
 import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
-import { v4 as uuid } from 'uuid';
+
+import FakeRepository from '~/repositories/FakeRepository';
 
 import ICreatePartialUserDTO from '@users/dtos/ICreatePartialUserDTO';
 import PartialUser from '@users/entities/PartialUser';
@@ -8,26 +9,26 @@ import IRawPartialUser from '@users/entities/raws/IRawPartialUser';
 
 import IPartialUserRepository from '../../IPartialUserRepository';
 
-export default class FakePartialUserRepository implements IPartialUserRepository {
-  private partialUsers: IRawPartialUser[] = [];
-
+export default class FakePartialUserRepository
+  extends FakeRepository<IRawPartialUser> implements IPartialUserRepository {
   async findById(id: string): Promise<PartialUser> {
-    const partialUser = this.partialUsers.find((rawPartialUser) => rawPartialUser.id === id);
+    const partialUser = this.rows.find((row) => row.id === id);
 
     return plainToClass(PartialUser, partialUser);
   }
 
   async findByEmail(email: string): Promise<PartialUser> {
-    const partialUser = this.partialUsers.find((rawPartialUser) => rawPartialUser.email === email);
+    const partialUser = this.rows.find((row) => row.email === email);
 
     return plainToClass(PartialUser, partialUser);
   }
 
   async create(data: ICreatePartialUserDTO): Promise<PartialUser> {
     const dateNow = DateTime.local().toISO();
+    const id = this.generateId();
 
     const rawPartialUser: IRawPartialUser = {
-      id: uuid(),
+      id,
 
       firstname: data.firstname,
       lastname: data.lastname,
@@ -39,12 +40,12 @@ export default class FakePartialUserRepository implements IPartialUserRepository
       updated_at: dateNow,
     };
 
-    this.partialUsers.push(rawPartialUser);
+    this.rows.push(rawPartialUser);
 
     return plainToClass(PartialUser, rawPartialUser);
   }
 
   async clear(): Promise<void> {
-    this.partialUsers.splice(0, this.partialUsers.length);
+    this.rows.splice(0, this.rows.length);
   }
 }

@@ -1,7 +1,8 @@
-import { IsUUID, IsNotEmpty } from 'class-validator';
+import { IsAlphanumeric, IsNotEmpty, MaxLength } from 'class-validator';
 
 export default class TypeUserParams {
-  @IsUUID('4')
+  @IsAlphanumeric()
+  @MaxLength(6)
   @IsNotEmpty()
   type_id: string;
 }

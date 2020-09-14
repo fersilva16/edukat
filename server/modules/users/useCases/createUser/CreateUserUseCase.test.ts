@@ -48,7 +48,7 @@ describe('CreateUserUseCase', () => {
     const generateToken = jest.spyOn(tokenProvider, 'generateToken');
     const sendMail = jest.spyOn(mailProvider, 'sendMail');
 
-    const typeId = faker.random.uuid();
+    const typeId = faker.random.alphaNumeric(6);
 
     const partialUser = Factory.build<ICreatePartialUserDTO>('partialUser');
 
@@ -66,7 +66,7 @@ describe('CreateUserUseCase', () => {
   });
 
   it('should be fail when user already exists', async () => {
-    const typeId = faker.random.uuid();
+    const typeId = faker.random.alphaNumeric(6);
     const { email } = await userRepository.create(Factory.build('user'));
 
     expect(
@@ -75,7 +75,7 @@ describe('CreateUserUseCase', () => {
   });
 
   it('should be fail when partial user already exists', async () => {
-    const typeId = faker.random.uuid();
+    const typeId = faker.random.alphaNumeric(6);
     const { email } = await partialUserRepository.create(Factory.build('partialUser'));
 
     expect(

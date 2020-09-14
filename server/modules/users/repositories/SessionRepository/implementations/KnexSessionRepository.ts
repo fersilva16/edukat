@@ -1,8 +1,7 @@
 import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
-import { v4 as uuid } from 'uuid';
 
-import knex from '~/infra/knex';
+import Repository from '~/repositories/Repository';
 
 import ICreateSessionDTO from '@users/dtos/ICreateSessionDTO';
 import IRawSession from '@users/entities/raws/IRawSession';
@@ -10,8 +9,11 @@ import Session from '@users/entities/Session';
 
 import ISessionRepository from '../ISessionRepository';
 
-export default class KnexSessionRepository implements ISessionRepository {
-  private table = knex.table<IRawSession>('sessions');
+export default class KnexSessionRepository
+  extends Repository<IRawSession> implements ISessionRepository {
+  constructor() {
+    super('sessions');
+  }
 
   async findById(id: string): Promise<Session> {
     const rawSession = await this.table.select('*').where('id', id).first();
@@ -20,8 +22,10 @@ export default class KnexSessionRepository implements ISessionRepository {
   }
 
   async create(data: ICreateSessionDTO): Promise<Session> {
+    const id = await this.generateId();
+
     const rawSession: IRawSession = {
-      id: uuid(),
+      id,
 
       token: data.token,
 

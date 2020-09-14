@@ -1,8 +1,7 @@
 import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
-import { v4 as uuid } from 'uuid';
 
-import knex from '~/infra/knex';
+import Repository from '~/repositories/Repository';
 
 import ICreateTypeDTO from '@users/dtos/ICreateTypeDTO';
 import IRawType from '@users/entities/raws/IRawType';
@@ -10,8 +9,11 @@ import Type from '@users/entities/Type';
 
 import ITypeRepository from '../ITypeRepository';
 
-export default class KnexTypeRepository implements ITypeRepository {
-  private table = knex.table<IRawType>('types');
+export default class KnexTypeRepository
+  extends Repository<IRawType> implements ITypeRepository {
+  constructor() {
+    super('types');
+  }
 
   async all(): Promise<Type[]> {
     const types = await this.table.select('*');
@@ -27,9 +29,10 @@ export default class KnexTypeRepository implements ITypeRepository {
 
   async create(data: ICreateTypeDTO): Promise<Type> {
     const dateNow = DateTime.local().toISO();
+    const id = await this.generateId();
 
     const rawType: IRawType = {
-      id: uuid(),
+      id,
 
       name: data.name,
 

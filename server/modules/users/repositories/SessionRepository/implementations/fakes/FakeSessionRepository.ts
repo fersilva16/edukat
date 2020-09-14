@@ -1,6 +1,7 @@
 import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
-import { v4 as uuid } from 'uuid';
+
+import FakeRepository from '~/repositories/FakeRepository';
 
 import ICreateSessionDTO from '@users/dtos/ICreateSessionDTO';
 import IRawSession from '@users/entities/raws/IRawSession';
@@ -8,18 +9,19 @@ import Session from '@users/entities/Session';
 
 import ISessionRepository from '../../ISessionRepository';
 
-export default class FakeSessionRepository implements ISessionRepository {
-  private sessions: IRawSession[] = [];
-
+export default class FakeSessionRepository
+  extends FakeRepository<IRawSession> implements ISessionRepository {
   async findById(id: string): Promise<Session> {
-    const session = this.sessions.find((rawSession) => rawSession.id === id);
+    const session = this.rows.find((rawSession) => rawSession.id === id);
 
     return plainToClass(Session, session);
   }
 
   async create(data: ICreateSessionDTO): Promise<Session> {
+    const id = this.generateId();
+
     const rawSession: IRawSession = {
-      id: uuid(),
+      id,
 
       token: data.token,
 
@@ -29,7 +31,7 @@ export default class FakeSessionRepository implements ISessionRepository {
       expires_at: data.expiresAt?.toISO(),
     };
 
-    this.sessions.push(rawSession);
+    this.rows.push(rawSession);
 
     return plainToClass(Session, rawSession);
   }

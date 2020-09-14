@@ -7,7 +7,7 @@ import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
 
 Factory.define<ICreatePartialUserDTO>('partialUser')
   .attr('email', () => faker.internet.email())
-  .attr('typeId', () => faker.random.uuid());
+  .attr('typeId', () => faker.random.alphaNumeric(6));
 
 Factory.define<ICreateTypeDTO>('type')
   .attr('name', () => faker.random.word())
