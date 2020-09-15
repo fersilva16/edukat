@@ -46,4 +46,8 @@ export default class KnexTypeRepository
 
     return plainToClass(Type, type[0]);
   }
+
+  async clear(): Promise<void> {
+    await this.table.truncate();
+  }
 }

@@ -7,4 +7,6 @@ export default interface ITypeRepository {
   findById(id: string): Promise<Type>;
 
   create(data: ICreateTypeDTO): Promise<Type>
+
+  clear(): Promise<void>;
 }

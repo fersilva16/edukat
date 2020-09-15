@@ -40,4 +40,8 @@ export default class FakeTypeRepository
 
     return plainToClass(Type, type);
   }
+
+  async clear(): Promise<void> {
+    this.rows.splice(0, this.rows.length);
+  }
 }
