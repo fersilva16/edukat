@@ -10,13 +10,13 @@ export default function createRequestHandler(
 ): RequestHandler[] {
   if (controller.validate) {
     middlewares.unshift(
-      createMiddleware(
-        async (request, response, next) => {
+      createMiddleware({
+        async handle(request, response, next) {
           await controller.validate(request);
 
           next();
         },
-      ),
+      }),
     );
   }
 
