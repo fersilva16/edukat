@@ -1,5 +1,7 @@
 import { container } from 'tsyringe';
 
-import RegisterUseCase from '@users/useCases/register/RegisterUseCase';
+import RegisterController from './RegisterController';
+import RegisterUseCase from './RegisterUseCase';
 
+container.registerSingleton('RegisterController', RegisterController);
 container.registerSingleton('RegisterUseCase', RegisterUseCase);

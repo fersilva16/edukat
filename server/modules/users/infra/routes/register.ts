@@ -1,18 +1,11 @@
 import { Router } from 'express';
-import { container } from 'tsyringe';
 
 import createRequestHandler from '~/utils/createRequestHandler';
 
-import RegisterController from '@users/useCases/register/RegisterController';
-import ShowRegisterDataController from '@users/useCases/showRegisterData/ShowRegisterDataController';
-
-const showRegisterDataController = container.resolve(ShowRegisterDataController);
-const registerController = container.resolve(RegisterController);
-
 const registerRoutes = Router();
 
-registerRoutes.post('/', createRequestHandler(registerController));
+registerRoutes.post('/', createRequestHandler('Register'));
 
-registerRoutes.get('/:token/data', createRequestHandler(showRegisterDataController));
+registerRoutes.get('/:token/data', createRequestHandler('ShowRegisterData'));
 
 export default registerRoutes;
