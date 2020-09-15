@@ -3,7 +3,6 @@ import { Factory } from 'rosie';
 
 import appConfig from '~/config/app';
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
-import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 
 import IRegisterTokenDTO from '@users/dtos/IRegisterTokenDTO';
@@ -47,7 +46,6 @@ describe('RegisterUseCase', () => {
     });
 
     const parseToken = jest.spyOn(tokenProvider, 'parseToken');
-    const findByEmail = jest.spyOn(userRepository, 'findByEmail');
     const findById = jest.spyOn(partialUserRepository, 'findById');
     const partialUserDelete = jest.spyOn(partialUserRepository, 'delete');
     const create = jest.spyOn(userRepository, 'create');
@@ -66,8 +64,6 @@ describe('RegisterUseCase', () => {
 
     expect(parseToken).toHaveBeenCalledWith(token);
 
-    expect(findByEmail).toHaveBeenCalledWith(partialUser.email);
-
     expect(findById).toHaveBeenCalledWith(partialUser.id);
 
     expect(partialUserDelete).toHaveBeenCalledWith(partialUser.id);
@@ -79,27 +75,6 @@ describe('RegisterUseCase', () => {
       password,
       typeId: partialUser.type_id,
     });
-  });
-
-  it('should fail if user already exists', async () => {
-    const {
-      id,
-      email,
-      firstname,
-      lastname,
-      password,
-    } = await userRepository.create(Factory.build('user'));
-
-    const token = await tokenProvider.generateToken<IRegisterTokenDTO>({ id, email });
-
-    expect(
-      registerUseCase.execute({
-        token,
-        firstname,
-        lastname,
-        password,
-      }),
-    ).rejects.toBeInstanceOf(ResourceAlreadyExistsException);
   });
 
   it('should be fail if id is invalid', async () => {

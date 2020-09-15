@@ -1,7 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
-import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import IUseCase from '~/types/IUseCase';
 
@@ -27,10 +26,6 @@ export default class RegisterUseCase implements IUseCase {
 
   async execute({ token, ...data }: IRegisterDTO): Promise<void> {
     const { id, email } = await this.tokenProvider.parseToken<IRegisterTokenDTO>(token);
-
-    const user = await this.userRepository.findByEmail(email);
-
-    if (user) throw new ResourceAlreadyExistsException('User');
 
     const partialUser = await this.partialUserRepository.findById(id);
 
