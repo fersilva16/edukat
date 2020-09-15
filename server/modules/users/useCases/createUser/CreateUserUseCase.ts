@@ -2,12 +2,14 @@ import { injectable, inject } from 'tsyringe';
 
 import appConfig from '~/config/app';
 import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
+import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
 import IUseCase from '~/types/IUseCase';
 
 import IRegisterTokenDTO from '@users/dtos/IRegisterTokenDTO';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import IPartialUserRepository from '@users/repositories/PartialUserRepository/IPartialUserRepository';
+import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
 import ICreateUserDTO from './CreateUserDTO';
@@ -17,6 +19,9 @@ export default class CreateUserUseCase implements IUseCase {
   constructor(
     @inject('PartialUserRepository')
     private partialUserRepository: IPartialUserRepository,
+
+    @inject('TypeRepository')
+    private typeRepository: ITypeRepository,
 
     @inject('UserRepository')
     private userRepository: IUserRepository,
@@ -33,6 +38,10 @@ export default class CreateUserUseCase implements IUseCase {
       || await this.userRepository.findByEmail(data.email);
 
     if (userExists) throw new ResourceAlreadyExistsException('User');
+
+    const type = await this.typeRepository.findById(data.typeId);
+
+    if (!type) throw new ResourceNotFoundException('Type');
 
     const { id, firstname, email } = await this.partialUserRepository.create(data);
 
