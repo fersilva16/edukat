@@ -8,5 +8,7 @@ export default interface IPartialUserRepository {
 
   create(data: ICreatePartialUserDTO): Promise<PartialUser>;
 
+  delete(id: string): Promise<void>;
+
   clear(): Promise<void>;
 }

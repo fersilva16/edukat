@@ -49,6 +49,10 @@ export default class KnexPartialUserRepository
     return plainToClass(PartialUser, partialUser[0]);
   }
 
+  async delete(id: string): Promise<void> {
+    await this.table.delete().where('id', id);
+  }
+
   async clear(): Promise<void> {
     await this.table.truncate();
   }

@@ -45,6 +45,12 @@ export default class FakePartialUserRepository
     return plainToClass(PartialUser, rawPartialUser);
   }
 
+  async delete(id: string): Promise<void> {
+    const index = this.rows.findIndex((row) => row.id === id);
+
+    this.rows.splice(index, 1);
+  }
+
   async clear(): Promise<void> {
     this.rows.splice(0, this.rows.length);
   }
