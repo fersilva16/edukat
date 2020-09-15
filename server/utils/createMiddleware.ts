@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 
-type Middleware = (request: Request, response: Response, next: NextFunction) => Promise<void>;
+import IMiddleware from '~/types/IMiddleware';
 
-export default function createMiddleware(middleware: Middleware) {
+export default function createMiddleware(middleware: IMiddleware, ...args: any[]) {
   return (
     request: Request,
     response: Response,
     next: NextFunction,
-  ) => middleware(request, response, next).catch(next);
+  ) => middleware.handle(request, response, next, ...args).catch(next);
 }

@@ -4,7 +4,7 @@ import express from 'express';
 import appConfig from '~/config/app';
 import logger from '~/logger';
 
-import logging from './middlewares/logging';
+import { logging } from './middlewares';
 import routes from './routes';
 import ssr from './ssr';
 

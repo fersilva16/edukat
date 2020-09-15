@@ -6,8 +6,7 @@ import createRequestHandler from '~/utils/createRequestHandler';
 import CreateUserController from '@users/useCases/createUser/CreateUserController';
 import ShowAllTypesController from '@users/useCases/showAllTypes/ShowAllTypesController';
 
-import auth from '../middlewares/auth';
-import has from '../middlewares/has';
+import { auth, has } from '../middlewares';
 
 const showAllTypesController = container.resolve(ShowAllTypesController);
 const createUserController = container.resolve(CreateUserController);
