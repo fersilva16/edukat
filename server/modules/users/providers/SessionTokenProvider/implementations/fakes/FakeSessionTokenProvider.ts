@@ -1,4 +1,4 @@
-import InvalidTokenException from '~/exceptions/InvalidTokenException';
+import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
 import ramdom from '~/utils/random';
 
 import IPublicTokenDTO from '../../dtos/IPublicTokenDTO';
@@ -30,11 +30,13 @@ export default class FakeSessionTokenProvider implements ISessionTokenProvider {
   async parsePublicToken(publicToken: string): Promise<IPublicTokenDTO> {
     const [type, token] = publicToken.split(' ');
 
-    if (!type || type === this.type || !token) throw new InvalidTokenException();
+    if (!type || type === this.type || !token) throw new InvalidSessionTokenException();
 
     const [id, value] = token.split('.');
 
-    if (!id || !value || value.length !== this.tokenLength) throw new InvalidTokenException();
+    if (!id || !value || value.length !== this.tokenLength) {
+      throw new InvalidSessionTokenException();
+    }
 
     return {
       id,

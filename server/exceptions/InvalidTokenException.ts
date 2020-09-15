@@ -1,6 +1,6 @@
-import UnauthorizedException from './UnauthorizedException';
+import BadRequestException from './BadRequestException';
 
-export default class InvalidTokenException extends UnauthorizedException {
+export default class InvalidTokenException extends BadRequestException {
   constructor() {
     super('Invalid token', 'INVALID_TOKEN');
   }

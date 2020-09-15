@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { injectable, inject } from 'tsyringe';
 
 import authConfig from '~/config/auth';
-import InvalidTokenException from '~/exceptions/InvalidTokenException';
+import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
 import base64Url from '~/utils/base64Url';
 import random from '~/utils/random';
 
@@ -47,15 +47,15 @@ export default class OpaqueSessionTokenProvider implements ISessionTokenProvider
   async parsePublicToken(bearerToken: string): Promise<IPublicTokenDTO> {
     const [type, token] = bearerToken.split(' ');
 
-    if (!type || type !== this.type || !token) throw new InvalidTokenException();
+    if (!type || type !== this.type || !token) throw new InvalidSessionTokenException();
 
     const [encodedId, value] = token.split('.');
 
-    if (!encodedId || !value) throw new InvalidTokenException();
+    if (!encodedId || !value) throw new InvalidSessionTokenException();
 
     const id = base64Url.decode(encodedId, true);
 
-    if (!id || value.length !== authConfig.tokenLength) throw new InvalidTokenException();
+    if (!id || value.length !== authConfig.tokenLength) throw new InvalidSessionTokenException();
 
     const hash = await this.sha256HashProvider.hash(value);
 

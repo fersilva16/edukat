@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { injectable, inject } from 'tsyringe';
 
-import InvalidTokenException from '~/exceptions/InvalidTokenException';
+import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import IMiddleware from '~/types/IMiddleware';
 
@@ -33,7 +33,7 @@ export default class AuthMiddleware implements IMiddleware {
   async handle(request: Request, response: Response, next: NextFunction): Promise<void> {
     const { authorization } = request.headers;
 
-    if (!authorization) throw new InvalidTokenException();
+    if (!authorization) throw new InvalidSessionTokenException();
 
     const { id, hash } = await this.sessionTokenProvider.parsePublicToken(authorization);
 
@@ -45,7 +45,7 @@ export default class AuthMiddleware implements IMiddleware {
 
     if (!session) throw new ResourceNotFoundException('Session');
 
-    if (session.token !== hash) throw new InvalidTokenException();
+    if (session.token !== hash) throw new InvalidSessionTokenException();
 
     if (!hasCachedSession) await this.sessionCacheProvider.save(id, session);
 
