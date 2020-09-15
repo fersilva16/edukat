@@ -28,6 +28,10 @@ describe('ShowRegisterDataUseCase', () => {
     );
   });
 
+  beforeEach(async () => {
+    await partialUserRepository.clear();
+  });
+
   it('should be return register data', async () => {
     const partialUser = await partialUserRepository.create(
       Factory.build<ICreatePartialUserDTO>('partialUser', {
