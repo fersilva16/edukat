@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { DateTime } from 'luxon';
 import { injectable, inject } from 'tsyringe';
 
 import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
@@ -46,6 +47,10 @@ export default class AuthMiddleware implements IMiddleware {
     if (!session) throw new ResourceNotFoundException('Session');
 
     if (session.token !== hash) throw new InvalidSessionTokenException();
+
+    if (session.expires_at && session.expires_at < DateTime.local()) {
+      throw new InvalidSessionTokenException();
+    }
 
     if (!hasCachedSession) await this.sessionCacheProvider.save(id, session);
 
