@@ -1,4 +1,4 @@
-import ITemplateData from '~/providers/TemplateProvider/dtos/ITemplateData';
+import ITemplateData from '../../TemplateProvider/dtos/ITemplateData';
 
 export default interface ISendMailDTO {
   to: {

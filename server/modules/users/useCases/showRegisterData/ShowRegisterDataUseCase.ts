@@ -2,13 +2,14 @@ import { injectable, inject } from 'tsyringe';
 
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
-import IRegisterDataDTO from '~/modules/users/dtos/IRegisterDataDTO';
 import IUseCase from '~/types/IUseCase';
 
+import IRegisterDataDTO from '@users/dtos/IRegisterDataDTO';
 import IRegisterTokenDTO from '@users/dtos/IRegisterTokenDTO';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import IPartialUserRepository from '@users/repositories/PartialUserRepository/IPartialUserRepository';
-import IShowRegisterDataDTO from '@users/useCases/showRegisterData/ShowRegisterDataDTO';
+
+import IShowRegisterDataDTO from './ShowRegisterDataDTO';
 
 @injectable()
 export default class ShowRegisterDataUseCase implements IUseCase {

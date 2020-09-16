@@ -1,11 +1,11 @@
 import { injectable, inject } from 'tsyringe';
 
 import InvalidCredentialsException from '~/exceptions/InvalidCredentialsException';
-import ISharableTokenDTO from '~/modules/users/providers/SessionTokenProvider/dtos/ISharableTokenDTO';
-import ISessionTokenProvider from '~/modules/users/providers/SessionTokenProvider/ISessionTokenProvider';
 import IUseCase from '~/types/IUseCase';
 
 import IHashProvider from '@users/providers/HashProvider/IHashProvider';
+import ISharableTokenDTO from '@users/providers/SessionTokenProvider/dtos/ISharableTokenDTO';
+import ISessionTokenProvider from '@users/providers/SessionTokenProvider/ISessionTokenProvider';
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 

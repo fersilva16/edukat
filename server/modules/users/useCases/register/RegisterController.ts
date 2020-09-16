@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
-import RegisterData from '~/modules/users/infra/validators/RegisterData';
 import IController from '~/types/IController';
 import validateObject from '~/utils/validate/object';
+
+import RegisterData from '@users/infra/validators/RegisterData';
 
 import RegisterUseCase from './RegisterUseCase';
 

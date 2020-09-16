@@ -12,7 +12,8 @@ import FakePartialUserRepository from '@users/repositories/PartialUserRepository
 import IPartialUserRepository from '@users/repositories/PartialUserRepository/IPartialUserRepository';
 import FakeUserRepository from '@users/repositories/UserRepository/implementations/fakes/FakeUserRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
-import RegisterUseCase from '@users/useCases/register/RegisterUseCase';
+
+import RegisterUseCase from './RegisterUseCase';
 
 describe('RegisterUseCase', () => {
   let registerUseCase: RegisterUseCase;

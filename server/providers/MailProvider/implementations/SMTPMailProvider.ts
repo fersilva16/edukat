@@ -3,8 +3,8 @@ import { injectable, inject } from 'tsyringe';
 
 import appConfig from '~/config/app';
 import mailConfig from '~/config/mail';
-import ITemplateProvider from '~/providers/TemplateProvider/ITemplateProvider';
 
+import ITemplateProvider from '../../TemplateProvider/ITemplateProvider';
 import ISendMailDTO from '../dtos/ISendMailDTO';
 import IMailProvider from '../IMailProvider';
 
