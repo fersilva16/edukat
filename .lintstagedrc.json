@@ -1,7 +1,6 @@
 {
   "*.{ts,js}": [
     "eslint --fix",
-    "yarn typecheck",
     "yarn test --findRelatedTests"
   ]
 }
