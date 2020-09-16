@@ -5,9 +5,9 @@ import appConfig from '~/config/app';
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 
-import ICreatePartialUserDTO from '@users/dtos/ICreatePartialUserDTO';
 import FakeTokenProvider from '@users/providers/TokenProvider/implementations/fakes/FakeTokenProvider';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
+import ICreatePartialUserDTO from '@users/repositories/PartialUserRepository/dtos/ICreatePartialUserDTO';
 import FakePartialUserRepository from '@users/repositories/PartialUserRepository/implementations/fakes/FakePartialUserRepository';
 import IPartialUserRepository from '@users/repositories/PartialUserRepository/IPartialUserRepository';
 

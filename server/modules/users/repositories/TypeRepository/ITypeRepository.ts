@@ -1,5 +1,6 @@
-import ICreateTypeDTO from '@users/dtos/ICreateTypeDTO';
 import Type from '@users/entities/Type';
+
+import ICreateTypeDTO from './dtos/ICreateTypeDTO';
 
 export default interface ITypeRepository {
   all(): Promise<Type[]>;

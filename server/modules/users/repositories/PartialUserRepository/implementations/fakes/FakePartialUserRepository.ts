@@ -3,10 +3,10 @@ import { DateTime } from 'luxon';
 
 import FakeRepository from '~/repositories/FakeRepository';
 
-import ICreatePartialUserDTO from '@users/dtos/ICreatePartialUserDTO';
 import PartialUser from '@users/entities/PartialUser';
 import IRawPartialUser from '@users/entities/raws/IRawPartialUser';
 
+import ICreatePartialUserDTO from '../../dtos/ICreatePartialUserDTO';
 import IPartialUserRepository from '../../IPartialUserRepository';
 
 export default class FakePartialUserRepository

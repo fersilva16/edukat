@@ -1,5 +1,6 @@
-import ICreatePartialUserDTO from '@users/dtos/ICreatePartialUserDTO';
 import PartialUser from '@users/entities/PartialUser';
+
+import ICreatePartialUserDTO from './dtos/ICreatePartialUserDTO';
 
 export default interface IPartialUserRepository {
   findById(id: string): Promise<PartialUser>;

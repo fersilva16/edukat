@@ -1,8 +1,8 @@
 import env from '~/utils/env';
 
 import { KeyofFlags } from '@users/dtos/Flags';
-import ICreateTypeDTO from '@users/dtos/ICreateTypeDTO';
-import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
+import ICreateTypeDTO from '@users/repositories/TypeRepository/dtos/ICreateTypeDTO';
+import ICreateUserDTO from '@users/repositories/UserRepository/dtos/ICreateUserDTO';
 
 export type TypeWithFlags = Omit<ICreateTypeDTO, 'permissions'> & {
   flags: KeyofFlags[];

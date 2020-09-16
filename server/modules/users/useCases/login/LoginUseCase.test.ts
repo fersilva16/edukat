@@ -3,13 +3,13 @@ import { Factory } from 'rosie';
 
 import InvalidCredentialsException from '~/exceptions/InvalidCredentialsException';
 
-import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
 import IHashProvider from '@users/providers/HashProvider/IHashProvider';
 import FakeHashProvider from '@users/providers/HashProvider/implementations/fakes/FakeHashProvider';
 import FakeSessionTokenProvider from '@users/providers/SessionTokenProvider/implementations/fakes/FakeSessionTokenProvider';
 import ISessionTokenProvider from '@users/providers/SessionTokenProvider/ISessionTokenProvider';
 import FakeSessionRepository from '@users/repositories/SessionRepository/implementations/fakes/FakeSessionRepository';
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
+import ICreateUserDTO from '@users/repositories/UserRepository/dtos/ICreateUserDTO';
 import FakeUserRepository from '@users/repositories/UserRepository/implementations/fakes/FakeUserRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 

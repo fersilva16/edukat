@@ -1,9 +1,9 @@
 import faker from 'faker';
 import { Factory } from 'rosie';
 
-import ICreatePartialUserDTO from '@users/dtos/ICreatePartialUserDTO';
-import ICreateTypeDTO from '@users/dtos/ICreateTypeDTO';
-import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
+import ICreatePartialUserDTO from '@users/repositories/PartialUserRepository/dtos/ICreatePartialUserDTO';
+import ICreateTypeDTO from '@users/repositories/TypeRepository/dtos/ICreateTypeDTO';
+import ICreateUserDTO from '@users/repositories/UserRepository/dtos/ICreateUserDTO';
 
 Factory.define<ICreatePartialUserDTO>('partialUser')
   .attr('email', () => faker.internet.email())

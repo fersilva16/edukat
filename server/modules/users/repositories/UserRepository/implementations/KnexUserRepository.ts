@@ -4,11 +4,11 @@ import { injectable, inject } from 'tsyringe';
 
 import Repository from '~/repositories/Repository';
 
-import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
 import IRawUser from '@users/entities/raws/IRawUser';
 import User from '@users/entities/User';
 import IHashProvider from '@users/providers/HashProvider/IHashProvider';
 
+import ICreateUserDTO from '../dtos/ICreateUserDTO';
 import IUserRepository from '../IUserRepository';
 
 @injectable()

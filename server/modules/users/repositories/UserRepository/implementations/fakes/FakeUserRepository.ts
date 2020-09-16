@@ -3,10 +3,10 @@ import { DateTime } from 'luxon';
 
 import FakeRepository from '~/repositories/FakeRepository';
 
-import ICreateUserDTO from '@users/dtos/ICreateUserDTO';
 import IRawUser from '@users/entities/raws/IRawUser';
 import User from '@users/entities/User';
 
+import ICreateUserDTO from '../../dtos/ICreateUserDTO';
 import IUserRepository from '../../IUserRepository';
 
 export default class FakeUserRepository

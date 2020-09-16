@@ -3,10 +3,10 @@ import { DateTime } from 'luxon';
 
 import Repository from '~/repositories/Repository';
 
-import ICreateTypeDTO from '@users/dtos/ICreateTypeDTO';
 import IRawType from '@users/entities/raws/IRawType';
 import Type from '@users/entities/Type';
 
+import ICreateTypeDTO from '../dtos/ICreateTypeDTO';
 import ITypeRepository from '../ITypeRepository';
 
 export default class KnexTypeRepository

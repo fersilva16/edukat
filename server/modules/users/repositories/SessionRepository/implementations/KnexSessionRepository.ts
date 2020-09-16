@@ -3,10 +3,10 @@ import { DateTime } from 'luxon';
 
 import Repository from '~/repositories/Repository';
 
-import ICreateSessionDTO from '@users/dtos/ICreateSessionDTO';
 import IRawSession from '@users/entities/raws/IRawSession';
 import Session from '@users/entities/Session';
 
+import ICreateSessionDTO from '../dtos/ICreateSessionDTO';
 import ISessionRepository from '../ISessionRepository';
 
 export default class KnexSessionRepository
