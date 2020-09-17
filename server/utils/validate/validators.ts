@@ -1,12 +1,12 @@
 import { defaultMetadataStorage } from 'class-transformer/storage';
 import {
-  IsAlphanumeric,
-  IsEmail,
-  IsJWT,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  Length,
+  IsAlphanumeric as IsAlphanumericValidator,
+  IsEmail as IsEmailValidator,
+  IsJWT as IsJWTValidator,
+  IsNotEmpty as IsNotEmptyValidator,
+  IsOptional as IsOptionalValidator,
+  IsString as IsStringValidator,
+  Length as LengthValidator,
 } from 'class-validator';
 
 function createPropertyValidator<T extends (...args: any[]) => any>(Validator: T) {
@@ -21,12 +21,10 @@ function createPropertyValidator<T extends (...args: any[]) => any>(Validator: T
   };
 }
 
-export = {
-  IsAlphanumeric: createPropertyValidator(IsAlphanumeric),
-  IsEmail: createPropertyValidator(IsEmail),
-  IsJWT: createPropertyValidator(IsJWT),
-  IsNotEmpty: createPropertyValidator(IsNotEmpty),
-  IsOptional: createPropertyValidator(IsOptional),
-  IsString: createPropertyValidator(IsString),
-  Length: createPropertyValidator(Length),
-};
+export const IsAlphanumeric = createPropertyValidator(IsAlphanumericValidator);
+export const IsEmail = createPropertyValidator(IsEmailValidator);
+export const IsJWT = createPropertyValidator(IsJWTValidator);
+export const IsNotEmpty = createPropertyValidator(IsNotEmptyValidator);
+export const IsOptional = createPropertyValidator(IsOptionalValidator);
+export const IsString = createPropertyValidator(IsStringValidator);
+export const Length = createPropertyValidator(LengthValidator);
