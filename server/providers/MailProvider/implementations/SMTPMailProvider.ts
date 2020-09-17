@@ -25,10 +25,12 @@ export default class SMTPMailProvider implements IMailProvider {
     const html = await this.templateProvider.parse(template);
 
     await this.transport.sendMail({
-      to: {
-        name: to.name,
-        address: to.email,
-      },
+      to: to.name
+        ? {
+          name: to.name,
+          address: to.email,
+        }
+        : to.email,
 
       from: {
         name: appConfig.name,

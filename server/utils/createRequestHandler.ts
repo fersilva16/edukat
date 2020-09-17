@@ -15,7 +15,7 @@ export default function createRequestHandler(
     middlewares.unshift(
       createMiddleware({
         async handle(request, response, next) {
-          await controller.validate(request);
+          await controller.validate!(request);
 
           next();
         },

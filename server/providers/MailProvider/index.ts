@@ -9,4 +9,9 @@ const providers = {
   smtp: SMTPMailProvider,
 };
 
-container.registerSingleton<IMailProvider>('MailProvider', providers[mailConfig.driver]);
+if (!Object.keys(providers).includes(mailConfig.driver)) throw new Error('Invalid mail provider');
+
+container.registerSingleton<IMailProvider>(
+  'MailProvider',
+  providers[mailConfig.driver as keyof typeof providers],
+);

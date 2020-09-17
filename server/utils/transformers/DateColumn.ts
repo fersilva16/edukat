@@ -15,7 +15,7 @@ export default function DateColumn(name: string) {
 
   const transformPlainOnly = Transform((date: DateTime) => date?.toISO(), { toPlainOnly: true });
 
-  return (object: Object, propertyName?: string) => {
+  return (object: Object, propertyName: string) => {
     column(object, propertyName);
     transformClassOnly(object, propertyName);
     transformPlainOnly(object, propertyName);

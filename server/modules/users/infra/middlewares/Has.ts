@@ -31,12 +31,16 @@ export default class HasMiddleware implements IMiddleware {
   ): Promise<void> {
     const { user } = request;
 
+    if (!user) throw new ResourceNotFoundException('User');
+
     const hasCachedPermissions = await this.permissionCacheProvider.exists(user.type_id);
 
     const cachedPermissions = hasCachedPermissions
       && await this.permissionCacheProvider.recover(user.type_id);
 
-    const type = !hasCachedPermissions && await this.typeRepository.findById(user.type_id);
+    const type = !hasCachedPermissions
+      ? await this.typeRepository.findById(user.type_id)
+      : undefined;
 
     if (!hasCachedPermissions) {
       if (!type) throw new ResourceNotFoundException('Type');
@@ -44,7 +48,7 @@ export default class HasMiddleware implements IMiddleware {
       await this.permissionCacheProvider.save(user.type_id, type.permissions);
     }
 
-    const permissions = Number(hasCachedPermissions ? cachedPermissions : type.permissions);
+    const permissions = Number(hasCachedPermissions ? cachedPermissions : type!.permissions);
 
     const missingPermissions: KeyofFlags[] = [];
 

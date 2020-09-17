@@ -40,7 +40,7 @@ export default class OpaqueSessionTokenProvider implements ISessionTokenProvider
     return {
       type: this.type,
       token: `${base64Url.encode(id)}.${token.value}`,
-      expiresAt: token.expiresAt?.toISO(),
+      expiresAt: token.expiresAt?.toISO()!,
     };
   }
 

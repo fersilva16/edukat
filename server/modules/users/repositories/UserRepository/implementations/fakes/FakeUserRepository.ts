@@ -24,7 +24,7 @@ export default class FakeUserRepository
   }
 
   async create(data: ICreateUserDTO): Promise<User> {
-    const dateNow = DateTime.local().toISO();
+    const dateNow = DateTime.local().toISO()!;
     const id = this.generateId();
 
     const user: IRawUser = {

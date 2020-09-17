@@ -28,7 +28,7 @@ export default class KnexTypeRepository
   }
 
   async create(data: ICreateTypeDTO): Promise<Type> {
-    const dateNow = DateTime.local().toISO();
+    const dateNow = DateTime.local().toISO()!;
     const id = await this.generateId();
 
     const rawType: IRawType = {

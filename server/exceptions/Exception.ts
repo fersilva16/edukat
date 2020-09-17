@@ -1,10 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
 export default class Expection extends Error {
-  readonly name: string;
-
-  readonly message: string;
-
   readonly status: number;
 
   readonly code: string;

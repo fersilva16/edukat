@@ -9,7 +9,7 @@ export default class JWTTokenProvider implements ITokenProvider {
   private expiresIn = 86400000;
 
   async generateToken<T extends object>(payload?: T): Promise<string> {
-    return jwt.sign(payload, appConfig.secret, {
+    return jwt.sign(payload ?? {}, appConfig.secret, {
       expiresIn: this.expiresIn,
     });
   }

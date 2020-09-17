@@ -5,7 +5,7 @@ function encode(data: string | Buffer): string {
     .replace(/=/g, '');
 }
 
-function decode(base64: string | Buffer, strict: boolean = false): string {
+function decode(base64: string | Buffer, strict: boolean = false): string | undefined {
   if (Buffer.isBuffer(base64)) return base64.toString();
 
   const decoded = Buffer.from(base64, 'base64').toString();

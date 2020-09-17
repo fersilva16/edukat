@@ -22,8 +22,12 @@ export default class RedisPermissionCacheProvider implements IPermissionCachePro
     return Boolean(exists);
   }
 
-  async recover(id: string): Promise<string> {
-    return redis.get(this.addPrefix(id));
+  async recover(id: string): Promise<string | undefined> {
+    const value = await redis.get(this.addPrefix(id));
+
+    if (!value) return undefined;
+
+    return value;
   }
 
   async invalidate(id: string): Promise<void> {

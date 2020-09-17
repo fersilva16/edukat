@@ -11,7 +11,7 @@ export default class FakePermissionCacheProvider implements IPermissionCacheProv
     return this.permissions.has(id);
   }
 
-  async recover(id: string): Promise<string> {
+  async recover(id: string): Promise<string | undefined> {
     return this.permissions.get(id);
   }
 

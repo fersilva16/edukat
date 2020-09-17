@@ -22,7 +22,7 @@ export default class FakeTypeRepository
   }
 
   async create(data: ICreateTypeDTO): Promise<Type> {
-    const dateNow = DateTime.local().toISO();
+    const dateNow = DateTime.local().toISO()!;
     const id = this.generateId();
 
     const type: IRawType = {

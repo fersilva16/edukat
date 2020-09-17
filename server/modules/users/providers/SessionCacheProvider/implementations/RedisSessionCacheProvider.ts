@@ -21,8 +21,8 @@ export default class RedisSessionCacheProvider implements ISessionCacheProvider 
     const rawSession: IRawSession = {
       ...session,
 
-      created_at: session.created_at.toISO(),
-      expires_at: session.expires_at?.toISO(),
+      created_at: session.created_at.toISO()!,
+      expires_at: session.expires_at?.toISO()!,
     };
 
     await redis.hmset(key, new Map(Object.entries(rawSession)));
@@ -36,8 +36,10 @@ export default class RedisSessionCacheProvider implements ISessionCacheProvider 
     return Boolean(exists);
   }
 
-  async recover(id: string): Promise<Session> {
-    const rawSession = await redis.hgetall(this.addPrefix(id)) as unknown as IRawSession;
+  async recover(id: string): Promise<Session | undefined> {
+    const rawSession = await redis.hgetall(this.addPrefix(id));
+
+    if (!Object.keys(rawSession).length) return undefined;
 
     return plainToClass(Session, rawSession);
   }

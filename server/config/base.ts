@@ -21,32 +21,32 @@ type BaseConfig = {
 
 const baseConfig: BaseConfig = {
   admin: {
-    firstname: env.string('ADMIN_FIRSTNAME', 'Admin'),
-    lastname: env.string('ADMIN_LASTNAME', 'Admin'),
+    firstname: env.string('ADMIN_FIRSTNAME', 'Admin')!,
+    lastname: env.string('ADMIN_LASTNAME', 'Admin')!,
 
-    email: env.string('ADMIN_EMAIL', 'admin@edukat.com.br'),
+    email: env.string('ADMIN_EMAIL', 'admin@edukat.com.br')!,
 
-    password: env.string('ADMIN_PASSWORD', 'admin'),
+    password: env.string('ADMIN_PASSWORD', 'admin')!,
   },
 
   types: {
     admin: {
-      name: env.string('ADMIN_TYPE_NAME', 'Administrator'),
+      name: env.string('ADMIN_TYPE_NAME', 'Administrator')!,
       flags: ['ADMINISTRATOR'],
     },
 
     teacher: {
-      name: env.string('TEACHER_TYPE_NAME', 'Teacher'),
+      name: env.string('TEACHER_TYPE_NAME', 'Teacher')!,
       flags: [],
     },
 
     student: {
-      name: env.string('STUDENT_TYPE_NAME', 'Student'),
+      name: env.string('STUDENT_TYPE_NAME', 'Student')!,
       flags: [],
     },
 
     parent: {
-      name: env.string('PARENT_TYPE_NAME', 'Parent'),
+      name: env.string('PARENT_TYPE_NAME', 'Parent')!,
       flags: [],
     },
   },

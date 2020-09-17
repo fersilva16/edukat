@@ -27,8 +27,8 @@ export default class FakeSessionRepository
 
       user_id: data.userId,
 
-      created_at: DateTime.local().toISO(),
-      expires_at: data.expiresAt?.toISO(),
+      created_at: DateTime.local().toISO()!,
+      expires_at: data.expiresAt?.toISO()!,
     };
 
     this.rows.push(rawSession);

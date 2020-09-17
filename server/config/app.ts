@@ -26,8 +26,8 @@ const appConfig: AppConfig = {
 
   idLength: 6,
 
-  host: env.string('HOST', '0.0.0.0'),
-  port: env.number('PORT', 3000),
+  host: env.string('HOST', '0.0.0.0')!,
+  port: env.number('PORT', 3000)!,
 
   secret: env.stringOrFail('SECRET'),
 };

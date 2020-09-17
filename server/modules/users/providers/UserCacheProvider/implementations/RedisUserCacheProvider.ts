@@ -21,8 +21,8 @@ export default class RedisUserCacheProvider implements IUserCacheProvider {
     const rawUser: IRawUser = {
       ...user,
 
-      created_at: user.created_at.toISO(),
-      updated_at: user.updated_at.toISO(),
+      created_at: user.created_at.toISO()!,
+      updated_at: user.updated_at.toISO()!,
     };
 
     await redis.hmset(key, new Map(Object.entries(rawUser)));
@@ -36,8 +36,10 @@ export default class RedisUserCacheProvider implements IUserCacheProvider {
     return Boolean(exists);
   }
 
-  async recover(id: string): Promise<User> {
-    const rawUser = await redis.hgetall(this.addPrefix(id)) as unknown as IRawUser;
+  async recover(id: string): Promise<User | undefined> {
+    const rawUser = await redis.hgetall(this.addPrefix(id));
+
+    if (!Object.keys(rawUser).length) return undefined;
 
     return plainToClass(User, rawUser);
   }

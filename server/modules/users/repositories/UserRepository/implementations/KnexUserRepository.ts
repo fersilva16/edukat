@@ -34,7 +34,7 @@ export default class KnexUserRepository
   }
 
   async create(data: ICreateUserDTO): Promise<User> {
-    const dateNow = DateTime.local().toISO();
+    const dateNow = DateTime.local().toISO()!;
     const id = await this.generateId();
 
     const rawUser: IRawUser = {

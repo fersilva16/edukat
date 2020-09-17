@@ -24,7 +24,7 @@ export default class FakePartialUserRepository
   }
 
   async create(data: ICreatePartialUserDTO): Promise<PartialUser> {
-    const dateNow = DateTime.local().toISO();
+    const dateNow = DateTime.local().toISO()!;
     const id = this.generateId();
 
     const rawPartialUser: IRawPartialUser = {

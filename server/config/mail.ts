@@ -7,7 +7,7 @@ type MailConfig = {
     smtp: {
       host: string;
       port: number;
-      auth: {
+      auth?: {
         type: 'login';
         user: string;
         pass: string;
@@ -16,19 +16,23 @@ type MailConfig = {
   };
 };
 
+const driver = env.string('MAIL_DRIVER', 'smtp')!;
+
 const mailConfig: MailConfig = {
-  driver: env.string('MAIL_DRIVER', 'smtp'),
+  driver,
 
   drivers: {
     smtp: {
-      host: env.string('SMTP_HOST', 'localhost'),
-      port: env.number('SMTP_PORT', 25),
+      host: env.string('SMTP_HOST', 'localhost')!,
+      port: env.number('SMTP_PORT', 25)!,
 
-      auth: {
-        type: 'login',
-        user: env.string('SMTP_USER'),
-        pass: env.string('SMTP_PASS'),
-      },
+      auth: driver === 'smtp'
+        ? {
+          type: 'login',
+          user: env.stringOrFail('SMTP_USER'),
+          pass: env.stringOrFail('SMTP_PASS'),
+        }
+        : undefined,
     },
   },
 };

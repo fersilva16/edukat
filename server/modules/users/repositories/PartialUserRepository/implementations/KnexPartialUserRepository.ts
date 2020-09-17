@@ -28,7 +28,7 @@ export default class KnexPartialUserRepository
   }
 
   async create(data: ICreatePartialUserDTO): Promise<PartialUser> {
-    const dateNow = DateTime.local().toISO();
+    const dateNow = DateTime.local().toISO()!;
     const id = await this.generateId();
 
     const rawPartialUser: IRawPartialUser = {

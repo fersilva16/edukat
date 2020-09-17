@@ -3,7 +3,7 @@ export default interface IPermissionCacheProvider {
 
   exists(id: string): Promise<boolean>;
 
-  recover(id: string): Promise<string>;
+  recover(id: string): Promise<string | undefined>;
 
   invalidate(id: string): Promise<void>;
 

@@ -5,7 +5,7 @@ export default interface ISessionCacheProvider {
 
   exists(id: string): Promise<boolean>;
 
-  recover(id: string): Promise<Session>;
+  recover(id: string): Promise<Session | undefined>;
 
   invalidate(id: string): Promise<void>;
 

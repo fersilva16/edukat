@@ -31,8 +31,8 @@ export default class KnexSessionRepository
 
       user_id: data.userId,
 
-      created_at: DateTime.local().toISO(),
-      expires_at: data.expiresAt?.toISO(),
+      created_at: DateTime.local().toISO()!,
+      expires_at: data.expiresAt?.toISO()!,
     };
 
     const session = await this.table.insert(rawSession).returning('*');

@@ -24,7 +24,7 @@ export default class Handler {
         stack: exception.stack,
       });
     } else {
-      logger.error(exception.stack, { label: 'server' });
+      logger.error(exception.stack!, { label: 'server' });
     }
 
     response.status(500).send({

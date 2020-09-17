@@ -14,7 +14,7 @@ export default class HandlebarsTemplateProvider implements ITemplateProvider {
     if (this.templates.has(file)) {
       const template = this.templates.get(file);
 
-      return template(context);
+      return template!(context);
     }
 
     const content = await fs.readFile(path, 'utf-8');

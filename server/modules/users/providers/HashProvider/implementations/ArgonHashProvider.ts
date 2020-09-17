@@ -10,7 +10,7 @@ export default class ArgonHashProvider implements IHashProvider {
     return argon2.hash(password, {
       ...hashConfig,
       raw: false,
-      salt: randomBytes(hashConfig.saltLength),
+      salt: randomBytes(hashConfig.saltLength!),
     });
   }
 

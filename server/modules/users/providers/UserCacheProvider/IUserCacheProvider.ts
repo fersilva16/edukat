@@ -5,7 +5,7 @@ export default interface IUserCacheProvider {
 
   exists(id: string): Promise<boolean>;
 
-  recover(id: string): Promise<User>;
+  recover(id: string): Promise<User | undefined>;
 
   invalidate(id: string): Promise<void>;
 
