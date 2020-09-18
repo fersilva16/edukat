@@ -1,5 +1,7 @@
 import { ClassType, transformAndValidate } from 'class-transformer-validator';
 
+import ValidationException from '~/exceptions/ValidationException';
+
 async function validate<T extends object>(Entity: ClassType<T>, array: object[]): Promise<T[]>;
 async function validate<T extends object>(Entity: ClassType<T>, object: object): Promise<T>;
 async function validate<T extends object>(
@@ -16,6 +18,8 @@ async function validate<T extends object>(
         target: false,
       },
     },
+  }).catch((errors) => {
+    throw new ValidationException(errors);
   });
 }
 

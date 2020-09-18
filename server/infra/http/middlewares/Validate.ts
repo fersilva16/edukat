@@ -15,7 +15,7 @@ export default class ValidateMiddleware implements IMiddleware {
     cls: ClassType<any>,
   ): Promise<void> {
     if (Array.isArray(request.body)) {
-      throw new ValidationException('Body', [
+      throw new ValidationException([
         plainToClass(ValidationError, {
           value: request.body,
           constraints: {
