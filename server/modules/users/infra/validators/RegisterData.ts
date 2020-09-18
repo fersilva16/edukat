@@ -4,7 +4,7 @@ import {
   IsString,
 } from 'class-validator';
 
-import IsEqualTo from '~/utils/IsEqualTo';
+import IsEqualTo from '~/utils/validators/IsEqualTo';
 
 export default class RegisterData {
   @IsJWT()
