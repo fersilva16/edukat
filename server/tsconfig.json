@@ -7,7 +7,6 @@
     "isolatedModules": false,
     "noEmit": false,
     "strict": true,
-    "strictPropertyInitialization": false,
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

@@ -16,5 +16,5 @@ export default class PartialUser {
 
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  email!: string;
 }

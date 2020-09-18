@@ -9,22 +9,22 @@ import IsEqualTo from '~/utils/IsEqualTo';
 export default class RegisterData {
   @IsJWT()
   @IsNotEmpty()
-  token: string;
+  token!: string;
 
   @IsString()
   @IsNotEmpty()
-  firstname: string;
+  firstname!: string;
 
   @IsString()
   @IsNotEmpty()
-  lastname: string;
+  lastname!: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string;
+  password!: string;
 
   @IsString()
   @IsNotEmpty()
   @IsEqualTo('password')
-  password_confirmation: string;
+  password_confirmation!: string;
 }

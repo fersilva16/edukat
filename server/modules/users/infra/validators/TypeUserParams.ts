@@ -4,5 +4,5 @@ export default class TypeUserParams {
   @IsAlphanumeric()
   @MaxLength(6)
   @IsNotEmpty()
-  type_id: string;
+  type_id!: string;
 }
