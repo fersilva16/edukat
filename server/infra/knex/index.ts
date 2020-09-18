@@ -1,4 +1,4 @@
-import createKnex from 'knex';
+import createKnex, { PgConnectionConfig } from 'knex';
 
 import databaseConfig from '~/config/database';
 import logger from '~/logger';
@@ -11,7 +11,9 @@ export async function ensureDatabaseConnection(): Promise<void> {
   return new Promise((resolve, reject) => {
     knex.raw('select version()')
       .then(() => {
-        logger.info(`Successfully connected to ${(databaseConfig.connection as any).host}:${(databaseConfig.connection as any).port}!`, { label: 'database' });
+        const { host, port } = databaseConfig.connection as PgConnectionConfig;
+
+        logger.info(`Successfully connected to ${host}:${port}!`, { label: 'database' });
         resolve();
       })
       .catch(reject);

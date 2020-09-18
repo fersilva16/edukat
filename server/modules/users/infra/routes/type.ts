@@ -8,6 +8,10 @@ const typeUserRoutes = Router();
 
 typeUserRoutes.get('/', createRequestHandler('ShowAllTypes', auth, has('MANAGE_TYPES')));
 
-typeUserRoutes.post('/:type_id/users', createRequestHandler('CreateUser', auth, has('MANAGE_USERS')));
+typeUserRoutes.post('/:type_id/users', createRequestHandler(
+  'CreateUser',
+  auth,
+  has('MANAGE_USERS'),
+));
 
 export default typeUserRoutes;
