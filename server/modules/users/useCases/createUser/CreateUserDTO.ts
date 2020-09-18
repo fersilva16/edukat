@@ -1,8 +1,36 @@
-export default interface ICreateUserDTO {
+import { Property } from '~/utils/transformers';
+import {
+  IsAlphanumeric,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Length,
+  MaxLength,
+} from '~/utils/validators';
+
+export default class CreateUserDTO {
+  @IsString()
+  @IsOptional()
+  @Property('firstname')
   firstname?: string;
+
+  @IsString()
+  @IsOptional()
+  @Property('lastname')
   lastname?: string;
 
-  email: string;
+  @IsString()
+  @IsEmail()
+  @MaxLength(255)
+  @IsNotEmpty()
+  @Property('email')
+  email!: string;
 
-  typeId: string;
+  @IsString()
+  @IsAlphanumeric()
+  @Length(6, 6)
+  @IsNotEmpty()
+  @Property('type_id')
+  typeId!: string;
 }

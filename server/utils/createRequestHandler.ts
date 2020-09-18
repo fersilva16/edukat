@@ -1,9 +1,9 @@
+import { ClassType } from 'class-transformer/ClassTransformer';
 import { RequestHandler } from 'express';
 import { container } from 'tsyringe';
 
+import { validate } from '~/infra/http/middlewares';
 import IController from '~/types/IController';
-
-import createMiddleware from './createMiddleware';
 
 export default function createRequestHandler(
   useCase: string,
@@ -11,16 +11,12 @@ export default function createRequestHandler(
 ): RequestHandler[] {
   const controller = container.resolve<IController>(`${useCase}Controller`);
 
-  if (controller.validate) {
-    middlewares.unshift(
-      createMiddleware({
-        async handle(request, response, next) {
-          await controller.validate!(request);
+  try {
+    const DTO = container.resolve<ClassType<any>>(`${useCase}DTO`);
 
-          next();
-        },
-      }),
-    );
+    middlewares.unshift(validate(DTO));
+  } catch {
+    // DTO not exists
   }
 
   return [

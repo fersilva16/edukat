@@ -2,9 +2,6 @@ import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
 import IController from '~/types/IController';
-import validateObject from '~/utils/validate/object';
-
-import RegisterData from '@users/infra/validators/RegisterData';
 
 import RegisterUseCase from './RegisterUseCase';
 
@@ -15,13 +12,9 @@ export default class RegisterController implements IController {
     private registerUseCase: RegisterUseCase,
   ) {}
 
-  async handle(request: Request, response: Response): Promise<void> {
-    await this.registerUseCase.execute(request.body);
+  async handle({ data }: Request, response: Response): Promise<void> {
+    await this.registerUseCase.execute(data!);
 
     response.status(201).send();
-  }
-
-  async validate(request: Request): Promise<void> {
-    await validateObject(RegisterData, request.body);
   }
 }

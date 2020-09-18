@@ -1,13 +1,11 @@
 import { ValidationError } from 'class-validator';
 import { Request, Response, NextFunction } from 'express';
 
-import toUpperCase from '~/utils/toUpperCase';
+import BadRequestException from './BadRequestException';
 
-import Exception from './Exception';
-
-export default class ValidationException extends Exception {
-  constructor(entity: string, readonly errors: ValidationError[]) {
-    super(`Unprocessable ${entity}`, 422, `UNPROCESSABLE_${toUpperCase(entity)}`);
+export default class ValidationException extends BadRequestException {
+  constructor(readonly errors: ValidationError[]) {
+    super('Invalid request', 'INVALID_REQUEST');
   }
 
   handle(request: Request, response: Response, next: NextFunction): void {
