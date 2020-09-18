@@ -2,11 +2,6 @@ import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
 import IController from '~/types/IController';
-import validateObject from '~/utils/validate/object';
-import validateParams from '~/utils/validate/params';
-
-import PartialUser from '@users/infra/validators/PartialUser';
-import TypeUserParams from '@users/infra/validators/TypeUserParams';
 
 import CreateUserUseCase from './CreateUserUseCase';
 
@@ -17,18 +12,9 @@ export default class CreateUserController implements IController {
     private createUserUseCase: CreateUserUseCase,
   ) {}
 
-  async handle({ params, body }: Request, response: Response): Promise<void> {
-    await this.createUserUseCase.execute({
-      ...body,
-
-      typeId: params.type_id,
-    });
+  async handle({ data }: Request, response: Response): Promise<void> {
+    await this.createUserUseCase.execute(data!);
 
     response.status(201).send();
-  }
-
-  async validate(request: Request): Promise<void> {
-    await validateParams(TypeUserParams, request.params);
-    await validateObject(PartialUser, request.body);
   }
 }

@@ -25,11 +25,13 @@ export default class ValidateMiddleware implements IMiddleware {
       ]);
     }
 
-    request.data = await validate(cls, {
+    const data = await validate(cls, {
       ...request.body,
       ...request.params,
       ...request.query,
     });
+
+    request.data = plainToClass(cls, data);
 
     next();
   }
