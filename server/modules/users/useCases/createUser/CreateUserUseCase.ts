@@ -12,7 +12,7 @@ import IPartialUserRepository from '@users/repositories/PartialUserRepository/IP
 import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
-import ICreateUserDTO from './CreateUserDTO';
+import CreateUserDTO from './CreateUserDTO';
 
 @injectable()
 export default class CreateUserUseCase implements IUseCase {
@@ -33,7 +33,7 @@ export default class CreateUserUseCase implements IUseCase {
     private mailProvider: IMailProvider,
   ) {}
 
-  async execute(data: ICreateUserDTO): Promise<void> {
+  async execute(data: CreateUserDTO): Promise<void> {
     const userExists = await this.partialUserRepository.findByEmail(data.email)
       || await this.userRepository.findByEmail(data.email);
 

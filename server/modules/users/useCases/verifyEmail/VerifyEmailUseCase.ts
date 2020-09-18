@@ -11,7 +11,7 @@ import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import IPartialUserRepository from '@users/repositories/PartialUserRepository/IPartialUserRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
-import IVerifyEmailDTO from './VerifyEmailDTO';
+import VerifyEmailDTO from './VerifyEmailDTO';
 
 @injectable()
 export default class VerifyEmailUseCase implements IUseCase {
@@ -29,7 +29,7 @@ export default class VerifyEmailUseCase implements IUseCase {
     private mailProvider: IMailProvider,
   ) {}
 
-  async execute({ email }: IVerifyEmailDTO): Promise<void> {
+  async execute({ email }: VerifyEmailDTO): Promise<void> {
     const userExists = await this.userRepository.findByEmail(email);
 
     if (userExists) throw new ResourceAlreadyExistsException('User');

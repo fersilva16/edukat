@@ -9,7 +9,7 @@ import ISessionTokenProvider from '@users/providers/SessionTokenProvider/ISessio
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
-import ILoginDTO from './LoginDTO';
+import LoginDTO from './LoginDTO';
 
 @injectable()
 export default class LoginUseCase implements IUseCase {
@@ -27,7 +27,7 @@ export default class LoginUseCase implements IUseCase {
     private sessionRepository: ISessionRepository,
   ) {}
 
-  async execute({ email, password }: ILoginDTO): Promise<ISharableTokenDTO> {
+  async execute({ email, password }: LoginDTO): Promise<ISharableTokenDTO> {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) throw new InvalidCredentialsException('Uid');

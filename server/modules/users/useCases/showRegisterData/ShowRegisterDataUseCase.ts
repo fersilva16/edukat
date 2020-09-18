@@ -9,7 +9,7 @@ import IRegisterTokenDTO from '@users/dtos/IRegisterTokenDTO';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import IPartialUserRepository from '@users/repositories/PartialUserRepository/IPartialUserRepository';
 
-import IShowRegisterDataDTO from './ShowRegisterDataDTO';
+import ShowRegisterDataDTO from './ShowRegisterDataDTO';
 
 @injectable()
 export default class ShowRegisterDataUseCase implements IUseCase {
@@ -21,7 +21,7 @@ export default class ShowRegisterDataUseCase implements IUseCase {
     private partialUserRepository: IPartialUserRepository,
   ) {}
 
-  async execute({ token }: IShowRegisterDataDTO): Promise<IRegisterDataDTO> {
+  async execute({ token }: ShowRegisterDataDTO): Promise<IRegisterDataDTO> {
     const { id, email } = await this.tokenProvider.parseToken<IRegisterTokenDTO>(token);
 
     const partialUser = await this.partialUserRepository.findById(id);
