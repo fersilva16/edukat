@@ -6,6 +6,7 @@ import {
   IsOptional as IsOptionalValidator,
   IsString as IsStringValidator,
   Length as LengthValidator,
+  MaxLength as MaxLengthValidator,
 } from 'class-validator';
 
 import createPropertyValidator from '~/utils/validators/createPropertyValidator';
@@ -20,3 +21,4 @@ export const IsNotEmpty = createPropertyValidator(IsNotEmptyValidator);
 export const IsOptional = createPropertyValidator(IsOptionalValidator);
 export const IsString = createPropertyValidator(IsStringValidator);
 export const Length = createPropertyValidator(LengthValidator);
+export const MaxLength = createPropertyValidator(MaxLengthValidator);
