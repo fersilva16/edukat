@@ -6,7 +6,7 @@ import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import ITokenProvider from '../ITokenProvider';
 
 export default class JWTTokenProvider implements ITokenProvider {
-  private expiresIn = 86_400_000;
+  private expiresIn = 86_400;
 
   async generateToken<T extends object>(payload?: T): Promise<string> {
     return jwt.sign(payload ?? {}, appConfig.secret, {
