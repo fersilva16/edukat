@@ -7,7 +7,7 @@ export default function DateColumn(name: string) {
   const column = Column(name);
 
   const transformClassOnly = Transform(
-    (date: string) => DateTime?.fromSQL(date),
+    (date: Date) => DateTime.fromJSDate(date),
     {
       toClassOnly: true,
     },
