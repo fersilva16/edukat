@@ -1,4 +1,5 @@
 import { json } from 'body-parser';
+import compression from 'compression';
 import express from 'express';
 import helmet from 'helmet';
 
@@ -17,6 +18,7 @@ export default async function createServer() {
   app.use(json());
   app.use(logging);
   app.use(helmet());
+  app.use(compression());
   app.use(routes);
 
   app.listen(appConfig.port, appConfig.host, (error) => {
