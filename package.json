@@ -5,7 +5,7 @@
   "scripts": {
     "build:server": "tsc --project server/tsconfig.json",
     "build": "next build && yarn build:server",
-    "knex": "ts-node --project server/tsconfig.json --require tsconfig-paths/register --require dotenv/config node_modules/knex/bin/cli.js --knexfile server/config/database.ts",
+    "knex": "ts-node --project server/tsconfig.json --transpile-only --require tsconfig-paths/register --require dotenv/config node_modules/knex/bin/cli.js --knexfile server/config/database.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "yarn lint --fix",
     "setup": "yarn knex migrate:latest && yarn knex seed:run",
