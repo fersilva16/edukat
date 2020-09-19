@@ -7,7 +7,11 @@ export default function DateColumn(name: string) {
   const column = Column(name);
 
   const transformClassOnly = Transform(
-    (date: Date) => DateTime.fromJSDate(date),
+    (date: string | Date) => (
+      typeof date === 'string'
+        ? DateTime.fromISO(date)
+        : DateTime.fromJSDate(date)
+    ),
     {
       toClassOnly: true,
     },
