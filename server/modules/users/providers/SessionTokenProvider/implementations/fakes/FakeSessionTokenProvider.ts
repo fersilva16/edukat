@@ -1,9 +1,11 @@
+import { plainToClass } from 'class-transformer';
+
 import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
 import ramdom from '~/utils/random';
 
 import IPublicTokenDTO from '../../dtos/IPublicTokenDTO';
-import ISharableTokenDTO from '../../dtos/ISharableTokenDTO';
 import ITokenDTO from '../../dtos/ITokenDTO';
+import SharableTokenDTO from '../../dtos/SharableTokenDTO';
 import ISessionTokenProvider from '../../ISessionTokenProvider';
 
 export default class FakeSessionTokenProvider implements ISessionTokenProvider {
@@ -20,11 +22,11 @@ export default class FakeSessionTokenProvider implements ISessionTokenProvider {
     };
   }
 
-  generatePublicToken(token: ITokenDTO, id: string): ISharableTokenDTO {
-    return {
+  generatePublicToken(token: ITokenDTO, id: string): SharableTokenDTO {
+    return plainToClass(SharableTokenDTO, {
       type: this.type,
       token: `${id}.${token.value}`,
-    };
+    });
   }
 
   async parsePublicToken(publicToken: string): Promise<IPublicTokenDTO> {

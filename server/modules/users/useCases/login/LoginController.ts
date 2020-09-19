@@ -1,3 +1,4 @@
+import { classToPlain } from 'class-transformer';
 import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
@@ -15,6 +16,6 @@ export default class LoginController implements IController {
   async handle({ data }: Request, response: Response): Promise<void> {
     const token = await this.loginUseCase.execute(data!);
 
-    response.send(token);
+    response.send(classToPlain(token));
   }
 }

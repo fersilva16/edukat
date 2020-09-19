@@ -1,3 +1,4 @@
+import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 import { injectable, inject } from 'tsyringe';
 
@@ -8,8 +9,8 @@ import random from '~/utils/random';
 
 import IHashProvider from '../../HashProvider/IHashProvider';
 import IPublicTokenDTO from '../dtos/IPublicTokenDTO';
-import ISharableTokenDTO from '../dtos/ISharableTokenDTO';
 import ITokenDTO from '../dtos/ITokenDTO';
+import SharableTokenDTO from '../dtos/SharableTokenDTO';
 import ISessionTokenProvider from '../ISessionTokenProvider';
 
 @injectable()
@@ -36,12 +37,12 @@ export default class OpaqueSessionTokenProvider implements ISessionTokenProvider
     };
   }
 
-  generatePublicToken(token: ITokenDTO, id: string): ISharableTokenDTO {
-    return {
+  generatePublicToken(token: ITokenDTO, id: string): SharableTokenDTO {
+    return plainToClass(SharableTokenDTO, {
       type: this.type,
       token: `${base64Url.encode(id)}.${token.value}`,
       expiresAt: token.expiresAt?.toISO()!,
-    };
+    });
   }
 
   async parsePublicToken(bearerToken: string): Promise<IPublicTokenDTO> {
