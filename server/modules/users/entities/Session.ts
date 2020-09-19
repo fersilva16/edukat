@@ -1,16 +1,20 @@
-import { Transform } from 'class-transformer';
 import { DateTime } from 'luxon';
 
+import { Column, DateColumn } from '~/utils/transformers';
+
 export default class Session {
+  @Column('id')
   id!: string;
 
+  @Column('token')
   token!: string;
 
-  user_id!: string;
+  @Column('user_id')
+  userId!: string;
 
-  @Transform((date: Date) => DateTime.fromJSDate(date), { toClassOnly: true })
-  created_at!: DateTime;
+  @DateColumn('created_at')
+  createdAt!: DateTime;
 
-  @Transform((date: Date) => DateTime.fromJSDate(date), { toClassOnly: true })
-  expires_at?: DateTime;
+  @DateColumn('expires_at')
+  expiresAt?: DateTime;
 }

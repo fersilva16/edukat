@@ -1,6 +1,11 @@
-import Type from '../Type';
+export default interface IRawType {
+  id: string;
 
-export default interface IRawType extends Omit<Type, 'created_at' | 'updated_at'> {
+  name: string;
+
+  permissions: string;
+
   created_at: string;
-  updated_at: string;
+
+  updated_at?: string;
 }

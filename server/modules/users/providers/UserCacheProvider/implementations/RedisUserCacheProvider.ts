@@ -1,9 +1,8 @@
-import { plainToClass } from 'class-transformer';
+import { classToPlain, plainToClass } from 'class-transformer';
 
 import cacheConfig from '~/config/cache';
 import redis from '~/infra/redis';
 
-import IRawUser from '@users/entities/raws/IRawUser';
 import User from '@users/entities/User';
 
 import IUserCacheProvider from '../IUserCacheProvider';
@@ -18,14 +17,11 @@ export default class RedisUserCacheProvider implements IUserCacheProvider {
   async save(id: string, user: User): Promise<void> {
     const key = this.addPrefix(id);
 
-    const rawUser: IRawUser = {
-      ...user,
-
-      created_at: user.created_at.toISO()!,
-      updated_at: user.updated_at.toISO()!,
-    };
-
-    await redis.hmset(key, new Map(Object.entries(rawUser)));
+    await redis.hmset(key, new Map(
+      Object.entries(
+        classToPlain(user),
+      ),
+    ));
 
     await redis.expire(key, cacheConfig.expirationTime);
   }

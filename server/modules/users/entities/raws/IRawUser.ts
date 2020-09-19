@@ -1,6 +1,17 @@
-import User from '../User';
+export default interface IRawUser {
+  id: string;
 
-export default interface IRawUser extends Omit<User, 'created_at' | 'updated_at'> {
+  firstname: string;
+
+  lastname: string;
+
+  email: string;
+
+  password: string;
+
+  type_id: string;
+
   created_at: string;
-  updated_at: string;
+
+  updated_at?: string;
 }

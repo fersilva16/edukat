@@ -1,3 +1,4 @@
+import { classToPlain } from 'class-transformer';
 import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
@@ -15,6 +16,8 @@ export default class ShowAllTypesController implements IController {
   async handle(request: Request, response: Response): Promise<void> {
     const types = await this.showAllTypesUseCase.execute();
 
-    response.status(200).json(types);
+    response.status(200).json(
+      classToPlain(types),
+    );
   }
 }

@@ -74,7 +74,7 @@ describe('RegisterUseCase', () => {
       lastname,
       email: partialUser.email,
       password,
-      typeId: partialUser.type_id,
+      typeId: partialUser.typeId,
     });
   });
 

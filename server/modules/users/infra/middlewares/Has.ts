@@ -33,19 +33,19 @@ export default class HasMiddleware implements IMiddleware {
 
     if (!user) throw new ResourceNotFoundException('User');
 
-    const hasCachedPermissions = await this.permissionCacheProvider.exists(user.type_id);
+    const hasCachedPermissions = await this.permissionCacheProvider.exists(user.typeId);
 
     const cachedPermissions = hasCachedPermissions
-      && await this.permissionCacheProvider.recover(user.type_id);
+      && await this.permissionCacheProvider.recover(user.typeId);
 
     const type = !hasCachedPermissions
-      ? await this.typeRepository.findById(user.type_id)
+      ? await this.typeRepository.findById(user.typeId)
       : undefined;
 
     if (!hasCachedPermissions) {
       if (!type) throw new ResourceNotFoundException('Type');
 
-      await this.permissionCacheProvider.save(user.type_id, type.permissions);
+      await this.permissionCacheProvider.save(user.typeId, type.permissions);
     }
 
     const permissions = Number(hasCachedPermissions ? cachedPermissions : type!.permissions);

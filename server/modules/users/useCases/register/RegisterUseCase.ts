@@ -42,7 +42,7 @@ export default class RegisterUseCase implements IUseCase {
       email,
       password: data.password,
 
-      typeId: partialUser.type_id,
+      typeId: partialUser.typeId,
     });
   }
 }

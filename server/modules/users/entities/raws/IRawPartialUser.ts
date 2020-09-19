@@ -1,6 +1,15 @@
-import PartialUser from '../PartialUser';
+export default interface IRawPartialUser {
+  id: string;
 
-export default interface IRawPartialUser extends Omit<PartialUser, 'created_at' | 'updated_at'> {
+  firstname?: string;
+
+  lastname?: string;
+
+  email: string;
+
+  type_id: string;
+
   created_at: string;
+
   updated_at: string;
 }

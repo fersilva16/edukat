@@ -48,21 +48,21 @@ export default class AuthMiddleware implements IMiddleware {
 
     if (session.token !== hash) throw new InvalidSessionTokenException();
 
-    if (session.expires_at && session.expires_at < DateTime.local()) {
+    if (session.expiresAt && session.expiresAt < DateTime.local()) {
       throw new InvalidSessionTokenException();
     }
 
     if (!hasCachedSession) await this.sessionCacheProvider.save(id, session);
 
-    const hasCachedUser = await this.userCacheProvider.exists(session.user_id);
+    const hasCachedUser = await this.userCacheProvider.exists(session.userId);
 
     const user = hasCachedUser
-      ? await this.userCacheProvider.recover(session.user_id)
-      : await this.userRepository.findById(session.user_id);
+      ? await this.userCacheProvider.recover(session.userId)
+      : await this.userRepository.findById(session.userId);
 
     if (!user) throw new ResourceNotFoundException('User');
 
-    if (!hasCachedSession) await this.userCacheProvider.save(session.user_id, user);
+    if (!hasCachedSession) await this.userCacheProvider.save(session.userId, user);
 
     request.user = user;
 

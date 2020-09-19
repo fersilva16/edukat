@@ -1,20 +1,26 @@
-import { Transform } from 'class-transformer';
 import { DateTime } from 'luxon';
 
+import { Column, DateColumn } from '~/utils/transformers';
+
 export default class PartialUser {
+  @Column('id')
   id!: string;
 
+  @Column('firstname')
   firstname?: string;
 
+  @Column('lastname')
   lastname?: string;
 
+  @Column('email')
   email!: string;
 
-  type_id!: string;
+  @Column('type_id')
+  typeId!: string;
 
-  @Transform((date: Date) => DateTime.fromJSDate(date), { toClassOnly: true })
-  created_at!: DateTime;
+  @DateColumn('created_at')
+  createdAt!: DateTime;
 
-  @Transform((date: Date) => DateTime.fromJSDate(date), { toClassOnly: true })
-  updated_at!: DateTime;
+  @DateColumn('updated_at')
+  updatedAt?: DateTime;
 }

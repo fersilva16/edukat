@@ -1,9 +1,8 @@
-import { plainToClass } from 'class-transformer';
+import { classToPlain, plainToClass } from 'class-transformer';
 
 import cacheConfig from '~/config/cache';
 import redis from '~/infra/redis';
 
-import IRawSession from '@users/entities/raws/IRawSession';
 import Session from '@users/entities/Session';
 
 import ISessionCacheProvider from '../ISessionCacheProvider';
@@ -18,14 +17,11 @@ export default class RedisSessionCacheProvider implements ISessionCacheProvider 
   async save(id: string, session: Session): Promise<void> {
     const key = this.addPrefix(id);
 
-    const rawSession: IRawSession = {
-      ...session,
-
-      created_at: session.created_at.toISO()!,
-      expires_at: session.expires_at?.toISO()!,
-    };
-
-    await redis.hmset(key, new Map(Object.entries(rawSession)));
+    await redis.hmset(key, new Map(
+      Object.entries(
+        classToPlain(session),
+      ),
+    ));
 
     await redis.expire(key, cacheConfig.expirationTime);
   }

@@ -1,23 +1,29 @@
-import { Exclude, Transform } from 'class-transformer';
 import { DateTime } from 'luxon';
 
+import { Column, SensitiveColumn, DateColumn } from '~/utils/transformers';
+
 export default class User {
+  @Column('id')
   id!: string;
 
+  @Column('firstname')
   firstname!: string;
 
+  @Column('lastname')
   lastname!: string;
 
+  @Column('email')
   email!: string;
 
-  type_id!: string;
-
-  @Exclude({ toPlainOnly: true })
+  @SensitiveColumn('password')
   password!: string;
 
-  @Transform((date: Date) => DateTime.fromJSDate(date), { toClassOnly: true })
-  created_at!: DateTime;
+  @Column('type_id')
+  typeId!: string;
 
-  @Transform((date: Date) => DateTime.fromJSDate(date), { toClassOnly: true })
-  updated_at!: DateTime;
+  @DateColumn('created_at')
+  createdAt!: DateTime;
+
+  @DateColumn('updated_at')
+  updatedAt?: DateTime;
 }

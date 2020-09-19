@@ -1,6 +1,11 @@
-import Session from '../Session';
+export default interface IRawSession {
+  id: string;
 
-export default interface IRawSession extends Omit<Session, 'created_at' | 'expires_at'> {
+  token: string;
+
+  user_id: string;
+
   created_at: string;
-  expires_at: string;
+
+  expires_at?: string;
 }
