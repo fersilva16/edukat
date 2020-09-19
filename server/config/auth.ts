@@ -5,7 +5,7 @@ type AuthConfig = {
 };
 
 const authConfig: AuthConfig = {
-  expirationTime: 86400000,
+  expirationTime: 86_400_000,
 
   tokenLength: 60,
 };
