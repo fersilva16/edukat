@@ -1,5 +1,6 @@
 import { json } from 'body-parser';
 import express from 'express';
+import helmet from 'helmet';
 
 import appConfig from '~/config/app';
 import logger from '~/logger';
@@ -15,6 +16,7 @@ export default async function createServer() {
 
   app.use(json());
   app.use(logging);
+  app.use(helmet());
   app.use(routes);
 
   app.listen(appConfig.port, appConfig.host, (error) => {
