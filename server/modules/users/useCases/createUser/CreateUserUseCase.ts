@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
 import appConfig from '~/config/app';
+import NoPermissionException from '~/exceptions/NoPermissionException';
 import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
@@ -33,7 +34,7 @@ export default class CreateUserUseCase implements IUseCase {
     private mailProvider: IMailProvider,
   ) {}
 
-  async execute(data: CreateUserDTO): Promise<void> {
+  async execute({ user, ...data }: CreateUserDTO): Promise<void> {
     const userExists = await this.partialUserRepository.findByEmail(data.email)
       || await this.userRepository.findByEmail(data.email);
 
@@ -42,6 +43,8 @@ export default class CreateUserUseCase implements IUseCase {
     const type = await this.typeRepository.findById(data.typeId);
 
     if (!type) throw new ResourceNotFoundException('Type');
+
+    if (type.position > user.type.position) throw new NoPermissionException();
 
     const { id, firstname, email } = await this.partialUserRepository.create(data);
 

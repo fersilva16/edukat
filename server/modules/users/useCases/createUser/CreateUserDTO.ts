@@ -1,4 +1,4 @@
-import { Property } from '~/utils/transformers';
+import { Helper, Property } from '~/utils/transformers';
 import {
   IsAlphanumeric,
   IsEmail,
@@ -8,6 +8,9 @@ import {
   Length,
   MaxLength,
 } from '~/utils/validators';
+
+import Type from '@users/entities/Type';
+import User from '@users/entities/User';
 
 export default class CreateUserDTO {
   @IsString()
@@ -33,4 +36,7 @@ export default class CreateUserDTO {
   @IsNotEmpty()
   @Property('type_id')
   typeId!: string;
+
+  @Helper()
+  user!: User & { type: Type };
 }

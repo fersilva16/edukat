@@ -1,8 +1,11 @@
 import faker from 'faker';
 import { Factory } from 'rosie';
 
+import NoPermissionException from '~/exceptions/NoPermissionException';
 import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
+import ICreateTypeDTO from '~/modules/users/repositories/TypeRepository/dtos/ICreateTypeDTO';
+import ICreateUserDTO from '~/modules/users/repositories/UserRepository/dtos/ICreateUserDTO';
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
 import FakeMailProvider from '~/providers/MailProvider/implementations/fakes/FakeMailProvider';
 
@@ -56,11 +59,25 @@ describe('CreateUserUseCase', () => {
     const generateToken = jest.spyOn(tokenProvider, 'generateToken');
     const sendMail = jest.spyOn(mailProvider, 'sendMail');
 
-    const type = await typeRepository.create(Factory.build('type'));
+    const adminType = await typeRepository.create(
+      Factory.build<ICreateTypeDTO>('type', { position: 1 }),
+    );
+
+    const user = await userRepository.create(
+      Factory.build<ICreateUserDTO>('user', { typeId: adminType.id }),
+    );
+
+    const type = await typeRepository.create(
+      Factory.build<ICreateTypeDTO>('type', { position: 0 }),
+    );
 
     const partialUser = Factory.build<ICreatePartialUserDTO>('partialUser');
 
-    await createUserUseCase.execute({ ...partialUser, typeId: type.id });
+    await createUserUseCase.execute({
+      user: { ...user, type: adminType },
+      ...partialUser,
+      typeId: type.id,
+    });
 
     expect(userFindByEmail).toHaveBeenCalledWith(partialUser.email);
 
@@ -76,28 +93,90 @@ describe('CreateUserUseCase', () => {
   });
 
   it('should be fail when user already exists', async () => {
+    const adminType = await typeRepository.create(
+      Factory.build<ICreateTypeDTO>('type', { position: 1 }),
+    );
+
+    const user = await userRepository.create(
+      Factory.build<ICreateUserDTO>('user', { typeId: adminType.id }),
+    );
+
     const typeId = faker.random.alphaNumeric(6);
     const { email } = await userRepository.create(Factory.build('user'));
 
     expect(
-      createUserUseCase.execute({ email, typeId }),
+      createUserUseCase.execute({
+        user: { ...user, type: adminType },
+        email,
+        typeId,
+      }),
     ).rejects.toBeInstanceOf(ResourceAlreadyExistsException);
   });
 
   it('should be fail if type not exists', async () => {
+    const adminType = await typeRepository.create(
+      Factory.build<ICreateTypeDTO>('type', { position: 1 }),
+    );
+
+    const user = await userRepository.create(
+      Factory.build<ICreateUserDTO>('user', { typeId: adminType.id }),
+    );
+
     const partialUser = Factory.build<ICreatePartialUserDTO>('partialUser');
 
     expect(
-      createUserUseCase.execute(partialUser),
+      createUserUseCase.execute({
+        ...partialUser,
+        user: { ...user, type: adminType },
+      }),
     ).rejects.toBeInstanceOf(ResourceNotFoundException);
   });
 
-  it('should be fail when partial user already exists', async () => {
-    const typeId = faker.random.alphaNumeric(6);
-    const { email } = await partialUserRepository.create(Factory.build('partialUser'));
+  it('should be fail if partial user type is greater than auth user type', async () => {
+    const adminType = await typeRepository.create(
+      Factory.build<ICreateTypeDTO>('type', { position: 0 }),
+    );
+
+    const user = await userRepository.create(
+      Factory.build<ICreateUserDTO>('user', { typeId: adminType.id }),
+    );
+
+    const type = await typeRepository.create(
+      Factory.build<ICreateTypeDTO>('type', { position: 1 }),
+    );
+
+    const partialUser = Factory.build<ICreatePartialUserDTO>('partialUser');
 
     expect(
-      createUserUseCase.execute({ email, typeId }),
+      createUserUseCase.execute({
+        user: { ...user, type: adminType },
+        ...partialUser,
+        typeId: type.id,
+      }),
+    ).rejects.toBeInstanceOf(NoPermissionException);
+  });
+
+  it('should be fail when partial user already exists', async () => {
+    const { email } = await partialUserRepository.create(Factory.build('partialUser'));
+
+    const adminType = await typeRepository.create(
+      Factory.build<ICreateTypeDTO>('type', { position: 1 }),
+    );
+
+    const user = await userRepository.create(
+      Factory.build<ICreateUserDTO>('user', { typeId: adminType.id }),
+    );
+
+    const type = await typeRepository.create(
+      Factory.build<ICreateTypeDTO>('type', { position: 0 }),
+    );
+
+    expect(
+      createUserUseCase.execute({
+        user: { ...user, type: adminType },
+        email,
+        typeId: type.id,
+      }),
     ).rejects.toBeInstanceOf(ResourceAlreadyExistsException);
   });
 });

@@ -12,8 +12,8 @@ export default class CreateUserController implements IController {
     private createUserUseCase: CreateUserUseCase,
   ) {}
 
-  async handle({ data }: Request, response: Response): Promise<void> {
-    await this.createUserUseCase.execute(data!);
+  async handle({ data, user }: Request, response: Response): Promise<void> {
+    await this.createUserUseCase.execute({ ...data, user });
 
     response.status(201).send();
   }
