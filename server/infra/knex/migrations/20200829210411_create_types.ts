@@ -8,6 +8,7 @@ export async function up({ schema }: Knex): Promise<void> {
   await schema.createTable(tableName, (table) => {
     table.string('id', appConfig.idLength).primary();
     table.string('name').notNullable();
+    table.integer('position').notNullable();
     table.string('permissions').notNullable();
     table.timestamps();
   });

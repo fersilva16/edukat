@@ -9,6 +9,9 @@ export default class Type {
   @Column('name')
   name!: string;
 
+  @Column('position')
+  position!: number;
+
   @Column('permissions')
   permissions!: string;
 

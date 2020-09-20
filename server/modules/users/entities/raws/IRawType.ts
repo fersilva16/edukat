@@ -3,6 +3,8 @@ export default interface IRawType {
 
   name: string;
 
+  position: number;
+
   permissions: string;
 
   created_at: string;

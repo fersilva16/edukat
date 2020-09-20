@@ -36,6 +36,8 @@ export default class KnexTypeRepository
 
       name: data.name,
 
+      position: data.position,
+
       permissions: data.permissions,
 
       created_at: dateNow,

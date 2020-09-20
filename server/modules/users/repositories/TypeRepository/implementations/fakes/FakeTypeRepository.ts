@@ -30,6 +30,8 @@ export default class FakeTypeRepository
 
       name: data.name,
 
+      position: data.position,
+
       permissions: data.permissions,
 
       created_at: dateNow,

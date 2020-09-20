@@ -20,6 +20,7 @@ const permissionProvider = container.resolve<IPermissionProvider>('PermissionPro
 async function createType(type: TypeWithFlags): Promise<Type> {
   return typeRepository.create({
     name: type.name,
+    position: type.position,
     permissions: permissionProvider.join(type.flags).toString(),
   });
 }

@@ -32,21 +32,25 @@ const baseConfig: BaseConfig = {
   types: {
     admin: {
       name: env.string('ADMIN_TYPE_NAME', 'Administrator')!,
+      position: 3,
       flags: ['ADMINISTRATOR'],
     },
 
     teacher: {
       name: env.string('TEACHER_TYPE_NAME', 'Teacher')!,
+      position: 2,
       flags: [],
     },
 
     student: {
       name: env.string('STUDENT_TYPE_NAME', 'Student')!,
+      position: 1,
       flags: [],
     },
 
     parent: {
       name: env.string('PARENT_TYPE_NAME', 'Parent')!,
+      position: 0,
       flags: [],
     },
   },

@@ -11,6 +11,7 @@ Factory.define<ICreatePartialUserDTO>('partialUser')
 
 Factory.define<ICreateTypeDTO>('type')
   .attr('name', () => faker.random.word())
+  .sequence('position', (i) => i - 1)
   .attr('permissions', () => '1');
 
 Factory.define<ICreateUserDTO>('user')
