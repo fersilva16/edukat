@@ -8,6 +8,7 @@
     "knex": "ts-node --project server/tsconfig.json --transpile-only --require tsconfig-paths/register --require dotenv/config node_modules/knex/bin/cli.js --knexfile server/config/database.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "yarn lint --fix",
+    "mrm": "mrm -i --preset @edukat/mrm-preset",
     "setup": "yarn knex migrate:latest && yarn knex seed:run",
     "setup:rollback": "yarn knex migrate:rollback --all",
     "start": "node dist/index.js",
@@ -43,6 +44,7 @@
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
+    "@edukat/mrm-preset": "^0.0.1",
     "@types/compression": "^1.7.0",
     "@types/express": "^4.17.7",
     "@types/faker": "^4.1.12",
@@ -72,6 +74,7 @@
     "jest-chain": "^1.1.5",
     "jest-extended": "^0.11.5",
     "lint-staged": "^10.3.0",
+    "mrm": "^2.5.0",
     "nodemon": "^2.0.4",
     "rosie": "^2.0.1",
     "ts-jest": "^26.2.0",
