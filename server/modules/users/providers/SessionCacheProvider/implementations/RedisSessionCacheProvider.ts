@@ -1,7 +1,6 @@
-import { classToPlain, plainToClass } from 'class-transformer';
-
 import cacheConfig from '~/config/cache';
 import redis from '~/infra/redis';
+import { transform } from '~/utils/transformers';
 
 import Session from '@users/entities/Session';
 
@@ -19,7 +18,7 @@ export default class RedisSessionCacheProvider implements ISessionCacheProvider 
 
     await redis.hmset(key, new Map(
       Object.entries(
-        classToPlain(session),
+        transform.toPlain(session),
       ),
     ));
 
@@ -37,7 +36,7 @@ export default class RedisSessionCacheProvider implements ISessionCacheProvider 
 
     if (!Object.keys(rawSession).length) return undefined;
 
-    return plainToClass(Session, rawSession);
+    return transform.toClass(Session, rawSession);
   }
 
   async invalidate(id: string): Promise<void> {

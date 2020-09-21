@@ -1,8 +1,8 @@
-import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 import { injectable, inject } from 'tsyringe';
 
 import Repository from '~/repositories/Repository';
+import { transform } from '~/utils/transformers';
 
 import IRawUser from '@users/entities/raws/IRawUser';
 import User from '@users/entities/User';
@@ -24,13 +24,13 @@ export default class KnexUserRepository
   async findById(id: string): Promise<User> {
     const rawUser = await this.table.select('*').where('id', id).first();
 
-    return plainToClass(User, rawUser);
+    return transform.toClass(User, rawUser);
   }
 
   async findByEmail(email: string): Promise<User> {
     const rawUser = await this.table.select('*').where('email', email).first();
 
-    return plainToClass(User, rawUser);
+    return transform.toClass(User, rawUser);
   }
 
   async create(data: ICreateUserDTO): Promise<User> {
@@ -54,7 +54,7 @@ export default class KnexUserRepository
 
     const user = await this.table.insert(rawUser).returning('*');
 
-    return plainToClass(User, user[0]);
+    return transform.toClass(User, user[0]);
   }
 
   async clear(): Promise<void> {

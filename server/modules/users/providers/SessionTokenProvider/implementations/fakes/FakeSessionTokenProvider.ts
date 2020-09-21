@@ -1,7 +1,6 @@
-import { plainToClass } from 'class-transformer';
-
 import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
 import ramdom from '~/utils/random';
+import { transform } from '~/utils/transformers';
 
 import IPublicTokenDTO from '../../dtos/IPublicTokenDTO';
 import ITokenDTO from '../../dtos/ITokenDTO';
@@ -23,7 +22,7 @@ export default class FakeSessionTokenProvider implements ISessionTokenProvider {
   }
 
   generatePublicToken(token: ITokenDTO, id: string): SharableTokenDTO {
-    return plainToClass(SharableTokenDTO, {
+    return transform.toClass(SharableTokenDTO, {
       type: this.type,
       token: `${id}.${token.value}`,
     });

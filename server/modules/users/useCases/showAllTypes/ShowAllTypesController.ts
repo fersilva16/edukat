@@ -1,8 +1,8 @@
-import { classToPlain } from 'class-transformer';
 import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
 import IController from '~/types/IController';
+import { transform } from '~/utils/transformers';
 
 import ShowAllTypesUseCase from './ShowAllTypesUseCase';
 
@@ -17,7 +17,7 @@ export default class ShowAllTypesController implements IController {
     const types = await this.showAllTypesUseCase.execute();
 
     response.status(200).json(
-      classToPlain(types),
+      transform.toPlain(types),
     );
   }
 }

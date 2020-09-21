@@ -1,7 +1,7 @@
-import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import FakeRepository from '~/repositories/FakeRepository';
+import { transform } from '~/utils/transformers';
 
 import PartialUser from '@users/entities/PartialUser';
 import IRawPartialUser from '@users/entities/raws/IRawPartialUser';
@@ -14,13 +14,13 @@ export default class FakePartialUserRepository
   async findById(id: string): Promise<PartialUser> {
     const partialUser = this.rows.find((row) => row.id === id);
 
-    return plainToClass(PartialUser, partialUser);
+    return transform.toClass(PartialUser, partialUser);
   }
 
   async findByEmail(email: string): Promise<PartialUser> {
     const partialUser = this.rows.find((row) => row.email === email);
 
-    return plainToClass(PartialUser, partialUser);
+    return transform.toClass(PartialUser, partialUser);
   }
 
   async create(data: ICreatePartialUserDTO): Promise<PartialUser> {
@@ -42,7 +42,7 @@ export default class FakePartialUserRepository
 
     this.rows.push(rawPartialUser);
 
-    return plainToClass(PartialUser, rawPartialUser);
+    return transform.toClass(PartialUser, rawPartialUser);
   }
 
   async delete(id: string): Promise<void> {

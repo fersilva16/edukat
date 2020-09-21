@@ -1,7 +1,7 @@
-import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import FakeRepository from '~/repositories/FakeRepository';
+import { transform } from '~/utils/transformers';
 
 import IRawType from '@users/entities/raws/IRawType';
 import Type from '@users/entities/Type';
@@ -12,13 +12,13 @@ import ITypeRepository from '../../ITypeRepository';
 export default class FakeTypeRepository
   extends FakeRepository<IRawType> implements ITypeRepository {
   async all(): Promise<Type[]> {
-    return plainToClass(Type, this.rows);
+    return transform.toClass(Type, this.rows);
   }
 
   async findById(id: string): Promise<Type> {
     const type = this.rows.find((row) => row.id === id);
 
-    return plainToClass(Type, type);
+    return transform.toClass(Type, type);
   }
 
   async create(data: ICreateTypeDTO): Promise<Type> {
@@ -40,7 +40,7 @@ export default class FakeTypeRepository
 
     this.rows.push(type);
 
-    return plainToClass(Type, type);
+    return transform.toClass(Type, type);
   }
 
   async clear(): Promise<void> {

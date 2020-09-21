@@ -1,7 +1,7 @@
-import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import Repository from '~/repositories/Repository';
+import { transform } from '~/utils/transformers';
 
 import IRawType from '@users/entities/raws/IRawType';
 import Type from '@users/entities/Type';
@@ -18,13 +18,13 @@ export default class KnexTypeRepository
   async all(): Promise<Type[]> {
     const types = await this.table.select('*');
 
-    return plainToClass(Type, types);
+    return transform.toClass(Type, types);
   }
 
   async findById(id: string): Promise<Type> {
     const rawType = await this.table.select('*').where('id', id).first();
 
-    return plainToClass(Type, rawType);
+    return transform.toClass(Type, rawType);
   }
 
   async create(data: ICreateTypeDTO): Promise<Type> {
@@ -46,7 +46,7 @@ export default class KnexTypeRepository
 
     const type = await this.table.insert(rawType).returning('*');
 
-    return plainToClass(Type, type[0]);
+    return transform.toClass(Type, type[0]);
   }
 
   async clear(): Promise<void> {

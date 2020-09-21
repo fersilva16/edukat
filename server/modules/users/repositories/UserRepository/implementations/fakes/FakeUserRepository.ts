@@ -1,7 +1,7 @@
-import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import FakeRepository from '~/repositories/FakeRepository';
+import { transform } from '~/utils/transformers';
 
 import IRawUser from '@users/entities/raws/IRawUser';
 import User from '@users/entities/User';
@@ -14,13 +14,13 @@ export default class FakeUserRepository
   async findById(id: string): Promise<User> {
     const user = this.rows.find((rawUser) => rawUser.id === id);
 
-    return plainToClass(User, user);
+    return transform.toClass(User, user);
   }
 
   async findByEmail(email: string): Promise<User> {
     const user = this.rows.find((rawUser) => rawUser.email === email);
 
-    return plainToClass(User, user);
+    return transform.toClass(User, user);
   }
 
   async create(data: ICreateUserDTO): Promise<User> {
@@ -44,7 +44,7 @@ export default class FakeUserRepository
 
     this.rows.push(user);
 
-    return plainToClass(User, user);
+    return transform.toClass(User, user);
   }
 
   async clear(): Promise<void> {

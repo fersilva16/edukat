@@ -1,4 +1,3 @@
-import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 import { injectable, inject } from 'tsyringe';
 
@@ -6,6 +5,7 @@ import authConfig from '~/config/auth';
 import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
 import base64Url from '~/utils/base64Url';
 import random from '~/utils/random';
+import { transform } from '~/utils/transformers';
 
 import IHashProvider from '../../HashProvider/IHashProvider';
 import IPublicTokenDTO from '../dtos/IPublicTokenDTO';
@@ -38,7 +38,7 @@ export default class OpaqueSessionTokenProvider implements ISessionTokenProvider
   }
 
   generatePublicToken(token: ITokenDTO, id: string): SharableTokenDTO {
-    return plainToClass(SharableTokenDTO, {
+    return transform.toClass(SharableTokenDTO, {
       type: this.type,
       token: `${base64Url.encode(id)}.${token.value}`,
       expiresAt: token.expiresAt?.toISO()!,

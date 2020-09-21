@@ -1,7 +1,7 @@
-import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import Repository from '~/repositories/Repository';
+import { transform } from '~/utils/transformers';
 
 import IRawSession from '@users/entities/raws/IRawSession';
 import Session from '@users/entities/Session';
@@ -18,7 +18,7 @@ export default class KnexSessionRepository
   async findById(id: string): Promise<Session> {
     const rawSession = await this.table.select('*').where('id', id).first();
 
-    return plainToClass(Session, rawSession);
+    return transform.toClass(Session, rawSession);
   }
 
   async create(data: ICreateSessionDTO): Promise<Session> {
@@ -37,6 +37,6 @@ export default class KnexSessionRepository
 
     const session = await this.table.insert(rawSession).returning('*');
 
-    return plainToClass(Session, session[0]);
+    return transform.toClass(Session, session[0]);
   }
 }

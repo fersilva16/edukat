@@ -1,10 +1,10 @@
-import { plainToClass } from 'class-transformer';
 import { ClassType } from 'class-transformer-validator';
 import { ValidationError } from 'class-validator';
 import { Request, Response, NextFunction } from 'express';
 
 import ValidationException from '~/exceptions/ValidationException';
 import IMiddleware from '~/types/IMiddleware';
+import { transform } from '~/utils/transformers';
 import { validate } from '~/utils/validators';
 
 export default class ValidateMiddleware implements IMiddleware {
@@ -16,7 +16,7 @@ export default class ValidateMiddleware implements IMiddleware {
   ): Promise<void> {
     if (Array.isArray(request.body)) {
       throw new ValidationException([
-        plainToClass(ValidationError, {
+        transform.toClass(ValidationError, {
           value: request.body,
           constraints: {
             isObject: 'body should be an object',
@@ -31,7 +31,7 @@ export default class ValidateMiddleware implements IMiddleware {
       ...request.query,
     });
 
-    request.data = plainToClass(cls, data);
+    request.data = transform.toClass(cls, data);
 
     next();
   }

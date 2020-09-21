@@ -1,7 +1,7 @@
-import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import FakeRepository from '~/repositories/FakeRepository';
+import { transform } from '~/utils/transformers';
 
 import IRawSession from '@users/entities/raws/IRawSession';
 import Session from '@users/entities/Session';
@@ -14,7 +14,7 @@ export default class FakeSessionRepository
   async findById(id: string): Promise<Session> {
     const session = this.rows.find((rawSession) => rawSession.id === id);
 
-    return plainToClass(Session, session);
+    return transform.toClass(Session, session);
   }
 
   async create(data: ICreateSessionDTO): Promise<Session> {
@@ -33,6 +33,6 @@ export default class FakeSessionRepository
 
     this.rows.push(rawSession);
 
-    return plainToClass(Session, rawSession);
+    return transform.toClass(Session, rawSession);
   }
 }

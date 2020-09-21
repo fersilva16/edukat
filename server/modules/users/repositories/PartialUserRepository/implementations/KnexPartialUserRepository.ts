@@ -1,7 +1,7 @@
-import { plainToClass } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import Repository from '~/repositories/Repository';
+import { transform } from '~/utils/transformers';
 
 import PartialUser from '@users/entities/PartialUser';
 import IRawPartialUser from '@users/entities/raws/IRawPartialUser';
@@ -18,13 +18,13 @@ export default class KnexPartialUserRepository
   async findById(id: string): Promise<PartialUser> {
     const rawPartialUser = await this.table.select('*').where('id', id).first();
 
-    return plainToClass(PartialUser, rawPartialUser);
+    return transform.toClass(PartialUser, rawPartialUser);
   }
 
   async findByEmail(email: string): Promise<PartialUser> {
     const rawPartialUser = await this.table.select('*').where('email', email).first();
 
-    return plainToClass(PartialUser, rawPartialUser);
+    return transform.toClass(PartialUser, rawPartialUser);
   }
 
   async create(data: ICreatePartialUserDTO): Promise<PartialUser> {
@@ -46,7 +46,7 @@ export default class KnexPartialUserRepository
 
     const partialUser = await this.table.insert(rawPartialUser).returning('*');
 
-    return plainToClass(PartialUser, partialUser[0]);
+    return transform.toClass(PartialUser, partialUser[0]);
   }
 
   async delete(id: string): Promise<void> {
