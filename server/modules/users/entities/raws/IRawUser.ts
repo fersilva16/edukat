@@ -13,5 +13,5 @@ export default interface IRawUser {
 
   created_at: string;
 
-  updated_at?: string;
+  updated_at: string;
 }

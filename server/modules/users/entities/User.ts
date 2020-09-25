@@ -25,5 +25,5 @@ export default class User {
   createdAt!: DateTime;
 
   @DateColumn('updated_at')
-  updatedAt?: DateTime;
+  updatedAt!: DateTime;
 }

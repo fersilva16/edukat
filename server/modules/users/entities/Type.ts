@@ -19,5 +19,5 @@ export default class Type {
   createdAt!: DateTime;
 
   @DateColumn('updated_at')
-  updatedAt?: DateTime;
+  updatedAt!: DateTime;
 }

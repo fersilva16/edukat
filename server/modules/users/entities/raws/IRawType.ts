@@ -9,5 +9,5 @@ export default interface IRawType {
 
   created_at: string;
 
-  updated_at?: string;
+  updated_at: string;
 }

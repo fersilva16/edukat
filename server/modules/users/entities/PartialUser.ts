@@ -22,5 +22,5 @@ export default class PartialUser {
   createdAt!: DateTime;
 
   @DateColumn('updated_at')
-  updatedAt?: DateTime;
+  updatedAt!: DateTime;
 }

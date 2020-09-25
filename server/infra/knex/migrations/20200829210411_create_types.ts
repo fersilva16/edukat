@@ -10,7 +10,8 @@ export async function up({ schema }: Knex): Promise<void> {
     table.string('name').notNullable();
     table.integer('position').notNullable();
     table.string('permissions').notNullable();
-    table.timestamps();
+    table.timestamp('created_at').notNullable();
+    table.timestamp('updated_at').notNullable();
   });
 }
 

@@ -11,7 +11,8 @@ export async function up({ schema }: Knex): Promise<void> {
     table.string('lastname').nullable();
     table.string('email', 255).notNullable();
     table.string('type_id').references('id').inTable('types').onDelete('CASCADE');
-    table.timestamps();
+    table.timestamp('created_at').notNullable();
+    table.timestamp('updated_at').notNullable();
   });
 }
 
