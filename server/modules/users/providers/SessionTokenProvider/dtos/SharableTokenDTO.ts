@@ -1,4 +1,4 @@
-import { Property } from '~/utils/transformers';
+import { Property } from '~/decorators';
 
 export default class SharableTokenDTO {
   @Property('type')

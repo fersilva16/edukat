@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-import { Column, DateColumn } from '~/utils/transformers';
+import { Column, DateColumn } from '~/decorators';
 
 export default class PartialUser {
   @Column('id')

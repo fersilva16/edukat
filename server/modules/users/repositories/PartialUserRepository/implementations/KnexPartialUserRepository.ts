@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 import Repository from '~/repositories/Repository';
-import { transform } from '~/utils/transformers';
+import transform from '~/utils/transform';
 
 import PartialUser from '@users/entities/PartialUser';
 import IRawPartialUser from '@users/entities/raws/IRawPartialUser';

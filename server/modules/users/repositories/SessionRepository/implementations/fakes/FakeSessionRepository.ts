@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 import FakeRepository from '~/repositories/FakeRepository';
-import { transform } from '~/utils/transformers';
+import transform from '~/utils/transform';
 
 import IRawSession from '@users/entities/raws/IRawSession';
 import Session from '@users/entities/Session';

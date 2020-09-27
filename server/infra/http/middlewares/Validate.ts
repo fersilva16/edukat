@@ -4,8 +4,8 @@ import { Request, Response, NextFunction } from 'express';
 
 import ValidationException from '~/exceptions/ValidationException';
 import { IMiddleware } from '~/types';
-import { transform } from '~/utils/transformers';
-import { validate } from '~/utils/validators';
+import transform from '~/utils/transform';
+import validate from '~/utils/validate';
 
 export default class ValidateMiddleware implements IMiddleware {
   async handle(

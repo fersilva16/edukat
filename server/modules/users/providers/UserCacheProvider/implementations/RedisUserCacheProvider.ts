@@ -1,6 +1,6 @@
 import cacheConfig from '~/config/cache';
 import redis from '~/infra/redis';
-import { transform } from '~/utils/transformers';
+import transform from '~/utils/transform';
 
 import User from '@users/entities/User';
 

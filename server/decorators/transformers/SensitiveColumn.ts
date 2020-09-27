@@ -1,6 +1,6 @@
 import { Exclude } from 'class-transformer';
 
-import Column from '~/utils/transformers/Column';
+import Column from './Column';
 
 export default function SensitiveColumn(name: string) {
   const column = Column(name);

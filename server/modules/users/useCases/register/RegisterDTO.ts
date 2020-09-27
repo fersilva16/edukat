@@ -1,9 +1,9 @@
-import { Property } from '~/utils/transformers';
 import {
+  Property,
   IsJWT,
   IsNotEmpty,
   IsString,
-} from '~/utils/validators';
+} from '~/decorators';
 
 export default class RegisterDTO {
   @IsString()

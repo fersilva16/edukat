@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { injectable, inject } from 'tsyringe';
 
 import Repository from '~/repositories/Repository';
-import { transform } from '~/utils/transformers';
+import transform from '~/utils/transform';
 
 import IRawUser from '@users/entities/raws/IRawUser';
 import User from '@users/entities/User';

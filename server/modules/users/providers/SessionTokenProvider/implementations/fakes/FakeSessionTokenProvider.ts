@@ -1,6 +1,6 @@
 import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
 import ramdom from '~/utils/random';
-import { transform } from '~/utils/transformers';
+import transform from '~/utils/transform';
 
 import IPublicTokenDTO from '../../dtos/IPublicTokenDTO';
 import ITokenDTO from '../../dtos/ITokenDTO';

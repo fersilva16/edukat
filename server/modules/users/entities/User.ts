@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-import { Column, SensitiveColumn, DateColumn } from '~/utils/transformers';
+import { Column, SensitiveColumn, DateColumn } from '~/decorators';
 
 export default class User {
   @Column('id')

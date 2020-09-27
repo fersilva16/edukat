@@ -1,5 +1,6 @@
-import { Helper, Property } from '~/utils/transformers';
 import {
+  Helper,
+  Property,
   IsAlphanumeric,
   IsEmail,
   IsNotEmpty,
@@ -7,7 +8,7 @@ import {
   IsString,
   Length,
   MaxLength,
-} from '~/utils/validators';
+} from '~/decorators';
 
 import Type from '@users/entities/Type';
 import User from '@users/entities/User';

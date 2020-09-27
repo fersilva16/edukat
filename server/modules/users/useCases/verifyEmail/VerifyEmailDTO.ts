@@ -1,10 +1,10 @@
-import { Property } from '~/utils/transformers';
 import {
+  Property,
   IsEmail,
   IsNotEmpty,
   IsString,
   MaxLength,
-} from '~/utils/validators';
+} from '~/decorators';
 
 export default class VerifyEmailDTO {
   @IsString()

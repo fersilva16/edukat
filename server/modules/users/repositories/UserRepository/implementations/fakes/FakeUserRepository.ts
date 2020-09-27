@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 import FakeRepository from '~/repositories/FakeRepository';
-import { transform } from '~/utils/transformers';
+import transform from '~/utils/transform';
 
 import IRawUser from '@users/entities/raws/IRawUser';
 import User from '@users/entities/User';

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
 import { IController } from '~/types';
-import { transform } from '~/utils/transformers';
+import transform from '~/utils/transform';
 
 import LoginUseCase from './LoginUseCase';
 

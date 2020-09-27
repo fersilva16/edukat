@@ -5,7 +5,7 @@ import authConfig from '~/config/auth';
 import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
 import base64Url from '~/utils/base64Url';
 import random from '~/utils/random';
-import { transform } from '~/utils/transformers';
+import transform from '~/utils/transform';
 
 import IHashProvider from '../../HashProvider/IHashProvider';
 import IPublicTokenDTO from '../dtos/IPublicTokenDTO';
