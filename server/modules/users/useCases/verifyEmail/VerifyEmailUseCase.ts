@@ -4,7 +4,7 @@ import appConfig from '~/config/app';
 import NoPermissionException from '~/exceptions/NoPermissionException';
 import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
-import IUseCase from '~/types/IUseCase';
+import { IUseCase } from '~/types';
 
 import IRegisterTokenDTO from '@users/dtos/IRegisterTokenDTO';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';

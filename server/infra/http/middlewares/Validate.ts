@@ -3,7 +3,7 @@ import { ValidationError } from 'class-validator';
 import { Request, Response, NextFunction } from 'express';
 
 import ValidationException from '~/exceptions/ValidationException';
-import IMiddleware from '~/types/IMiddleware';
+import { IMiddleware } from '~/types';
 import { transform } from '~/utils/transformers';
 import { validate } from '~/utils/validators';
 

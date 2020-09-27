@@ -2,7 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import InvalidCredentialsException from '~/exceptions/InvalidCredentialsException';
 import SharableTokenDTO from '~/modules/users/providers/SessionTokenProvider/dtos/SharableTokenDTO';
-import IUseCase from '~/types/IUseCase';
+import { IUseCase } from '~/types';
 
 import IHashProvider from '@users/providers/HashProvider/IHashProvider';
 import ISessionTokenProvider from '@users/providers/SessionTokenProvider/ISessionTokenProvider';

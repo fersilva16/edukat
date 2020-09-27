@@ -2,11 +2,11 @@ import cron from 'cron';
 import { container } from 'tsyringe';
 
 import logger from '~/logger';
-import IJob from '~/types/IJob';
+import { IJob, Constructor } from '~/types';
 
 const schedulerLogger = logger.child({ label: 'scheduler' });
 
-export default function initializeScheduleJobs(jobConstructors: { new(...args: any[]): IJob }[]) {
+export default function initializeScheduleJobs(jobConstructors: Constructor<IJob>[]) {
   schedulerLogger.info('Initializing jobs');
 
   jobConstructors.forEach((jobConstructor) => {

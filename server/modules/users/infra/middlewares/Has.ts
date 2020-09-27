@@ -3,7 +3,7 @@ import { injectable, inject } from 'tsyringe';
 
 import MissingPermissionsException from '~/exceptions/MissingPermissionsException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
-import IMiddleware from '~/types/IMiddleware';
+import { IMiddleware } from '~/types';
 
 import { KeyofFlags } from '@users/dtos/Flags';
 import IPermissionCacheProvider from '@users/providers/PermissionCacheProvider/IPermissionCacheProvider';

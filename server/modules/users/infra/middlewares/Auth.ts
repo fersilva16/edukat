@@ -4,7 +4,7 @@ import { injectable, inject } from 'tsyringe';
 
 import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
-import IMiddleware from '~/types/IMiddleware';
+import { IMiddleware } from '~/types';
 
 import ISessionCacheProvider from '@users/providers/SessionCacheProvider/ISessionCacheProvider';
 import ISessionTokenProvider from '@users/providers/SessionTokenProvider/ISessionTokenProvider';

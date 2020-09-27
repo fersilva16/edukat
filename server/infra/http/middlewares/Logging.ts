@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 import logger from '~/logger';
-import IMiddleware from '~/types/IMiddleware';
+import { IMiddleware } from '~/types';
 
 export default class LoggingMiddleware implements IMiddleware {
   async handle(request: Request, response: Response, next: NextFunction): Promise<void> {

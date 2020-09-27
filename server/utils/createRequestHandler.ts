@@ -3,7 +3,7 @@ import { RequestHandler } from 'express';
 import { container } from 'tsyringe';
 
 import { validate } from '~/infra/http/middlewares';
-import IController from '~/types/IController';
+import { IController } from '~/types';
 
 export default function createRequestHandler(
   useCase: string,
