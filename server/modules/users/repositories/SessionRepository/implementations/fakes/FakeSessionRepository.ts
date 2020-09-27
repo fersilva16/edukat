@@ -11,6 +11,14 @@ import ISessionRepository from '../../ISessionRepository';
 
 export default class FakeSessionRepository
   extends FakeRepository<IRawSession> implements ISessionRepository {
+  async allExpired(): Promise<Session[]> {
+    const dateNow = DateTime.local().toJSDate();
+
+    const sessions = this.rows.filter((row) => (row.expires_at as Date) < dateNow);
+
+    return transform.toClass(Session, sessions);
+  }
+
   async findById(id: string): Promise<Session> {
     const session = this.rows.find((rawSession) => rawSession.id === id);
 

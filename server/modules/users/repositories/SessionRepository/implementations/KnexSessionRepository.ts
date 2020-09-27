@@ -15,6 +15,12 @@ export default class KnexSessionRepository
     super('sessions');
   }
 
+  async allExpired(): Promise<Session[]> {
+    const sessions = await this.table.select('*').where('expires_at', '<=', DateTime.local().toJSDate());
+
+    return transform.toClass(Session, sessions);
+  }
+
   async findById(id: string): Promise<Session> {
     const rawSession = await this.table.select('*').where('id', id).first();
 
