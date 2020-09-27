@@ -9,7 +9,7 @@ export default interface IRawPartialUser {
 
   type_id: string;
 
-  created_at: string;
+  created_at: string | Date;
 
-  updated_at: string;
+  updated_at: string | Date;
 }

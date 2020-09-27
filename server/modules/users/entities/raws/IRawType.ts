@@ -7,7 +7,7 @@ export default interface IRawType {
 
   permissions: string;
 
-  created_at: string;
+  created_at: string | Date;
 
-  updated_at: string;
+  updated_at: string | Date;
 }
