@@ -13,7 +13,7 @@ export default function initializeScheduleJobs(jobConstructors: Constructor<IJob
     const job = container.resolve(jobConstructor);
     const time = Reflect.getMetadata('schedule:jobs', jobConstructor);
 
-    cron.job(time, job.execute).start();
+    cron.job(time, async () => job.execute()).start();
 
     schedulerLogger.debug(`Started job "${jobConstructor.name}"`);
   });
