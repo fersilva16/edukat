@@ -21,9 +21,13 @@ export default async function createServer() {
   app.use(compression());
   app.use(routes);
 
-  app.listen(appConfig.port, appConfig.host, (error) => {
-    if (error) throw error;
+  return new Promise((resolve, reject) => {
+    app.listen(appConfig.port, appConfig.host, (error) => {
+      if (error) return reject(error);
 
-    logger.info(`Started! Listening to ${appConfig.host}:${appConfig.port}`, { label: 'server' });
+      logger.info(`Started! Listening to ${appConfig.host}:${appConfig.port}`, { label: 'server' });
+
+      return resolve();
+    });
   });
 }
