@@ -8,4 +8,6 @@ export default interface ISessionRepository {
   findById(id: string): Promise<Session>;
 
   create(data: ICreateSessionDTO): Promise<Session>;
+
+  delete(id: string): Promise<void>;
 }

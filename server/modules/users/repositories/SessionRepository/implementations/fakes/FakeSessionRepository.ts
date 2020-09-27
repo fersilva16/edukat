@@ -43,4 +43,10 @@ export default class FakeSessionRepository
 
     return transform.toClass(Session, rawSession);
   }
+
+  async delete(id: string): Promise<void> {
+    const index = this.rows.findIndex((row) => row.id === id);
+
+    if (index >= 0) this.rows.splice(index, 1);
+  }
 }
