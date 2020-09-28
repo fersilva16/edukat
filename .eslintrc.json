@@ -4,39 +4,7 @@
     "airbnb/hooks"
   ],
   "rules": {
-    "class-methods-use-this": "off",
-
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          ["builtin", "external"],
-          "internal"
-        ],
-
-        "pathGroups": [
-          {
-            "pattern": "~/**",
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@*/**",
-            "group": "external",
-            "position": "after"
-          }
-        ],
-
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        },
-
-        "newlines-between": "always",
-
-        "pathGroupsExcludedImportTypes": []
-      }
-    ]
+    "class-methods-use-this": "off"
   },
   "parserOptions": {
     "project": "./tsconfig.eslint.json"
@@ -52,6 +20,42 @@
     }
   },
   "overrides": [
+    {
+      "files": ["server/**/*.ts"],
+      "rules": {
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              ["builtin", "external"],
+              "internal"
+            ],
+
+            "pathGroups": [
+              {
+                "pattern": "~/**",
+                "group": "external",
+                "position": "after"
+              },
+              {
+                "pattern": "@*/**",
+                "group": "external",
+                "position": "after"
+              }
+            ],
+
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            },
+
+            "newlines-between": "always",
+
+            "pathGroupsExcludedImportTypes": []
+          }
+        ]
+      }
+    },
     {
       "files": ["test/**/*.ts"],
       "rules": {
