@@ -19,6 +19,7 @@
     "typecheck": "yarn build:server --noEmit"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "argon2": "^0.27.0",
     "body-parser": "^1.19.0",
     "class-transformer": "^0.3.1",
