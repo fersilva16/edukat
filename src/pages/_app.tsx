@@ -3,10 +3,12 @@
 import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { Provider } from 'react-redux';
 import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 import theme from '../styles/theme';
+import store from '../store';
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -21,11 +23,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Edukat</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
-      <ThemeProvider theme={theme}>
-        <ScopedCssBaseline>
-          <Component {...pageProps} />
-        </ScopedCssBaseline>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ScopedCssBaseline>
+            <Component {...pageProps} />
+          </ScopedCssBaseline>
+        </ThemeProvider>
+      </Provider>
     </>
   );
 }
