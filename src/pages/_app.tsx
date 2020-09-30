@@ -6,9 +6,10 @@ import Head from 'next/head';
 import { Provider } from 'react-redux';
 import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import theme from '../styles/theme';
-import store from '../store';
+import store, { persistor } from '../store';
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -24,11 +25,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ScopedCssBaseline>
-            <Component {...pageProps} />
-          </ScopedCssBaseline>
-        </ThemeProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <ScopedCssBaseline>
+              <Component {...pageProps} />
+            </ScopedCssBaseline>
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </>
   );
