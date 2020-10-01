@@ -18,6 +18,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    },
     "types": ["jest", "jest-extended", "jest-chain"]
   },
   "include": [
