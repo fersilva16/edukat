@@ -1,6 +1,7 @@
-import { ActionCreatorsMapObject, bindActionCreators } from 'redux';
-import { useDispatch } from 'react-redux';
 import { useMemo } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { ActionCreatorsMapObject, bindActionCreators } from 'redux';
 
 export default function createUseActionsHook<T extends ActionCreatorsMapObject<any>>(actions: T) {
   return () => {

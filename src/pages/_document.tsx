@@ -1,5 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
+import React from 'react';
+
+import { ServerStyleSheets } from '@material-ui/core/styles';
 import NextDocument, {
   DocumentContext,
   Html,
@@ -7,8 +10,6 @@ import NextDocument, {
   Main,
   NextScript,
 } from 'next/document';
-import React from 'react';
-import { ServerStyleSheets } from '@material-ui/core/styles';
 
 export default class Document extends NextDocument {
   static async getInitialProps(context: DocumentContext) {

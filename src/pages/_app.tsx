@@ -1,15 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import React, { useEffect } from 'react';
+
+import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
-import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import theme from '../styles/theme';
-import store, { persistor } from '../store';
+import store, { persistor } from '~/store';
+import theme from '~/styles/theme';
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {

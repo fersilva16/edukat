@@ -21,6 +21,42 @@
   },
   "overrides": [
     {
+      "files": ["src/**/*.ts", "src/**/*.tsx"],
+      "rules": {
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              ["builtin", "external"],
+              "internal"
+            ],
+
+            "pathGroups": [
+              {
+                "pattern": "react",
+                "group": "external",
+                "position": "before"
+              },
+              {
+                "pattern": "~/**",
+                "group": "external",
+                "position": "after"
+              }
+            ],
+
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            },
+
+            "newlines-between": "always",
+
+            "pathGroupsExcludedImportTypes": []
+          }
+        ]
+      }
+    },
+    {
       "files": ["server/**/*.ts"],
       "rules": {
         "import/order": [
