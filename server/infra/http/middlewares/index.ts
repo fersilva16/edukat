@@ -9,6 +9,6 @@ import ValidateMiddleware from './Validate';
 const loggingMiddleware = container.resolve(LoggingMiddleware);
 const validateMiddleware = container.resolve(ValidateMiddleware);
 
-export const logging = createMiddleware(loggingMiddleware);
+export const logging = (label: string) => createMiddleware(loggingMiddleware, label);
 
 export const validate = (cls: ClassType<any>) => createMiddleware(validateMiddleware, cls);

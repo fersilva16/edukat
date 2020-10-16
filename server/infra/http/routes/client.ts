@@ -1,8 +1,11 @@
 import { Router } from 'express';
 
+import { logging } from '../middlewares';
 import { render, handle } from '../ssr';
 
 const clientRoutes = Router();
+
+clientRoutes.use(logging('ssr'));
 
 clientRoutes.get('/', render('Home'));
 

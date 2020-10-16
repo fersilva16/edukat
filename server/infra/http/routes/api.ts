@@ -14,9 +14,13 @@ import registerRoutes from '@users/infra/routes/register';
 import sessionRoutes from '@users/infra/routes/session';
 import typeRoutes from '@users/infra/routes/type';
 
+import { logging } from '../middlewares';
+
 const handler = new Handler();
 
 const apiRoutes = Router();
+
+apiRoutes.use(logging('server'));
 
 apiRoutes.use('/sessions', sessionRoutes);
 
