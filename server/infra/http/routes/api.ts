@@ -7,6 +7,7 @@ import {
 
 import Exception from '~/exceptions/Exception';
 import Handler from '~/exceptions/Handler';
+import NotFoundException from '~/exceptions/NotFoundException';
 
 import emailRoutes from '@users/infra/routes/email';
 import registerRoutes from '@users/infra/routes/register';
@@ -24,6 +25,10 @@ apiRoutes.use('/types', typeRoutes);
 apiRoutes.use('/email/verify', emailRoutes);
 
 apiRoutes.use('/register', registerRoutes);
+
+apiRoutes.all('*', () => {
+  throw new NotFoundException();
+});
 
 apiRoutes.use((
   error: Exception | Error,
