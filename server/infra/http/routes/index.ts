@@ -1,14 +1,12 @@
 import { Router } from 'express';
 
-import { render, handle } from '../ssr';
 import apiRoutes from './api';
+import clientRoutes from './client';
 
 const routes = Router();
 
 routes.use('/api', apiRoutes);
 
-routes.get('/', render('Home'));
-
-routes.get('*', (request, response) => handle(request, response));
+routes.use('/', clientRoutes);
 
 export default routes;
