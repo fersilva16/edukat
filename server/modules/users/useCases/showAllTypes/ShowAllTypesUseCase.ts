@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
-import { IUseCase } from '~/types';
+import type { IUseCase } from '~/types';
 
 import Type from '@users/entities/Type';
 import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';

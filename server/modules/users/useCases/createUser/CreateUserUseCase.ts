@@ -5,7 +5,7 @@ import NoPermissionException from '~/exceptions/NoPermissionException';
 import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
-import { IUseCase } from '~/types';
+import type { IUseCase } from '~/types';
 
 import IRegisterTokenDTO from '@users/dtos/IRegisterTokenDTO';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';

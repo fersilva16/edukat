@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { IMiddleware } from '~/types';
+import type { IMiddleware } from '~/types';
 
 export default function createMiddleware(middleware: IMiddleware, ...args: any[]) {
   return (

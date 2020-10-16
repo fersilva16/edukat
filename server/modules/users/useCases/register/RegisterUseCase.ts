@@ -2,7 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
-import { IUseCase } from '~/types';
+import type { IUseCase } from '~/types';
 
 import IRegisterTokenDTO from '@users/dtos/IRegisterTokenDTO';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';

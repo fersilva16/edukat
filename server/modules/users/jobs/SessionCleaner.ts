@@ -2,7 +2,7 @@ import { inject } from 'tsyringe';
 
 import { Cron } from '~/decorators';
 import logger from '~/logger';
-import { IJob } from '~/types';
+import type { IJob } from '~/types';
 
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
 

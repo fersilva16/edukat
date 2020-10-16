@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 
-import { IController } from '~/types';
+import type { IController } from '~/types';
 
 import RegisterUseCase from './RegisterUseCase';
 

@@ -2,7 +2,7 @@ import cron from 'cron';
 import { container } from 'tsyringe';
 
 import logger from '~/logger';
-import { IJob, Constructor } from '~/types';
+import type { IJob, Constructor } from '~/types';
 
 const schedulerLogger = logger.child({ label: 'scheduler' });
 
