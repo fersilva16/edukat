@@ -7,7 +7,8 @@ const tableName = 'sessions';
 export async function up({ schema }: Knex): Promise<void> {
   await schema.createTable(tableName, (table) => {
     table.string('id', appConfig.idLength).primary();
-    table.string('token', 64).notNullable();
+    table.string('access_token', 64).notNullable();
+    table.string('refresh_token', 64).nullable();
     table.string('user_id').references('id').inTable('users').onDelete('CASCADE');
     table.timestamp('created_at', { useTz: true }).notNullable();
     table.timestamp('expires_at', { useTz: true }).nullable();

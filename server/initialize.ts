@@ -1,4 +1,4 @@
-import SessionCleanerJob from '@users/jobs/SessionCleaner';
+// import SessionCleanerJob from '@users/jobs/SessionCleaner';
 
 import createServer from './infra/http/server';
 import { ensureDatabaseConnection } from './infra/knex';
@@ -12,7 +12,9 @@ export default async function initialize() {
     await createRedisConnection();
     await createServer();
 
-    initializeScheduleJobs([SessionCleanerJob]);
+    initializeScheduleJobs([
+      // SessionCleanerJob,
+    ]);
   } catch (error) {
     logger.error(error.message);
 

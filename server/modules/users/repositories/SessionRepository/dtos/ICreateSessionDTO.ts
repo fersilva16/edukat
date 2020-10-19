@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon';
 
 export default interface ICreateSessionDTO {
-  token: string;
+  accessToken: string;
+
+  refreshToken?: string;
 
   userId: string;
 
