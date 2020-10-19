@@ -46,7 +46,7 @@ export default class AuthMiddleware implements IMiddleware {
 
     if (!session) throw new ResourceNotFoundException('Session');
 
-    if (session.token !== hash) throw new InvalidSessionTokenException();
+    if (session.accessToken !== hash) throw new InvalidSessionTokenException();
 
     if (session.expiresAt && session.expiresAt < DateTime.local()) {
       throw new InvalidSessionTokenException();

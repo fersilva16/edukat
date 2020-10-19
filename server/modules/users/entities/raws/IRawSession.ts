@@ -1,7 +1,9 @@
 export default interface IRawSession {
   id: string;
 
-  token: string;
+  access_token: string;
+
+  refresh_token?: string;
 
   user_id: string;
 

@@ -6,8 +6,11 @@ export default class Session {
   @Column('id')
   id!: string;
 
-  @Column('token')
-  token!: string;
+  @Column('access_token')
+  accessToken!: string;
+
+  @Column('refresh_token')
+  refreshToken?: string;
 
   @Column('user_id')
   userId!: string;

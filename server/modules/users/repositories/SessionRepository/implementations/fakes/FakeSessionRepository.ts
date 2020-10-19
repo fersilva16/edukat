@@ -31,7 +31,9 @@ export default class FakeSessionRepository
     const rawSession: IRawSession = {
       id,
 
-      token: data.token,
+      access_token: data.accessToken,
+
+      refresh_token: data.refreshToken,
 
       user_id: data.userId,
 
