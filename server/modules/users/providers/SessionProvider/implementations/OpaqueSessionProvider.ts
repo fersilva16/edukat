@@ -2,7 +2,8 @@ import { DateTime } from 'luxon';
 import { inject, injectable } from 'tsyringe';
 
 import authConfig from '~/config/auth';
-import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
+import InvalidAccessTokenException from '~/exceptions/InvalidAccessTokenException';
+import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import base64Url from '~/utils/base64Url';
 import random from '~/utils/random';
 import transform from '~/utils/transform';
@@ -44,20 +45,20 @@ export default class OpaqueSessionProvider implements ISessionProvider {
     return transform.toClass(PublicSessionDTO, {
       type: this.type,
       accessToken: `${encodedSessionId}.${accessToken.value}`,
-      refreshToken: refreshToken ?? `${encodedSessionId}.${refreshToken!.value}`,
+      refreshToken: refreshToken && `${encodedSessionId}.${refreshToken!.value}`,
       expiresAt: accessToken.expiresAt?.toISO()!,
-    });
+    }, true);
   }
 
   async parsePublicToken(publicToken: string): Promise<IPublicOpaqueTokenDTO> {
     const [encodedSessionId, token] = publicToken.split('.');
 
-    if (!encodedSessionId || !token) throw new InvalidSessionTokenException();
+    if (!encodedSessionId || !token) throw new InvalidTokenException();
 
     const sessionId = base64Url.decode(encodedSessionId, true);
 
     if (!sessionId || token.length !== authConfig.tokenLength) {
-      throw new InvalidSessionTokenException();
+      throw new InvalidTokenException();
     }
 
     const hash = await this.sha256HashProvider.hash(token);
@@ -72,7 +73,7 @@ export default class OpaqueSessionProvider implements ISessionProvider {
   parseBearerToken(bearerToken: string): Promise<IPublicOpaqueTokenDTO> {
     const [type, publicToken] = bearerToken.split(' ');
 
-    if (!type || type !== this.type || !publicToken) throw new InvalidSessionTokenException();
+    if (!type || type !== this.type || !publicToken) throw new InvalidAccessTokenException();
 
     return this.parsePublicToken(publicToken);
   }

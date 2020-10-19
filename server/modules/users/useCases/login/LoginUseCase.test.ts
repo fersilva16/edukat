@@ -5,8 +5,8 @@ import InvalidCredentialsException from '~/exceptions/InvalidCredentialsExceptio
 
 import IHashProvider from '@users/providers/HashProvider/IHashProvider';
 import FakeHashProvider from '@users/providers/HashProvider/implementations/fakes/FakeHashProvider';
-import FakeSessionTokenProvider from '@users/providers/SessionTokenProvider/implementations/fakes/FakeSessionTokenProvider';
-import ISessionTokenProvider from '@users/providers/SessionTokenProvider/ISessionTokenProvider';
+import FakeSessionProvider from '@users/providers/SessionProvider/implementations/fakes/FakeSessionProvider';
+import ISessionProvider from '@users/providers/SessionProvider/ISessionProvider';
 import FakeSessionRepository from '@users/repositories/SessionRepository/implementations/fakes/FakeSessionRepository';
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
 import ICreateUserDTO from '@users/repositories/UserRepository/dtos/ICreateUserDTO';
@@ -19,19 +19,19 @@ describe('LoginUseCase', () => {
   let loginUseCase: LoginUseCase;
   let userRepository: IUserRepository;
   let hashProvider: IHashProvider;
-  let sessionTokenProvider: ISessionTokenProvider;
+  let sessionProvider: ISessionProvider;
   let sessionRepository: ISessionRepository;
 
   beforeAll(() => {
     userRepository = new FakeUserRepository();
     hashProvider = new FakeHashProvider();
-    sessionTokenProvider = new FakeSessionTokenProvider();
+    sessionProvider = new FakeSessionProvider();
     sessionRepository = new FakeSessionRepository();
 
     loginUseCase = new LoginUseCase(
       userRepository,
       hashProvider,
-      sessionTokenProvider,
+      sessionProvider,
       sessionRepository,
     );
   });
@@ -43,9 +43,9 @@ describe('LoginUseCase', () => {
   it('should be return public token with email', async () => {
     const findByEmail = jest.spyOn(userRepository, 'findByEmail');
     const verify = jest.spyOn(hashProvider, 'verify');
-    const generateToken = jest.spyOn(sessionTokenProvider, 'generateToken');
+    const generateOpaqueToken = jest.spyOn(sessionProvider, 'generateOpaqueToken');
     const create = jest.spyOn(sessionRepository, 'create');
-    const generatePublicToken = jest.spyOn(sessionTokenProvider, 'generatePublicToken');
+    const generatePublicSession = jest.spyOn(sessionProvider, 'generatePublicSession');
 
     const user = Factory.build<ICreateUserDTO>('user');
 
@@ -60,11 +60,11 @@ describe('LoginUseCase', () => {
 
     expect(verify).toHaveBeenCalledWith(hashPassword, user.password);
 
-    expect(generateToken).toHaveBeenCalled();
+    expect(generateOpaqueToken).toHaveBeenCalled();
 
     expect(create).toHaveBeenCalled();
 
-    expect(generatePublicToken).toHaveBeenCalled();
+    expect(generatePublicSession).toHaveBeenCalled();
 
     expect(token)
       .not.toBeNull()

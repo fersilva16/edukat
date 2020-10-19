@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon';
 
 import authConfig from '~/config/auth';
-import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
+import InvalidAccessTokenException from '~/exceptions/InvalidAccessTokenException';
+import InvalidTokenException from '~/exceptions/InvalidTokenException';
 import random from '~/utils/random';
 import transform from '~/utils/transform';
 
@@ -31,16 +32,16 @@ export default class FakeSessionProvider implements ISessionProvider {
     return transform.toClass(PublicSessionDTO, {
       type: this.type,
       accessToken: `${sessionId}.${accessToken.value}`,
-      refreshToken: refreshToken ?? `${sessionId}.${refreshToken!.value}`,
+      refreshToken: refreshToken && `${sessionId}.${refreshToken!.value}`,
       expiresAt: accessToken.expiresAt?.toISO()!,
-    });
+    }, true);
   }
 
   async parsePublicToken(publicToken: string): Promise<IPublicOpaqueTokenDTO> {
     const [sessionId, token] = publicToken.split('.');
 
     if (!sessionId || !token || token.length !== authConfig.tokenLength) {
-      throw new InvalidSessionTokenException();
+      throw new InvalidTokenException();
     }
 
     return {
@@ -53,7 +54,7 @@ export default class FakeSessionProvider implements ISessionProvider {
   parseBearerToken(bearerToken: string): Promise<IPublicOpaqueTokenDTO> {
     const [type, publicToken] = bearerToken.split(' ');
 
-    if (!type || type !== this.type || !publicToken) throw new InvalidSessionTokenException();
+    if (!type || type !== this.type || !publicToken) throw new InvalidAccessTokenException();
 
     return this.parsePublicToken(publicToken);
   }

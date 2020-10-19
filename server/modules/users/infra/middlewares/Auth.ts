@@ -2,12 +2,12 @@ import { Request, Response, NextFunction } from 'express';
 import { DateTime } from 'luxon';
 import { injectable, inject } from 'tsyringe';
 
-import InvalidSessionTokenException from '~/exceptions/InvalidSessionTokenException';
+import InvalidAccessTokenException from '~/exceptions/InvalidAccessTokenException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import type { IMiddleware } from '~/types';
 
 import ISessionCacheProvider from '@users/providers/SessionCacheProvider/ISessionCacheProvider';
-import ISessionTokenProvider from '@users/providers/SessionTokenProvider/ISessionTokenProvider';
+import ISessionProvider from '@users/providers/SessionProvider/ISessionProvider';
 import IUserCacheProvider from '@users/providers/UserCacheProvider/IUserCacheProvider';
 import ISessionRepository from '@users/repositories/SessionRepository/ISessionRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
@@ -15,8 +15,8 @@ import IUserRepository from '@users/repositories/UserRepository/IUserRepository'
 @injectable()
 export default class AuthMiddleware implements IMiddleware {
   constructor(
-    @inject('SessionTokenProvider')
-    private sessionTokenProvider: ISessionTokenProvider,
+    @inject('SessionProvider')
+    private sessionProvider: ISessionProvider,
 
     @inject('SessionCacheProvider')
     private sessionCacheProvider: ISessionCacheProvider,
@@ -34,25 +34,25 @@ export default class AuthMiddleware implements IMiddleware {
   async handle(request: Request, response: Response, next: NextFunction): Promise<void> {
     const { authorization } = request.headers;
 
-    if (!authorization) throw new InvalidSessionTokenException();
+    if (!authorization) throw new InvalidAccessTokenException();
 
-    const { id, hash } = await this.sessionTokenProvider.parsePublicToken(authorization);
+    const { sessionId, hash } = await this.sessionProvider.parseBearerToken(authorization);
 
-    const hasCachedSession = await this.sessionCacheProvider.exists(id);
+    const hasCachedSession = await this.sessionCacheProvider.exists(sessionId);
 
     const session = hasCachedSession
-      ? await this.sessionCacheProvider.recover(id)
-      : await this.sessionRepository.findById(id);
+      ? await this.sessionCacheProvider.recover(sessionId)
+      : await this.sessionRepository.findById(sessionId);
 
     if (!session) throw new ResourceNotFoundException('Session');
 
-    if (session.accessToken !== hash) throw new InvalidSessionTokenException();
+    if (session.accessToken !== hash) throw new InvalidAccessTokenException();
 
     if (session.expiresAt && session.expiresAt < DateTime.local()) {
-      throw new InvalidSessionTokenException();
+      throw new InvalidAccessTokenException();
     }
 
-    if (!hasCachedSession) await this.sessionCacheProvider.save(id, session);
+    if (!hasCachedSession) await this.sessionCacheProvider.save(sessionId, session);
 
     const hasCachedUser = await this.userCacheProvider.exists(session.userId);
 

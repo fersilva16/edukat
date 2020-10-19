@@ -1,5 +1,4 @@
 import './HashProvider';
-import './SessionTokenProvider';
 import './SessionProvider';
 import './PermissionProvider';
 import './PermissionCacheProvider';
