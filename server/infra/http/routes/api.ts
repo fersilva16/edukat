@@ -26,7 +26,7 @@ apiRoutes.use('/sessions', sessionRoutes);
 
 apiRoutes.use('/types', typeRoutes);
 
-apiRoutes.use('/email/verify', emailRoutes);
+apiRoutes.use('/email', emailRoutes);
 
 apiRoutes.use('/register', registerRoutes);
 

@@ -4,6 +4,6 @@ import createRequestHandler from '~/utils/createRequestHandler';
 
 const emailRoutes = Router();
 
-emailRoutes.post('/', createRequestHandler('VerifyEmail'));
+emailRoutes.post('/verify', createRequestHandler('VerifyEmail'));
 
 export default emailRoutes;
