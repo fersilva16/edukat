@@ -9,5 +9,7 @@ export default interface ISessionRepository {
 
   create(data: ICreateSessionDTO): Promise<Session>;
 
+  update(id: string, data: Partial<ICreateSessionDTO>): Promise<void>;
+
   delete(id: string): Promise<void>;
 }

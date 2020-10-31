@@ -46,6 +46,12 @@ export default class FakeSessionRepository
     return transform.toClass(Session, rawSession);
   }
 
+  async update(id: string, data: Partial<ICreateSessionDTO>): Promise<void> {
+    for (let i = 0; i < this.rows.length; i += 1) {
+      if (this.rows[i].id === id) this.rows[i] = { ...this.rows[i], ...data };
+    }
+  }
+
   async delete(id: string): Promise<void> {
     const index = this.rows.findIndex((row) => row.id === id);
 

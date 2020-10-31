@@ -48,6 +48,15 @@ export default class KnexSessionRepository
     return transform.toClass(Session, session[0]);
   }
 
+  async update(id: string, data: Partial<ICreateSessionDTO>): Promise<void> {
+    await this.table.update({
+      access_token: data.accessToken,
+      refresh_token: data.refreshToken,
+      user_id: data.userId,
+      expires_at: data.expiresAt?.toISO()!,
+    }).where('id', id);
+  }
+
   async delete(id: string): Promise<void> {
     await this.table.delete().where('id', id);
   }
