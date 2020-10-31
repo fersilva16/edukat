@@ -60,4 +60,8 @@ export default class KnexSessionRepository
   async delete(id: string): Promise<void> {
     await this.table.delete().where('id', id);
   }
+
+  async clear(): Promise<void> {
+    await this.table.truncate();
+  }
 }

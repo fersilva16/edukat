@@ -57,4 +57,8 @@ export default class FakeSessionRepository
 
     if (index >= 0) this.rows.splice(index, 1);
   }
+
+  async clear(): Promise<void> {
+    this.rows.splice(0, this.rows.length);
+  }
 }
