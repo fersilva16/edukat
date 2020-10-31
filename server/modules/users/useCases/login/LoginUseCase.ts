@@ -37,7 +37,8 @@ export default class LoginUseCase implements IUseCase {
     if (!check) throw new InvalidCredentialsException('Password');
 
     const accessToken = await this.sessionProvider.generateOpaqueToken();
-    const refreshToken = accessToken.expiresAt && await this.sessionProvider.generateOpaqueToken();
+    const refreshToken = accessToken.expiresAt
+      && await this.sessionProvider.generateOpaqueToken(false);
 
     const session = await this.sessionRepository.create({
       accessToken: accessToken.hash,
