@@ -2,10 +2,10 @@ import { Router } from 'express';
 
 import createRequestHandler from '~/utils/createRequestHandler';
 
-const routes = Router();
+const sessionRoutes = Router();
 
-routes.post('/', createRequestHandler('Login'));
+sessionRoutes.post('/', createRequestHandler('Login'));
 
-routes.post('/refresh', createRequestHandler('RefreshSession'));
+sessionRoutes.post('/refresh', createRequestHandler('RefreshSession'));
 
-export default routes;
+export default sessionRoutes;
