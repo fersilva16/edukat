@@ -43,6 +43,7 @@ export default class LoginUseCase implements IUseCase {
     const session = await this.sessionRepository.create({
       accessToken: accessToken.hash,
       refreshToken: refreshToken?.hash,
+      expiresAt: accessToken?.expiresAt,
       userId: user.id,
     });
 
