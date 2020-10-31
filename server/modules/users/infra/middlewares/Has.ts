@@ -58,7 +58,7 @@ export default class HasMiddleware implements IMiddleware {
 
     if (missingPermissions.length) throw new MissingPermissionsException(missingPermissions);
 
-    request.user!.type = type;
+    request.userType = type;
 
     next();
   }

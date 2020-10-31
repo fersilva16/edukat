@@ -5,7 +5,6 @@ import NoPermissionException from '~/exceptions/NoPermissionException';
 import ResourceAlreadyExistsException from '~/exceptions/ResourceAlreadyExistsException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import ICreateTypeDTO from '~/modules/users/repositories/TypeRepository/dtos/ICreateTypeDTO';
-import ICreateUserDTO from '~/modules/users/repositories/UserRepository/dtos/ICreateUserDTO';
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
 import FakeMailProvider from '~/providers/MailProvider/implementations/fakes/FakeMailProvider';
 
@@ -63,10 +62,6 @@ describe('CreateUserUseCase', () => {
       Factory.build<ICreateTypeDTO>('type', { position: 1 }),
     );
 
-    const user = await userRepository.create(
-      Factory.build<ICreateUserDTO>('user', { typeId: adminType.id }),
-    );
-
     const type = await typeRepository.create(
       Factory.build<ICreateTypeDTO>('type', { position: 0 }),
     );
@@ -74,7 +69,7 @@ describe('CreateUserUseCase', () => {
     const partialUser = Factory.build<ICreatePartialUserDTO>('partialUser');
 
     await createUserUseCase.execute({
-      user: { ...user, type: adminType },
+      userType: adminType,
       ...partialUser,
       typeId: type.id,
     });
@@ -97,16 +92,12 @@ describe('CreateUserUseCase', () => {
       Factory.build<ICreateTypeDTO>('type', { position: 1 }),
     );
 
-    const user = await userRepository.create(
-      Factory.build<ICreateUserDTO>('user', { typeId: adminType.id }),
-    );
-
     const typeId = faker.random.alphaNumeric(6);
     const { email } = await userRepository.create(Factory.build('user'));
 
     expect(
       createUserUseCase.execute({
-        user: { ...user, type: adminType },
+        userType: adminType,
         email,
         typeId,
       }),
@@ -118,16 +109,12 @@ describe('CreateUserUseCase', () => {
       Factory.build<ICreateTypeDTO>('type', { position: 1 }),
     );
 
-    const user = await userRepository.create(
-      Factory.build<ICreateUserDTO>('user', { typeId: adminType.id }),
-    );
-
     const partialUser = Factory.build<ICreatePartialUserDTO>('partialUser');
 
     expect(
       createUserUseCase.execute({
         ...partialUser,
-        user: { ...user, type: adminType },
+        userType: adminType,
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundException);
   });
@@ -135,10 +122,6 @@ describe('CreateUserUseCase', () => {
   it('should be fail if partial user type is greater than auth user type', async () => {
     const adminType = await typeRepository.create(
       Factory.build<ICreateTypeDTO>('type', { position: 0 }),
-    );
-
-    const user = await userRepository.create(
-      Factory.build<ICreateUserDTO>('user', { typeId: adminType.id }),
     );
 
     const type = await typeRepository.create(
@@ -149,7 +132,7 @@ describe('CreateUserUseCase', () => {
 
     expect(
       createUserUseCase.execute({
-        user: { ...user, type: adminType },
+        userType: adminType,
         ...partialUser,
         typeId: type.id,
       }),
@@ -163,17 +146,13 @@ describe('CreateUserUseCase', () => {
       Factory.build<ICreateTypeDTO>('type', { position: 1 }),
     );
 
-    const user = await userRepository.create(
-      Factory.build<ICreateUserDTO>('user', { typeId: adminType.id }),
-    );
-
     const type = await typeRepository.create(
       Factory.build<ICreateTypeDTO>('type', { position: 0 }),
     );
 
     expect(
       createUserUseCase.execute({
-        user: { ...user, type: adminType },
+        userType: adminType,
         email,
         typeId: type.id,
       }),

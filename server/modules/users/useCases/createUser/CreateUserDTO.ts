@@ -11,7 +11,6 @@ import {
 } from '~/decorators';
 
 import Type from '@users/entities/Type';
-import User from '@users/entities/User';
 
 export default class CreateUserDTO {
   @IsString()
@@ -39,5 +38,5 @@ export default class CreateUserDTO {
   typeId!: string;
 
   @Helper()
-  user!: User & { type: Type };
+  userType!: Type;
 }

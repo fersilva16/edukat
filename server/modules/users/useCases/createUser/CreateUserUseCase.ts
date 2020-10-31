@@ -34,7 +34,7 @@ export default class CreateUserUseCase implements IUseCase {
     private mailProvider: IMailProvider,
   ) {}
 
-  async execute({ user, ...data }: CreateUserDTO): Promise<void> {
+  async execute({ userType, ...data }: CreateUserDTO): Promise<void> {
     const userExists = await this.partialUserRepository.findByEmail(data.email)
       || await this.userRepository.findByEmail(data.email);
 
@@ -44,7 +44,7 @@ export default class CreateUserUseCase implements IUseCase {
 
     if (!type) throw new ResourceNotFoundException('Type');
 
-    if (type.position > user.type.position) throw new NoPermissionException();
+    if (type.position > userType.position) throw new NoPermissionException();
 
     const { id, firstname, email } = await this.partialUserRepository.create(data);
 

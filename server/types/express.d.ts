@@ -3,7 +3,8 @@ import User from '../modules/users/entities/User';
 
 declare module 'express' {
   export interface Request {
-    user?: User & { type?: Type };
+    user?: User;
+    userType?: Type;
     data?: any;
   }
 }
