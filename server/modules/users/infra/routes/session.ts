@@ -6,4 +6,6 @@ const routes = Router();
 
 routes.post('/', createRequestHandler('Login'));
 
+routes.post('/refresh', createRequestHandler('RefreshSession'));
+
 export default routes;
