@@ -10,10 +10,6 @@ export function createGet<T>(serialize: Serialize<T>) {
 
     return serialize(value);
   };
-
-  // return (key: string, defaultValue?: T): T => (
-  //   process.env[key] ? serialize(process.env[key]) : defaultValue
-  // );
 }
 
 export function createGetOrFail<T>(serialize: Serialize<T>) {

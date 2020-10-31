@@ -1,8 +1,8 @@
 import { createGet, createGetOrFail } from './creators';
 
 const env = {
-  boolean: createGet(Boolean),
-  booleanOrFail: createGetOrFail(Boolean),
+  boolean: createGet((value) => value === 'true'),
+  booleanOrFail: createGetOrFail((value) => value === 'true'),
 
   number: createGet(Number),
   numberOrFail: createGetOrFail(Number),
