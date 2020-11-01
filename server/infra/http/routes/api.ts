@@ -10,6 +10,7 @@ import Handler from '~/exceptions/Handler';
 import NotFoundException from '~/exceptions/NotFoundException';
 
 import emailRoutes from '@users/infra/routes/email';
+import passwordRoutes from '@users/infra/routes/password';
 import registerRoutes from '@users/infra/routes/register';
 import sessionRoutes from '@users/infra/routes/session';
 import typeRoutes from '@users/infra/routes/type';
@@ -32,6 +33,8 @@ apiRoutes.use('/email', emailRoutes);
 apiRoutes.use('/register', registerRoutes);
 
 apiRoutes.use('/users', userRoutes);
+
+apiRoutes.use('/password', passwordRoutes);
 
 apiRoutes.all('*', () => {
   throw new NotFoundException();
