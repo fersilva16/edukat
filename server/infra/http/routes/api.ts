@@ -13,6 +13,7 @@ import emailRoutes from '@users/infra/routes/email';
 import registerRoutes from '@users/infra/routes/register';
 import sessionRoutes from '@users/infra/routes/session';
 import typeRoutes from '@users/infra/routes/type';
+import userRoutes from '@users/infra/routes/user';
 
 import { logging } from '../middlewares';
 
@@ -29,6 +30,8 @@ apiRoutes.use('/types', typeRoutes);
 apiRoutes.use('/email', emailRoutes);
 
 apiRoutes.use('/register', registerRoutes);
+
+apiRoutes.use('/users', userRoutes);
 
 apiRoutes.all('*', () => {
   throw new NotFoundException();
