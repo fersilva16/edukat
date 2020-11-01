@@ -3,6 +3,7 @@ import {
   IsJWT,
   IsNotEmpty,
   IsString,
+  IsEqualTo,
 } from '~/decorators';
 
 export default class RegisterDTO {
@@ -26,4 +27,10 @@ export default class RegisterDTO {
   @IsNotEmpty()
   @Property('password')
   password!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsEqualTo('password')
+  @Property('password_confirmation')
+  passwordConfirmation!: string;
 }

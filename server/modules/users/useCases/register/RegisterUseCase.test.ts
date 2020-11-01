@@ -61,6 +61,7 @@ describe('RegisterUseCase', () => {
       firstname,
       lastname,
       password,
+      passwordConfirmation: password,
     });
 
     expect(parseToken).toHaveBeenCalledWith(token);
@@ -84,13 +85,16 @@ describe('RegisterUseCase', () => {
 
     const token = await tokenProvider.generateToken<IRegisterTokenDTO>({ id, email });
 
+    const password = faker.internet.password();
+
     expect(
       registerUseCase.execute({
         token,
 
         firstname: faker.name.firstName(),
         lastname: faker.name.lastName(),
-        password: faker.internet.password(),
+        password,
+        passwordConfirmation: password,
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundException);
   });
@@ -102,13 +106,16 @@ describe('RegisterUseCase', () => {
 
     const token = await tokenProvider.generateToken({ id, email });
 
+    const password = faker.internet.password();
+
     expect(
       registerUseCase.execute({
         token,
 
         firstname: faker.name.firstName(),
         lastname: faker.name.lastName(),
-        password: faker.internet.password(),
+        password,
+        passwordConfirmation: password,
       }),
     ).rejects.toBeInstanceOf(InvalidTokenException);
   });
