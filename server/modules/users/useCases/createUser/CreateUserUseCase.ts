@@ -35,8 +35,8 @@ export default class CreateUserUseCase implements IUseCase {
   ) {}
 
   async execute({ userType, ...data }: CreateUserDTO): Promise<void> {
-    const userExists = await this.partialUserRepository.findByEmail(data.email)
-      || await this.userRepository.findByEmail(data.email);
+    const userExists = await this.userRepository.findByEmail(data.email)
+      || await this.partialUserRepository.findByEmail(data.email);
 
     if (userExists) throw new ResourceAlreadyExistsException('User');
 
