@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 
 import Repository from '~/repositories/Repository';
 import transform from '~/utils/transform';
+import transformRepositoryDTO from '~/utils/transformRepositoryDTO';
 
 import PartialUser from '@users/entities/PartialUser';
 import IRawPartialUser from '@users/entities/raws/IRawPartialUser';
@@ -16,37 +17,33 @@ export default class KnexPartialUserRepository
   }
 
   async findById(id: string): Promise<PartialUser> {
-    const rawPartialUser = await this.table.select('*').where('id', id).first();
+    const findedRow = await this.table.select('*').where('id', id).first();
 
-    return transform.toClass(PartialUser, rawPartialUser);
+    return transform.toClass(PartialUser, findedRow);
   }
 
   async findByEmail(email: string): Promise<PartialUser> {
-    const rawPartialUser = await this.table.select('*').where('email', email).first();
+    const findedRow = await this.table.select('*').where('email', email).first();
 
-    return transform.toClass(PartialUser, rawPartialUser);
+    return transform.toClass(PartialUser, findedRow);
   }
 
   async create(data: ICreatePartialUserDTO): Promise<PartialUser> {
-    const dateNow = DateTime.local().toISO()!;
     const id = await this.generateId();
+    const dateNow = DateTime.local().toISO()!;
 
-    const rawPartialUser: IRawPartialUser = {
+    const row: IRawPartialUser = {
+      ...transformRepositoryDTO(data),
+
       id,
-
-      firstname: data.firstname,
-      lastname: data.lastname,
-      email: data.email,
-
-      type_id: data.typeId,
 
       created_at: dateNow,
       updated_at: dateNow,
     };
 
-    const partialUser = await this.table.insert(rawPartialUser).returning('*');
+    await this.table.insert(row);
 
-    return transform.toClass(PartialUser, partialUser[0]);
+    return transform.toClass(PartialUser, row);
   }
 
   async delete(id: string): Promise<void> {

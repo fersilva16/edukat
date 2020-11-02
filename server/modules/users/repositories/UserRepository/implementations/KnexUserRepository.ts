@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 
 import Repository from '~/repositories/Repository';
 import transform from '~/utils/transform';
+import transformRepositoryDTO from '~/utils/transformRepositoryDTO';
 
 import IRawUser from '@users/entities/raws/IRawUser';
 import User from '@users/entities/User';
@@ -22,39 +23,37 @@ export default class KnexUserRepository
   }
 
   async findById(id: string): Promise<User> {
-    const rawUser = await this.table.select('*').where('id', id).first();
+    const findedRow = await this.table.select('*').where('id', id).first();
 
-    return transform.toClass(User, rawUser);
+    return transform.toClass(User, findedRow);
   }
 
   async findByEmail(email: string): Promise<User> {
-    const rawUser = await this.table.select('*').where('email', email).first();
+    const findedRow = await this.table.select('*').where('email', email).first();
 
-    return transform.toClass(User, rawUser);
+    return transform.toClass(User, findedRow);
   }
 
-  async create(data: ICreateUserDTO): Promise<User> {
+  async create(fullData: ICreateUserDTO): Promise<User> {
     const dateNow = DateTime.local().toISO()!;
     const id = await this.generateId();
 
-    const rawUser: IRawUser = {
+    const { password, ...data } = fullData;
+
+    const row: IRawUser = {
+      ...transformRepositoryDTO(data),
+
+      password: await this.hashProvider.hash(password),
+
       id,
-
-      firstname: data.firstname,
-      lastname: data.lastname,
-
-      email: data.email,
-      password: await this.hashProvider.hash(data.password),
-
-      type_id: data.typeId,
 
       created_at: dateNow,
       updated_at: dateNow,
     };
 
-    const user = await this.table.insert(rawUser).returning('*');
+    await this.table.insert(row);
 
-    return transform.toClass(User, user[0]);
+    return transform.toClass(User, row);
   }
 
   async clear(): Promise<void> {

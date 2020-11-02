@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 
 import Repository from '~/repositories/Repository';
 import transform from '~/utils/transform';
+import transformRepositoryDTO from '~/utils/transformRepositoryDTO';
 
 import IRawType from '@users/entities/raws/IRawType';
 import Type from '@users/entities/Type';
@@ -16,37 +17,33 @@ export default class KnexTypeRepository
   }
 
   async all(): Promise<Type[]> {
-    const types = await this.table.select('*');
+    const rows = await this.table.select('*');
 
-    return transform.toClass(Type, types);
+    return transform.toClass(Type, rows);
   }
 
   async findById(id: string): Promise<Type> {
-    const rawType = await this.table.select('*').where('id', id).first();
+    const findedRow = await this.table.select('*').where('id', id).first();
 
-    return transform.toClass(Type, rawType);
+    return transform.toClass(Type, findedRow);
   }
 
   async create(data: ICreateTypeDTO): Promise<Type> {
-    const dateNow = DateTime.local().toISO()!;
     const id = await this.generateId();
+    const dateNow = DateTime.local().toISO()!;
 
-    const rawType: IRawType = {
+    const row: IRawType = {
+      ...transformRepositoryDTO(data),
+
       id,
-
-      name: data.name,
-
-      position: data.position,
-
-      permissions: data.permissions,
 
       created_at: dateNow,
       updated_at: dateNow,
     };
 
-    const type = await this.table.insert(rawType).returning('*');
+    await this.table.insert(row);
 
-    return transform.toClass(Type, type[0]);
+    return transform.toClass(Type, row);
   }
 
   async clear(): Promise<void> {

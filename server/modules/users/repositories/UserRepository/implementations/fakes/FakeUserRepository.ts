@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 
 import FakeRepository from '~/repositories/FakeRepository';
 import transform from '~/utils/transform';
+import transformRepositoryDTO from '~/utils/transformRepositoryDTO';
 
 import IRawUser from '@users/entities/raws/IRawUser';
 import User from '@users/entities/User';
@@ -12,39 +13,33 @@ import IUserRepository from '../../IUserRepository';
 export default class FakeUserRepository
   extends FakeRepository<IRawUser> implements IUserRepository {
   async findById(id: string): Promise<User> {
-    const user = this.rows.find((rawUser) => rawUser.id === id);
+    const findedRow = this.rows.find((row) => row.id === id);
 
-    return transform.toClass(User, user);
+    return transform.toClass(User, findedRow);
   }
 
   async findByEmail(email: string): Promise<User> {
-    const user = this.rows.find((rawUser) => rawUser.email === email);
+    const findedRow = this.rows.find((row) => row.email === email);
 
-    return transform.toClass(User, user);
+    return transform.toClass(User, findedRow);
   }
 
   async create(data: ICreateUserDTO): Promise<User> {
-    const dateNow = DateTime.local().toISO()!;
     const id = this.generateId();
+    const dateNow = DateTime.local().toISO()!;
 
-    const user: IRawUser = {
+    const row: IRawUser = {
+      ...transformRepositoryDTO(data),
+
       id,
-
-      firstname: data.firstname,
-      lastname: data.lastname,
-
-      email: data.email,
-      password: data.password,
-
-      type_id: data.typeId,
 
       created_at: dateNow,
       updated_at: dateNow,
     };
 
-    this.rows.push(user);
+    this.rows.push(row);
 
-    return transform.toClass(User, user);
+    return transform.toClass(User, row);
   }
 
   async clear(): Promise<void> {

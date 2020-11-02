@@ -7,9 +7,9 @@ export default class FakeRepository<T extends { id: string }> {
   protected generateId(): string {
     const id = random.base62(appConfig.idLength);
 
-    const hasRow = this.rows.find((row) => row.id === id);
+    const exists = this.rows.find((row) => row.id === id);
 
-    if (hasRow) return this.generateId();
+    if (exists) return this.generateId();
 
     return id;
   }
