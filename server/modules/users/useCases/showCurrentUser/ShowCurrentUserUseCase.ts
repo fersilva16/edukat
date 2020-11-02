@@ -7,10 +7,10 @@ import User from '@users/entities/User';
 import IUserCacheProvider from '@users/providers/UserCacheProvider/IUserCacheProvider';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
-import GetCurrentUserDTO from './GetCurrentUserDTO';
+import ShowCurrentUserDTO from './ShowCurrentUserDTO';
 
 @injectable()
-export default class GetCurrentUserUseCase implements IUseCase {
+export default class ShowCurrentUserUseCase implements IUseCase {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository,
@@ -19,7 +19,7 @@ export default class GetCurrentUserUseCase implements IUseCase {
     private userCacheProvider: IUserCacheProvider,
   ) {}
 
-  async execute({ id }: GetCurrentUserDTO): Promise<User> {
+  async execute({ id }: ShowCurrentUserDTO): Promise<User> {
     const user = await this.userRepository.findById(id);
 
     if (!user) throw new ResourceNotFoundException('User');

@@ -9,10 +9,10 @@ import IUserCacheProvider from '@users/providers/UserCacheProvider/IUserCachePro
 import FakeUserRepository from '@users/repositories/UserRepository/implementations/fakes/FakeUserRepository';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
-import GetCurrentUserUseCase from './GetCurrentUserUseCase';
+import ShowCurrentUserUseCase from './ShowCurrentUserUseCase';
 
-describe('GetCurrentUserUseCase', () => {
-  let getCurrentUserUseCase: GetCurrentUserUseCase;
+describe('ShowCurrentUserUseCase', () => {
+  let showCurrentUserUseCase: ShowCurrentUserUseCase;
   let userRepository: IUserRepository;
   let userCacheProvider: IUserCacheProvider;
 
@@ -20,7 +20,7 @@ describe('GetCurrentUserUseCase', () => {
     userRepository = new FakeUserRepository();
     userCacheProvider = new FakeUserCacheProvider();
 
-    getCurrentUserUseCase = new GetCurrentUserUseCase(
+    showCurrentUserUseCase = new ShowCurrentUserUseCase(
       userRepository,
       userCacheProvider,
     );
@@ -36,7 +36,7 @@ describe('GetCurrentUserUseCase', () => {
     const findById = jest.spyOn(userRepository, 'findById');
     const save = jest.spyOn(userCacheProvider, 'save');
 
-    const result = await getCurrentUserUseCase.execute({ id: user.id });
+    const result = await showCurrentUserUseCase.execute({ id: user.id });
 
     expect(findById).toHaveBeenCalledWith(user.id);
 
@@ -49,7 +49,7 @@ describe('GetCurrentUserUseCase', () => {
     const id = faker.random.alphaNumeric(appConfig.idLength);
 
     expect(
-      getCurrentUserUseCase.execute({ id }),
+      showCurrentUserUseCase.execute({ id }),
     ).rejects.toBeInstanceOf(ResourceNotFoundException);
   });
 });

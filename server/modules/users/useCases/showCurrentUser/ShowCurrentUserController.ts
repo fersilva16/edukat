@@ -4,17 +4,17 @@ import { injectable, inject } from 'tsyringe';
 import IController from '~/types/IController';
 import transform from '~/utils/transform';
 
-import GetCurrentUserUseCase from './GetCurrentUserUseCase';
+import ShowCurrentUserUseCase from './ShowCurrentUserUseCase';
 
 @injectable()
-export default class GetCurrentUserController implements IController {
+export default class ShowCurrentUserController implements IController {
   constructor(
-    @inject('GetCurrentUserUseCase')
-    private getCurrentUserUseCase: GetCurrentUserUseCase,
+    @inject('ShowCurrentUserUseCase')
+    private showCurrentUserUseCase: ShowCurrentUserUseCase,
   ) {}
 
   async handle(request: Request, response: Response): Promise<void> {
-    const user = await this.getCurrentUserUseCase.execute({ id: request.user!.id });
+    const user = await this.showCurrentUserUseCase.execute({ id: request.user!.id });
 
     response.status(200).send(
       transform.toPlain(user),

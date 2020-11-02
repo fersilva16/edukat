@@ -5,6 +5,6 @@ import './verifyEmail';
 import './showRegisterData';
 import './register';
 import './refreshSession';
-import './getCurrentUser';
+import './showCurrentUser';
 import './forgotPassword';
 import './resetPassword';

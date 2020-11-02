@@ -6,6 +6,6 @@ import { auth } from '../middlewares';
 
 const userRoutes = Router();
 
-userRoutes.get('/me', createRequestHandler('GetCurrentUser', auth));
+userRoutes.get('/me', createRequestHandler('ShowCurrentUser', auth));
 
 export default userRoutes;
