@@ -5,6 +5,7 @@ import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import IMailProvider from '~/providers/MailProvider/IMailProvider';
 import IUseCase from '~/types/IUseCase';
 
+import IForgotPasswordTokenDTO from '@users/dtos/IForgotPasswordTokenDTO';
 import ITokenProvider from '@users/providers/TokenProvider/ITokenProvider';
 import IUserRepository from '@users/repositories/UserRepository/IUserRepository';
 
@@ -28,7 +29,7 @@ export default class ForgotPasswordUseCase implements IUseCase {
 
     if (!user) throw new ResourceNotFoundException('User');
 
-    const token = await this.tokenProvider.generateToken({ id: user.id });
+    const token = await this.tokenProvider.generateToken<IForgotPasswordTokenDTO>({ id: user.id });
 
     this.mailProvider.sendMail({
       to: {
