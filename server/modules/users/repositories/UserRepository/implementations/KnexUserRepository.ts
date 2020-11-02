@@ -56,6 +56,16 @@ export default class KnexUserRepository
     return transform.toClass(User, row);
   }
 
+  async update(id: string, fullData: Partial<ICreateUserDTO>): Promise<void> {
+    const { password, ...data } = fullData;
+
+    const updateData: Partial<ICreateUserDTO> = transformRepositoryDTO(data);
+
+    if (typeof password !== 'undefined') updateData.password = await this.hashProvider.hash(password);
+
+    await this.table.update(updateData).where('id', id);
+  }
+
   async clear(): Promise<void> {
     await this.table.truncate();
   }

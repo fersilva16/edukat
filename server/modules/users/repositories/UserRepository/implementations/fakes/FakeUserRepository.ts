@@ -42,6 +42,17 @@ export default class FakeUserRepository
     return transform.toClass(User, row);
   }
 
+  async update(id: string, data: Partial<ICreateUserDTO>): Promise<void> {
+    const index = this.rows.findIndex((row) => row.id === id);
+
+    if (index >= 0) {
+      this.rows[index] = {
+        ...this.rows[index],
+        ...transformRepositoryDTO(data),
+      };
+    }
+  }
+
   async clear(): Promise<void> {
     this.rows.splice(0, this.rows.length);
   }

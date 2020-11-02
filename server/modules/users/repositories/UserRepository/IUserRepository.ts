@@ -9,5 +9,7 @@ export default interface IUserRepository {
 
   create(data: ICreateUserDTO): Promise<User>;
 
+  update(id: string, data: Partial<ICreateUserDTO>): Promise<void>;
+
   clear(): Promise<void>;
 }
