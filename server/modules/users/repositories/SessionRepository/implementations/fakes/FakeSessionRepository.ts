@@ -45,7 +45,12 @@ export default class FakeSessionRepository
   async update(id: string, data: Partial<ICreateSessionDTO>): Promise<void> {
     const index = this.rows.findIndex((row) => row.id === id);
 
-    if (index >= 0) this.rows[index] = { ...this.rows[index], ...transformRepositoryDTO(data) };
+    if (index >= 0) {
+      this.rows[index] = {
+        ...this.rows[index],
+        ...transformRepositoryDTO(data),
+      };
+    }
   }
 
   async delete(id: string): Promise<void> {
