@@ -5,8 +5,8 @@ import ISessionCacheProvider from '../../ISessionCacheProvider';
 export default class FakeSessionCacheProvider implements ISessionCacheProvider {
   private sessions = new Map<string, Session>();
 
-  async save(id: string, user: Session): Promise<void> {
-    this.sessions.set(id, user);
+  async save(session: Session): Promise<void> {
+    this.sessions.set(session.id, session);
   }
 
   async exists(id: string): Promise<boolean> {

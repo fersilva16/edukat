@@ -13,8 +13,8 @@ export default class RedisUserCacheProvider implements IUserCacheProvider {
     return `${this.prefix}:${suffix}`;
   }
 
-  async save(id: string, user: User): Promise<void> {
-    const key = this.addPrefix(id);
+  async save(user: User): Promise<void> {
+    const key = this.addPrefix(user.id);
 
     await redis.hmset(key, new Map(
       Object.entries(

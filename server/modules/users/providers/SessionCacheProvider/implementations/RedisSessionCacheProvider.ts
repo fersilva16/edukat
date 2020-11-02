@@ -13,8 +13,8 @@ export default class RedisSessionCacheProvider implements ISessionCacheProvider 
     return `${this.prefix}:${suffix}`;
   }
 
-  async save(id: string, session: Session): Promise<void> {
-    const key = this.addPrefix(id);
+  async save(session: Session): Promise<void> {
+    const key = this.addPrefix(session.id);
 
     await redis.hmset(key, new Map(
       Object.entries(

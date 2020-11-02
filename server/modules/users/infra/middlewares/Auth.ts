@@ -52,7 +52,7 @@ export default class AuthMiddleware implements IMiddleware {
       throw new InvalidAccessTokenException();
     }
 
-    if (!hasCachedSession) await this.sessionCacheProvider.save(sessionId, session);
+    if (!hasCachedSession) await this.sessionCacheProvider.save(session);
 
     const hasCachedUser = await this.userCacheProvider.exists(session.userId);
 
@@ -62,7 +62,7 @@ export default class AuthMiddleware implements IMiddleware {
 
     if (!user) throw new ResourceNotFoundException('User');
 
-    if (!hasCachedSession) await this.userCacheProvider.save(session.userId, user);
+    if (!hasCachedSession) await this.userCacheProvider.save(user);
 
     request.user = user;
 

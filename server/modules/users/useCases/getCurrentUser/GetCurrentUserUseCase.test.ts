@@ -40,7 +40,7 @@ describe('GetCurrentUserUseCase', () => {
 
     expect(findById).toHaveBeenCalledWith(user.id);
 
-    expect(save).toHaveBeenCalledWith(user.id, user);
+    expect(save).toHaveBeenCalledWith(user);
 
     expect(result).toStrictEqual(user);
   });

@@ -24,7 +24,7 @@ export default class GetCurrentUserUseCase implements IUseCase {
 
     if (!user) throw new ResourceNotFoundException('User');
 
-    await this.userCacheProvider.save(id, user);
+    await this.userCacheProvider.save(user);
 
     return user;
   }

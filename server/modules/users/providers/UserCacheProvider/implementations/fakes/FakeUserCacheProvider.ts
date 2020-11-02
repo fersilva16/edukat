@@ -5,8 +5,8 @@ import IUserCacheProvider from '../../IUserCacheProvider';
 export default class FakeUserCacheProvider implements IUserCacheProvider {
   private users = new Map<string, User>();
 
-  async save(id: string, user: User): Promise<void> {
-    this.users.set(id, user);
+  async save(user: User): Promise<void> {
+    this.users.set(user.id, user);
   }
 
   async exists(id: string): Promise<boolean> {
