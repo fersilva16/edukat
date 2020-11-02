@@ -12,6 +12,7 @@ import {
 import createPropertyValidator from '~/utils/createPropertyValidator';
 
 import IsEqualToValidator from './validators/IsEqualTo';
+import IsNotEqualToValidator from './validators/IsNotEqualTo';
 
 export { default as Cron } from './Cron';
 
@@ -27,6 +28,7 @@ export const IsEmail = createPropertyValidator(IsEmailValidator);
 export const IsEqualTo = createPropertyValidator(IsEqualToValidator);
 export const IsJWT = createPropertyValidator(IsJWTValidator);
 export const IsNotEmpty = createPropertyValidator(IsNotEmptyValidator);
+export const IsNotEqualTo = createPropertyValidator(IsNotEqualToValidator);
 export const IsOptional = createPropertyValidator(IsOptionalValidator);
 export const IsString = createPropertyValidator(IsStringValidator);
 export const Length = createPropertyValidator(LengthValidator);
