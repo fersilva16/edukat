@@ -7,3 +7,4 @@ import './register';
 import './refreshSession';
 import './getCurrentUser';
 import './forgotPassword';
+import './resetPassword';
