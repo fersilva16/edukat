@@ -3,6 +3,8 @@ import knex from '~/infra/knex';
 import random from '~/utils/random';
 
 export default class Repository<T> {
+  protected raw = knex.raw;
+
   constructor(protected tableName: string) {}
 
   protected get table() {
@@ -12,19 +14,14 @@ export default class Repository<T> {
   protected async generateId(): Promise<string> {
     const id = random.base62(appConfig.idLength);
 
-    const { rows: [{ exists }] } = await knex.raw(
-      `
-        SELECT EXISTS (
-          SELECT 1
-          FROM ${this.tableName}
-          WHERE id = ?
-          LIMIT 1
-        )
-      `,
-      [id],
-    );
+    const result = await this.table.select<{ exists: boolean }>(
+      this.raw(
+        'exists ?',
+        this.table.select('*').where('id', id),
+      ),
+    ).first();
 
-    if (exists) return this.generateId();
+    if (result && result.exists) return this.generateId();
 
     return id;
   }
