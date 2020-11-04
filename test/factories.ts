@@ -4,10 +4,11 @@ import { Factory } from 'rosie';
 import ICreatePartialUserDTO from '@users/repositories/PartialUserRepository/dtos/ICreatePartialUserDTO';
 import ICreateTypeDTO from '@users/repositories/TypeRepository/dtos/ICreateTypeDTO';
 import ICreateUserDTO from '@users/repositories/UserRepository/dtos/ICreateUserDTO';
+import appConfig from '~/config/app';
 
 Factory.define<ICreatePartialUserDTO>('partialUser')
   .attr('email', () => faker.internet.email())
-  .attr('typeId', () => faker.random.alphaNumeric(6));
+  .attr('typeId', () => faker.random.alphaNumeric(appConfig.idLength));
 
 Factory.define<ICreateTypeDTO>('type')
   .attr('name', () => faker.random.word())
