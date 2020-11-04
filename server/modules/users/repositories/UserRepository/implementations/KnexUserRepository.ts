@@ -34,11 +34,9 @@ export default class KnexUserRepository
     return transform.toClass(User, findedRow);
   }
 
-  async create(fullData: ICreateUserDTO): Promise<User> {
+  async create({ password, ...data }: ICreateUserDTO): Promise<User> {
     const dateNow = DateTime.local().toISO()!;
     const id = await this.generateId();
-
-    const { password, ...data } = fullData;
 
     const row: IRawUser = {
       ...transformRepositoryDTO(data),
@@ -56,9 +54,7 @@ export default class KnexUserRepository
     return transform.toClass(User, row);
   }
 
-  async update(id: string, fullData: Partial<ICreateUserDTO>): Promise<void> {
-    const { password, ...data } = fullData;
-
+  async update(id: string, { password, ...data }: Partial<ICreateUserDTO>): Promise<void> {
     const updateData: Partial<ICreateUserDTO> = transformRepositoryDTO(data);
 
     if (typeof password !== 'undefined') updateData.password = await this.hashProvider.hash(password);
