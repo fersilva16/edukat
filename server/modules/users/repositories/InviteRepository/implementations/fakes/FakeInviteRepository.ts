@@ -10,7 +10,7 @@ import IRawInvite from '@users/entities/raws/IRawInvite';
 import ICreateInviteDTO from '../../dtos/ICreateInviteDTO';
 import IInviteRepository from '../../IInviteRepository';
 
-export default class KnexInviteRepository
+export default class FakeInviteRepository
   extends FakeRepository<IRawInvite> implements IInviteRepository {
   async all(): Promise<Invite[]> {
     return transform.toClass(Invite, this.rows);

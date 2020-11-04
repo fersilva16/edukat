@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 export default interface ICreateInviteDTO {
-  uses: number;
+  uses?: number;
 
   maxUses?: number;
 
