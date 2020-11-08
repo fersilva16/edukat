@@ -4,6 +4,7 @@ enum Flags {
   ADMINISTRATOR = 1 << 0,
   MANAGE_USERS = 1 << 1,
   MANAGE_TYPES = 1 << 2,
+  MANAGE_INVITES = 1 << 2,
 }
 
 export type KeyofFlags = keyof typeof Flags;
