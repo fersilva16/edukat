@@ -10,11 +10,7 @@ export async function up({ schema }: Knex): Promise<void> {
     table.integer('uses').notNullable();
     table.integer('max_uses').nullable();
     table.string('owner_id').references('id').inTable('users').onDelete('CASCADE');
-    table.string('type_id')
-      .references('id')
-      .inTable('types')
-      .onDelete('CASCADE')
-      .nullable();
+    table.string('type_id').references('id').inTable('types').onDelete('CASCADE');
     table.timestamp('expires_at').nullable();
     table.timestamp('created_at').notNullable();
     table.timestamp('updated_at').notNullable();

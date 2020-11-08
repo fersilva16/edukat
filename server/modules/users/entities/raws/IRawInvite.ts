@@ -5,7 +5,7 @@ export default interface IRawInvite {
 
   max_uses?: number;
 
-  type_id?: string;
+  type_id: string;
 
   owner_id: string;
 

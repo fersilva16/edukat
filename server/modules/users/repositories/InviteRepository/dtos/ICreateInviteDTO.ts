@@ -5,7 +5,7 @@ export default interface ICreateInviteDTO {
 
   maxUses?: number;
 
-  typeId?: string;
+  typeId: string;
 
   ownerId: string;
 

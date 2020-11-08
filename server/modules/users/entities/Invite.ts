@@ -13,7 +13,7 @@ export default class Invite {
   maxUses?: number;
 
   @Column('type_id')
-  typeId?: string;
+  typeId!: string;
 
   @Column('owner_id')
   ownerId!: string;

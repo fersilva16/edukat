@@ -38,20 +38,7 @@ describe('CreateInviteUseCase', () => {
     await inviteRepository.clear();
   });
 
-  it('should be create invite without options', async () => {
-    const type = await typeRepository.create(Factory.build('type'));
-    const user = await userRepository.create(
-      Factory.build<ICreateUserDTO>('user', { typeId: type.id }),
-    );
-
-    const create = jest.spyOn(inviteRepository, 'create');
-
-    await createInviteUseCase.execute({ user, userType: type });
-
-    expect(create).toHaveBeenCalledWith({ ownerId: user.id });
-  });
-
-  it('should be create invite with options', async () => {
+  it('should be create invite', async () => {
     const userType = await typeRepository.create(Factory.build('type'));
     const user = await userRepository.create(
       Factory.build<ICreateUserDTO>('user', { typeId: userType.id }),

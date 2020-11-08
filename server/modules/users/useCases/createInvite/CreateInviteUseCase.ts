@@ -27,13 +27,11 @@ export default class CreateInviteUseCase implements IUseCase {
     expiresIn,
     maxUses,
   }: CreateInviteDTO): Promise<void> {
-    if (typeId) {
-      const type = await this.typeRepository.findById(typeId);
+    const type = await this.typeRepository.findById(typeId);
 
-      if (!type) throw new ResourceNotFoundException('Type');
+    if (!type) throw new ResourceNotFoundException('Type');
 
-      if (type.position < userType.position) throw new NoPermissionException();
-    }
+    if (type.position < userType.position) throw new NoPermissionException();
 
     await this.inviteRepository.create({
       ownerId: user.id,

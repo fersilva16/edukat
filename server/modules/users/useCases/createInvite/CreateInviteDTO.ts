@@ -2,6 +2,7 @@ import {
   Helper,
   IsAlphanumeric,
   IsInt,
+  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsPositive,
@@ -25,9 +26,9 @@ export default class CreateInviteDTO {
   @IsString()
   @IsAlphanumeric()
   @Length(6, 6)
-  @IsOptional()
+  @IsNotEmpty()
   @Property('type_id')
-  typeId?: string;
+  typeId!: string;
 
   @IsNumber()
   @IsInt()

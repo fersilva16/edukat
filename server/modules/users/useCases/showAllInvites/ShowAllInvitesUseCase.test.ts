@@ -23,10 +23,11 @@ describe('ShowAllInvitesUseCase', () => {
 
   it('should be return all invites', async () => {
     const ownerId = faker.random.alphaNumeric(appConfig.idLength);
+    const typeId = faker.random.alphaNumeric(appConfig.idLength);
 
-    const invite1 = await inviteRepository.create({ ownerId });
-    const invite2 = await inviteRepository.create({ ownerId });
-    const invite3 = await inviteRepository.create({ ownerId });
+    const invite1 = await inviteRepository.create({ ownerId, typeId });
+    const invite2 = await inviteRepository.create({ ownerId, typeId });
+    const invite3 = await inviteRepository.create({ ownerId, typeId });
 
     const all = jest.spyOn(inviteRepository, 'all');
 
