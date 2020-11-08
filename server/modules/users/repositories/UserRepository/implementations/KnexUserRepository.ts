@@ -59,7 +59,11 @@ export default class KnexUserRepository
 
     if (typeof password !== 'undefined') updateData.password = await this.hashProvider.hash(password);
 
-    await this.table.update(updateData).where('id', id);
+    await this.table.update({
+      ...updateData,
+
+      updated_at: DateTime.local().toISO()!,
+    }).where('id', id);
   }
 
   async clear(): Promise<void> {

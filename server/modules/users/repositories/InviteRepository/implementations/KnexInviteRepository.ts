@@ -49,7 +49,11 @@ export default class KnexInviteRepository
   }
 
   async update(id: string, data: Partial<ICreateInviteDTO>): Promise<void> {
-    await this.table.update(transformRepositoryDTO(data)).where('id', id);
+    await this.table.update({
+      ...transformRepositoryDTO(data),
+
+      updated_at: DateTime.local().toISO()!,
+    }).where('id', id);
   }
 
   async clear(): Promise<void> {

@@ -49,6 +49,8 @@ export default class FakeInviteRepository
       this.rows[index] = {
         ...this.rows[index],
         ...transformRepositoryDTO(data),
+
+        updated_at: DateTime.local().toISO()!,
       };
     }
   }
