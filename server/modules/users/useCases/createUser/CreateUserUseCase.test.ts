@@ -59,11 +59,11 @@ describe('CreateUserUseCase', () => {
     const sendMail = jest.spyOn(mailProvider, 'sendMail');
 
     const adminType = await typeRepository.create(
-      Factory.build<ICreateTypeDTO>('type', { position: 1 }),
+      Factory.build<ICreateTypeDTO>('type', { position: 0 }),
     );
 
     const type = await typeRepository.create(
-      Factory.build<ICreateTypeDTO>('type', { position: 0 }),
+      Factory.build<ICreateTypeDTO>('type', { position: 1 }),
     );
 
     const partialUser = Factory.build<ICreatePartialUserDTO>('partialUser');
@@ -132,9 +132,9 @@ describe('CreateUserUseCase', () => {
 
     expect(
       createUserUseCase.execute({
-        userType: adminType,
+        userType: type,
         ...partialUser,
-        typeId: type.id,
+        typeId: adminType.id,
       }),
     ).rejects.toBeInstanceOf(NoPermissionException);
   });

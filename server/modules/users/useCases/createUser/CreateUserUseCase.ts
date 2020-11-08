@@ -44,7 +44,7 @@ export default class CreateUserUseCase implements IUseCase {
 
     if (!type) throw new ResourceNotFoundException('Type');
 
-    if (type.position > userType.position) throw new NoPermissionException();
+    if (type.position < userType.position) throw new NoPermissionException();
 
     const { id, firstname, email } = await this.partialUserRepository.create(data);
 
