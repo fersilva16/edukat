@@ -8,4 +8,6 @@ const inviteRoutes = Router();
 
 inviteRoutes.post('/', createRequestHandler('CreateInvite', auth, has('MANAGE_INVITES')));
 
+inviteRoutes.get('/', createRequestHandler('ShowAllInvites', auth, has('MANAGE_INVITES')));
+
 export default inviteRoutes;
