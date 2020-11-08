@@ -3,8 +3,6 @@ import knex from '~/infra/knex';
 import random from '~/utils/random';
 
 export default class Repository<T> {
-  protected raw = knex.raw;
-
   constructor(protected tableName: string) {}
 
   protected get table() {
@@ -15,7 +13,7 @@ export default class Repository<T> {
     const id = random.base62(appConfig.idLength);
 
     const result = await this.table.select<{ exists: boolean }>(
-      this.raw(
+      knex.raw(
         'exists ?',
         this.table.select('*').where('id', id),
       ),
