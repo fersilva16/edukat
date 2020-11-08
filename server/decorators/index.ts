@@ -1,12 +1,16 @@
 import {
   IsAlphanumeric as IsAlphanumericValidator,
   IsEmail as IsEmailValidator,
+  IsInt as IsIntValidator,
   IsJWT as IsJWTValidator,
   IsNotEmpty as IsNotEmptyValidator,
+  IsNumber as IsNumberValidator,
   IsOptional as IsOptionalValidator,
+  IsPositive as IsPositiveValidator,
   IsString as IsStringValidator,
   Length as LengthValidator,
   MaxLength as MaxLengthValidator,
+  Min as MinValidator,
 } from 'class-validator';
 
 import createPropertyValidator from '~/utils/createPropertyValidator';
@@ -26,10 +30,14 @@ export { default as Virtual } from './transformers/Virtual';
 export const IsAlphanumeric = createPropertyValidator(IsAlphanumericValidator);
 export const IsEmail = createPropertyValidator(IsEmailValidator);
 export const IsEqualTo = createPropertyValidator(IsEqualToValidator);
+export const IsInt = createPropertyValidator(IsIntValidator);
 export const IsJWT = createPropertyValidator(IsJWTValidator);
 export const IsNotEmpty = createPropertyValidator(IsNotEmptyValidator);
 export const IsNotEqualTo = createPropertyValidator(IsNotEqualToValidator);
+export const IsNumber = createPropertyValidator(IsNumberValidator);
 export const IsOptional = createPropertyValidator(IsOptionalValidator);
+export const IsPositive = createPropertyValidator(IsPositiveValidator);
 export const IsString = createPropertyValidator(IsStringValidator);
 export const Length = createPropertyValidator(LengthValidator);
 export const MaxLength = createPropertyValidator(MaxLengthValidator);
+export const Min = createPropertyValidator(MinValidator);

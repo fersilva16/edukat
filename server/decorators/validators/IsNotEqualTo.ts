@@ -1,6 +1,6 @@
 import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
 
-export default function IsEqualTo(property: string, validationOptions?: ValidationOptions) {
+export default function IsNotEqualTo(property: string, validationOptions?: ValidationOptions) {
   return (object: Object, propertyName: string) => registerDecorator({
     name: 'IsNotEqualTo',
     target: object.constructor,
