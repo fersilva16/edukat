@@ -1,10 +1,11 @@
 import faker from 'faker';
 import { Factory } from 'rosie';
 
+import appConfig from '~/config/app';
+
 import ICreatePartialUserDTO from '@users/repositories/PartialUserRepository/dtos/ICreatePartialUserDTO';
 import ICreateTypeDTO from '@users/repositories/TypeRepository/dtos/ICreateTypeDTO';
 import ICreateUserDTO from '@users/repositories/UserRepository/dtos/ICreateUserDTO';
-import appConfig from '~/config/app';
 
 Factory.define<ICreatePartialUserDTO>('partialUser')
   .attr('email', () => faker.internet.email())

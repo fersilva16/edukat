@@ -11,6 +11,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["../server/*"],
+      "~test/*": ["*"],
       "@users/*": ["../server/modules/users/*"]
     }
   },
