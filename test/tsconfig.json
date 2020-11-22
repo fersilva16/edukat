@@ -11,9 +11,8 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["../server/*"],
-      "~test/*": ["*"],
       "@users/*": ["../server/modules/users/*"]
     }
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "**/*.js"]
 }

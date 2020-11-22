@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import '~/container';
 
 import createServer from '~/infra/http/server';

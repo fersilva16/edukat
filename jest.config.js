@@ -27,7 +27,7 @@ module.exports = {
     '<rootDir>/server/test/factories.ts',
   ],
 
-  // globalSetup: '<rootDir>/test/setup/index.ts',
+  globalSetup: '<rootDir>/test/setup/index.js',
 
   testEnvironment: 'node',
 

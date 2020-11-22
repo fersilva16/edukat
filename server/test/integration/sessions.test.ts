@@ -1,9 +1,9 @@
-import knex from '~/infra/knex';
 import api from '~/test/api';
+import truncateAll from '~/test/utils/truncateAll';
 
 describe('Sessions', () => {
   beforeEach(async () => {
-    await knex.truncate();
+    await truncateAll();
   });
 
   it('should be login user', async () => {
