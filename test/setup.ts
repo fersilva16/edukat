@@ -3,6 +3,10 @@ import './utils/setupDependencies';
 import 'reflect-metadata';
 import '~/container';
 
+import '~/logger/redis';
+import '~/logger/knex';
+import '~/logger/next';
+
 import { listenForConnections } from '~/infra/http/server';
 import knex from '~/infra/knex';
 import { createRedisConnection } from '~/infra/redis';
