@@ -1,6 +1,7 @@
 // import SessionCleanerJob from '@users/jobs/SessionCleaner';
 
-import createServer from './infra/http/server';
+import { listenForConnections } from './infra/http/server';
+import { prepareSSR } from './infra/http/ssr';
 import { ensureDatabaseConnection } from './infra/knex';
 import { createRedisConnection } from './infra/redis';
 import initializeScheduleJobs from './infra/scheduler';
@@ -10,7 +11,8 @@ export default async function initialize() {
   try {
     await ensureDatabaseConnection();
     await createRedisConnection();
-    await createServer();
+    await prepareSSR();
+    await listenForConnections();
 
     initializeScheduleJobs([
       // SessionCleanerJob,

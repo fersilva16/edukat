@@ -16,4 +16,8 @@ export function render(page: string): RequestHandler {
 
 export const handle = ssr.getRequestHandler();
 
+export async function prepareSSR() {
+  return ssr.prepare();
+}
+
 export default ssr;

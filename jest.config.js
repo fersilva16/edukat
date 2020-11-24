@@ -21,13 +21,13 @@ module.exports = {
 
   setupFilesAfterEnv: [
     'reflect-metadata',
-    'dotenv/config',
     'jest-extended',
     'jest-chain',
     '<rootDir>/server/test/factories.ts',
   ],
 
-  globalSetup: '<rootDir>/test/setup/index.js',
+  globalSetup: '<rootDir>/test/setup.ts',
+  globalTeardown: '<rootDir>/test/teardown.ts',
 
   testEnvironment: 'node',
 
