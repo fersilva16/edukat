@@ -8,4 +8,6 @@ export default async function teardown() {
   await redis.quit();
 
   await closeServer();
+
+  process.exit(0);
 }
