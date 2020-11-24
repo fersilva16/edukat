@@ -9,8 +9,7 @@ export default redis;
 
 export async function createRedisConnection(): Promise<void> {
   await redis.connect();
-
-  const { host, port } = redis.options;
-
-  logger.info(`Successfully connected to ${host}:${port}!`, { label: 'redis' });
+  logger.info(`Successfully connected to ${cacheConfig.redis.host}:${cacheConfig.redis.port}!`, {
+    label: 'redis',
+  });
 }
