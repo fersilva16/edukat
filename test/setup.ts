@@ -2,6 +2,7 @@ import './utils/setupDependencies';
 
 import './mocks';
 import './mocks/redis.mock';
+import './mocks/next.mock';
 
 import 'reflect-metadata';
 import '~/container';
