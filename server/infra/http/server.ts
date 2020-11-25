@@ -1,29 +1,28 @@
-import { json } from 'body-parser';
-import compression from 'compression';
-import express from 'express';
-import helmet from 'helmet';
+import { createServer } from 'http';
 
 import appConfig from '~/config/app';
 import logger from '~/logger';
 
-import routes from './routes';
-import ssr from './ssr';
+import app from './app';
 
-export default async function createServer() {
-  await ssr.prepare();
+const server = createServer(app);
 
-  const app = express();
+export default server;
 
-  app.use(json());
-  app.use(helmet());
-  app.use(compression());
-  app.use(routes);
-
-  return new Promise((resolve, reject) => {
-    app.listen(appConfig.port, appConfig.host, (error) => {
-      if (error) return reject(error);
-
+export async function listenForConnections() {
+  return new Promise((resolve) => {
+    server.listen(appConfig.port, appConfig.host, () => {
       logger.info(`Started! Listening to ${appConfig.host}:${appConfig.port}`, { label: 'server' });
+
+      return resolve();
+    });
+  });
+}
+
+export async function closeServer() {
+  return new Promise((resolve, reject) => {
+    server.close((error) => {
+      if (error) reject(error);
 
       return resolve();
     });

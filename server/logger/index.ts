@@ -1,3 +1,4 @@
+import fs from 'fs';
 import winston, { transports, format } from 'winston';
 
 import appConfig from '~/config/app';
@@ -8,7 +9,7 @@ if (appConfig.env === 'production') {
   logger.add(
     new transports.Console({ level: 'info' }),
   );
-} else {
+} else if (appConfig.env === 'development') {
   logger.add(
     new transports.Console({
       format: format.combine(
@@ -24,6 +25,12 @@ if (appConfig.env === 'production') {
       ),
 
       level: 'silly',
+    }),
+  );
+} else {
+  logger.add(
+    new transports.Stream({
+      stream: fs.createWriteStream('/dev/null'),
     }),
   );
 }

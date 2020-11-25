@@ -1,6 +1,6 @@
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 
-const { compilerOptions } = require('./server/tsconfig.json');
+const { compilerOptions } = require('./test/tsconfig.json');
 
 module.exports = {
   bail: 1,
@@ -9,7 +9,7 @@ module.exports = {
   coverageDirectory: '<rootDir>/coverage',
   coverageReporters: ['text-summary', 'lcov'],
 
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/server/' }),
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/test/' }),
 
   preset: 'ts-jest',
 
@@ -20,12 +20,14 @@ module.exports = {
   },
 
   setupFilesAfterEnv: [
-    'dotenv/config',
     'reflect-metadata',
     'jest-extended',
     'jest-chain',
-    '<rootDir>/test/factories.ts',
+    '<rootDir>/server/test/factories.ts',
   ],
+
+  globalSetup: '<rootDir>/test/setup.ts',
+  globalTeardown: '<rootDir>/test/teardown.ts',
 
   testEnvironment: 'node',
 

@@ -14,7 +14,8 @@
       "typescript": {
         "project": [
           "tsconfig.json",
-          "server/tsconfig.json"
+          "server/tsconfig.json",
+          "test/tsconfig.json"
         ]
       }
     }
@@ -57,7 +58,7 @@
       }
     },
     {
-      "files": ["server/**/*.ts"],
+      "files": ["server/**/*.ts", "test/**/*.ts"],
       "rules": {
         "import/order": [
           "error",
@@ -93,7 +94,7 @@
       }
     },
     {
-      "files": ["test/**/*.ts"],
+      "files": ["**/test/**/*.ts"],
       "rules": {
         "import/no-extraneous-dependencies": "off"
       }

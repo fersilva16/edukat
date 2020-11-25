@@ -2,8 +2,13 @@ import createKnex, { PgConnectionConfig } from 'knex';
 
 import databaseConfig from '~/config/database';
 import logger from '~/logger';
+import knexCustomLogger from '~/utils/knexCustomLogger';
 
-const knex = createKnex(databaseConfig);
+const knex = createKnex({
+  ...databaseConfig,
+
+  log: knexCustomLogger,
+});
 
 export default knex;
 

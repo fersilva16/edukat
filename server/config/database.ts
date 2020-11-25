@@ -3,7 +3,17 @@ import path from 'path';
 
 import env from '~/utils/env';
 
-const databaseConfig: Config = {
+import appConfig from './app';
+
+const testConfig: Config = {
+  client: 'sqlite3',
+
+  connection: ':memory:',
+
+  useNullAsDefault: true,
+};
+
+const defaultConfig: Config = {
   client: 'pg',
 
   connection: {
@@ -14,9 +24,17 @@ const databaseConfig: Config = {
     user: env.string('DB_USERNAME', 'postgres'),
     password: env.string('DB_PASSWORD'),
   },
+};
+
+const databaseConfig: Config = {
+  ...(
+    appConfig.env === 'test'
+      ? testConfig
+      : defaultConfig
+  ),
 
   migrations: {
-    database: 'migrations',
+    tableName: 'migrations',
     directory: path.resolve(__dirname, '../infra/knex/migrations'),
   },
 
