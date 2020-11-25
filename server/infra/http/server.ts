@@ -9,7 +9,7 @@ const server = createServer(app);
 
 export default server;
 
-export async function listenForConnections() {
+export async function listenForConnections(): Promise<void> {
   return new Promise((resolve) => {
     server.listen(appConfig.port, appConfig.host, () => {
       logger.info(`Started! Listening to ${appConfig.host}:${appConfig.port}`, { label: 'server' });
@@ -19,7 +19,7 @@ export async function listenForConnections() {
   });
 }
 
-export async function closeServer() {
+export async function closeServer(): Promise<void> {
   return new Promise((resolve, reject) => {
     server.close((error) => {
       if (error) reject(error);
