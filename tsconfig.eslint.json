@@ -6,6 +6,7 @@
     "server",
     "src",
     "test",
-    "jest.config.js"
+    "jest.config.js",
+    "scripts"
   ]
 }

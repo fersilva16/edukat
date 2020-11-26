@@ -27,8 +27,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "test/setup/index.js"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"

@@ -94,9 +94,15 @@
       }
     },
     {
-      "files": ["**/test/**/*.ts"],
+      "files": ["**/test/**/*.ts", "scripts/**/*.js"],
       "rules": {
         "import/no-extraneous-dependencies": "off"
+      }
+    },
+    {
+      "files": ["scripts/**/*.js"],
+      "rules": {
+        "no-console": "off"
       }
     }
   ]

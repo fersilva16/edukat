@@ -12,10 +12,11 @@
     "setup": "yarn knex migrate:latest && yarn knex seed:run",
     "setup:rollback": "yarn knex migrate:rollback --all",
     "start": "node dist/index.js",
-    "start:dev": "nodemon",
+    "start:dev": "node scripts/dev",
+    "start:debug": "node scripts/dev --inspect",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "test:dev": "jest --watch",
+    "test:watch": "jest --watch",
     "typecheck": "yarn build:server --noEmit"
   },
   "dependencies": {
@@ -69,6 +70,7 @@
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.8.2",
     "commitizen": "^4.2.2",
+    "cross-env": "^7.0.2",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.14.0",
