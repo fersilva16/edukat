@@ -2,16 +2,16 @@ import { Router } from 'express';
 
 import createRequestHandler from '~/utils/createRequestHandler';
 
-import { auth, has } from '../middlewares';
+import { auth, hasOneOf } from '../middlewares';
 
 const typeUserRoutes = Router();
 
-typeUserRoutes.get('/', createRequestHandler('ShowAllTypes', auth, has('MANAGE_TYPES')));
+typeUserRoutes.get('/', createRequestHandler('ShowAllTypes', auth, hasOneOf('MANAGE_TYPES', 'VIEW_TYPES')));
 
 typeUserRoutes.post('/:type_id/users', createRequestHandler(
   'CreateUser',
   auth,
-  has('MANAGE_USERS'),
+  hasOneOf('MANAGE_USERS', 'CREATE_USERS'),
 ));
 
 export default typeUserRoutes;

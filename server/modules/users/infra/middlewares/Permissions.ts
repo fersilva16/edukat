@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { injectable, inject } from 'tsyringe';
 
+import MissingOneOfPermissionsException from '~/exceptions/MissingOneOfPermissionsException';
 import MissingPermissionsException from '~/exceptions/MissingPermissionsException';
 import ResourceNotFoundException from '~/exceptions/ResourceNotFoundException';
 import type { IMiddleware } from '~/types';
@@ -11,7 +12,7 @@ import IPermissionProvider from '@users/providers/PermissionProvider/IPermission
 import ITypeRepository from '@users/repositories/TypeRepository/ITypeRepository';
 
 @injectable()
-export default class HasMiddleware implements IMiddleware {
+export default class PermissionsMiddleware implements IMiddleware {
   constructor(
     @inject('PermissionCacheProvider')
     private permissionCacheProvider: IPermissionCacheProvider,
@@ -27,6 +28,7 @@ export default class HasMiddleware implements IMiddleware {
     request: Request,
     response: Response,
     next: NextFunction,
+    hasAll: boolean,
     ...flags: KeyofFlags[]
   ): Promise<void> {
     const { user } = request;
@@ -50,13 +52,17 @@ export default class HasMiddleware implements IMiddleware {
 
     const permissions = Number(hasCachedPermissions ? cachedPermissions : type!.permissions);
 
-    const missingPermissions: KeyofFlags[] = [];
+    if (hasAll) {
+      const missingPermissions = flags.filter((name) => (
+        !this.permissionProvider.has(permissions, name)
+      ));
 
-    flags.forEach((name) => {
-      if (!this.permissionProvider.has(permissions, name)) missingPermissions.push(name);
-    });
+      if (missingPermissions.length) throw new MissingPermissionsException(missingPermissions);
+    } else {
+      const hasPermission = flags.some((name) => this.permissionProvider.has(permissions, name));
 
-    if (missingPermissions.length) throw new MissingPermissionsException(missingPermissions);
+      if (!hasPermission) throw new MissingOneOfPermissionsException(flags);
+    }
 
     request.userType = type;
 
