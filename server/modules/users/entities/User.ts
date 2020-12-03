@@ -18,6 +18,9 @@ export default class User {
   @SensitiveColumn('password')
   password!: string;
 
+  @Column('remember_me_token')
+  rememberMeToken?: string;
+
   @Column('type_id')
   typeId!: string;
 

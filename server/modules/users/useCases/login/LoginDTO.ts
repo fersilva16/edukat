@@ -1,9 +1,11 @@
 import {
   Property,
+  IsBoolean,
   IsEmail,
   IsNotEmpty,
   IsString,
   MaxLength,
+  IsOptional,
 } from '~/decorators';
 
 export default class LoginDTO {
@@ -18,4 +20,9 @@ export default class LoginDTO {
   @IsNotEmpty()
   @Property('password')
   password!: string;
+
+  @IsBoolean()
+  @IsOptional()
+  @Property('remember_me')
+  rememberMe?: boolean;
 }

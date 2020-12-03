@@ -8,4 +8,6 @@ const userRoutes = Router();
 
 userRoutes.get('/me', createRequestHandler('ShowCurrentUser', auth));
 
+userRoutes.post('/remember', createRequestHandler('RememberUser'));
+
 export default userRoutes;

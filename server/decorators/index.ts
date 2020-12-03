@@ -1,5 +1,6 @@
 import {
   IsAlphanumeric as IsAlphanumericValidator,
+  IsBoolean as IsBooleanValidator,
   IsEmail as IsEmailValidator,
   IsInt as IsIntValidator,
   IsJWT as IsJWTValidator,
@@ -28,6 +29,7 @@ export { default as SensitiveColumn } from './transformers/SensitiveColumn';
 export { default as Virtual } from './transformers/Virtual';
 
 export const IsAlphanumeric = createPropertyValidator(IsAlphanumericValidator);
+export const IsBoolean = createPropertyValidator(IsBooleanValidator);
 export const IsEmail = createPropertyValidator(IsEmailValidator);
 export const IsEqualTo = createPropertyValidator(IsEqualToValidator);
 export const IsInt = createPropertyValidator(IsIntValidator);

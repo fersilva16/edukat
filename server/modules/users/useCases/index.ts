@@ -10,3 +10,4 @@ import './forgotPassword';
 import './resetPassword';
 import './createInvite';
 import './showAllInvites';
+import './rememberUser';

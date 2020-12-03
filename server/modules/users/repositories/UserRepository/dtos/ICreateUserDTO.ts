@@ -4,5 +4,7 @@ export default interface ICreateUserDTO {
   email: string;
   password: string;
 
+  rememberMeToken?: string;
+
   typeId: string;
 }

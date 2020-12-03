@@ -9,6 +9,8 @@ export default interface IRawUser {
 
   password: string;
 
+  remember_me_token?: string;
+
   type_id: string;
 
   created_at: string | Date;
