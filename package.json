@@ -20,7 +20,11 @@
     "typecheck": "yarn build:server --noEmit"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.1",
+    "@chakra-ui/icons": "^1.0.1",
+    "@chakra-ui/react": "^1.0.3",
+    "@chakra-ui/theme-tools": "^1.0.1",
+    "@emotion/react": "^11.1.2",
+    "@emotion/styled": "^11.0.0",
     "@reduxjs/toolkit": "^1.4.0",
     "argon2": "^0.27.0",
     "axios": "^0.21.0",
@@ -31,6 +35,7 @@
     "compression": "^1.7.4",
     "cron": "^1.8.2",
     "express": "^4.17.1",
+    "framer-motion": "^3.0.0",
     "handlebars": "^4.7.6",
     "helmet": "^4.2.0",
     "ioredis": "^4.19.2",

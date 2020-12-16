@@ -1,12 +1,5 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { extendTheme } from '@chakra-ui/react';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#D42145',
-      contrastText: '#FFFFFF',
-    },
-  },
-});
+const theme = extendTheme({});
 
 export default theme;
